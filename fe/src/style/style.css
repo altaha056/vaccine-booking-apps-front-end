@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.admin-bg-login {
+  background-image: url(./admin-login-bg.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginbox {
+  min-height: 400px;
+  width: 420px;
+  background-color: white;
+  border-radius: 20px;
+}
