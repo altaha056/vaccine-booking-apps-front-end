@@ -9,30 +9,80 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-.admin-bg-login {
-  background-image: url(./admin_login_bg.jpg);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  height: 100vh;
-  min-height: 100%;
-  /* Center vertically and horizontally */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* content */
+.content button {
+  width: 300pt;
+  height: 35pt;
+  outline: none;
+  border: none;
+  background-color: #006d7c;
+  color: white;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-bottom: 20pt;
 }
 
+.content button:hover {
+  background-color: #079cb0;
+}
+
+tr,
+td,
+th {
+  border: 1px solid #079cb0;
+  background-color: white;
+  padding: 10pt;
+  color: #079cb0;
+}
+th {
+  font-weight: 600;
+}
+table {
+  border-collapse: collapse;
+  margin-bottom: 20pt;
+}
+table td .lihat {
+  color: #006d7c;
+  font-weight: 500;
+  cursor: pointer;
+}
+table td .ubah {
+  color: #079cb0;
+  font-weight: 500;
+  cursor: pointer;
+}
+table td .hapus {
+  color: #f60c0c;
+  cursor: pointer;
+  font-weight: 500;
+}
+table td .konfirmasi {
+  color: #43a009;
+  cursor: pointer;
+  font-weight: 500;
+}
+table td .na {
+  color: #b7b7b7;
+  cursor: pointer;
+  font-weight: 500;
+}
 .mainmenu-admin {
   background-image: url(./bg3.png);
   background-repeat: no-repeat;
-  height: 100vh;
-  background-position-x: 105%;
-  background-position-y: 115%;
+  background-attachment: fixed;
+  background-position-x: 110%;
+  background-position-y: 145%;
+  padding: 20pt;
+  padding-bottom: 100pt;
 }
 .content {
-  margin-left: 20pt;
-  margin-right: 20pt;
+  margin: 20pt;
 }
+
+/* footer */
 .footer {
   position: fixed;
   left: 0;
@@ -46,16 +96,61 @@
   margin-left: 10pt;
   height: 80pt;
 }
+
+/* header */
 .header {
-  position: fixed;
+  background-color: white;
   top: 0;
   left: 0;
   width: 100%;
+  display: grid;
+  grid-template-areas: "navbar profile";
+  grid-gap: 10pt;
+  padding: 20pt;
 }
 
-.header a {
-  font-size: 24pt;
+.navbar {
+  max-width: 80%;
+  grid-area: navbar;
+  display: flex;
+  justify-content: space-between;
+}
+.navbar a {
   color: #079cb0;
+  font-size: 14pt;
+  font-weight: 500;
+}
+.navbar h1 {
+  color: #006d7c;
+  font-size: 14pt;
+  font-weight: 600;
+}
+.header .profile {
+  grid-area: profile;
+  display: flex;
+  right: 0;
+  justify-content: right;
+  font-size: 14pt;
+  color: #079cb0;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.header .profile:hover {
+  color: #006d7c;
+}
+/* login */
+.admin-bg-login {
+  background-image: url(./admin_login_bg.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  min-height: 100%;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .user-bg-login {
   background-image: url(./user_login_bg.jpg);
