@@ -1,0 +1,163 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+.admin-bg-login {
+  background-image: url(./admin_login_bg.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  min-height: 100%;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainmenu-admin {
+  background-image: url(./bg3.png);
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position-x: 105%;
+  background-position-y: 115%;
+}
+.content {
+  margin-left: 20pt;
+  margin-right: 20pt;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 80pt;
+  text-align: center;
+}
+.footer img {
+  background-color: white;
+  padding: 5pt;
+  margin-left: 10pt;
+  height: 80pt;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header a {
+  font-size: 24pt;
+  color: #079cb0;
+}
+.user-bg-login {
+  background-image: url(./user_login_bg.jpg);
+}
+
+.loginbox {
+  min-height: 400px;
+  width: 420px;
+  background-color: white;
+  padding: 20pt;
+  border-radius: 20px;
+  margin: 40pt;
+}
+
+.login-header {
+  grid-area: header;
+  justify-content: left;
+  align-items: center;
+  display: flex;
+}
+.login-logo {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  grid-area: logo;
+}
+.login-logo img {
+  width: 110pt;
+}
+.login-form {
+  grid-area: form;
+}
+.login-form form {
+}
+.login-form .inputbox {
+  position: relative;
+}
+.login-form .inputbox input {
+  border: none;
+  padding: 5px 0;
+  outline: none;
+  width: 100%;
+  margin-bottom: 30pt;
+  background: transparent;
+  border-bottom: 1px solid #b7b7b7;
+  font-size: 14pt;
+  text-decoration: none;
+}
+.login-form .inputbox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 0;
+  font-size: 14pt;
+  color: #b7b7b7;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.login-form .inputbox input[type="password"] {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.login-form .inputbox input:focus ~ label,
+.login-form .inputbox input:hover ~ label,
+.login-form .inputbox input:valid ~ label {
+  top: -15pt;
+  left: 0;
+  color: #006d7c;
+  font-size: 11pt;
+}
+.login-form .inputbox input:focus,
+.login-form .inputbox input:valid {
+  border-bottom: 1px solid #079cb0;
+}
+
+.loginbox .grid-container-admin {
+  display: grid;
+  grid-template-areas:
+    "header logo"
+    "form form";
+  grid-gap: 10pt;
+}
+
+.loginbox h1 {
+  font-size: 28pt;
+  color: #006d7c;
+  font-weight: 600;
+}
+
+.loginbox button {
+  width: 100%;
+  height: 35pt;
+  outline: none;
+  border: none;
+  background-color: #006d7c;
+  color: white;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.loginbox button:hover {
+  background-color: #079cb0;
+}
