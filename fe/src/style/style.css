@@ -4,10 +4,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 .admin-bg-login {
-  background-image: url(./admin-login-bg.jpg);
+  background-image: url(./admin_login_bg.jpg);
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -22,5 +25,72 @@
   min-height: 400px;
   width: 420px;
   background-color: white;
+  padding: 20pt;
   border-radius: 20px;
+  margin: 40pt;
+}
+
+.login-header {
+  grid-area: header;
+  justify-content: left;
+  align-items: center;
+  display: flex;
+}
+.login-logo {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  grid-area: logo;
+}
+.login-logo img {
+  width: 110pt;
+}
+.login-form {
+  grid-area: form;
+}
+.login-form form {
+}
+.login-form .inputbox {
+  position: relative;
+}
+.login-form .inputbox input {
+  border: none;
+  padding: 5px 0;
+  outline: none;
+  width: 100%;
+  margin-bottom: 30pt;
+  background: transparent;
+  border-bottom: 1px solid #b7b7b7;
+  font-size: 14pt;
+}
+.login-form .inputbox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 0;
+  font-size: 14pt;
+  color: #b7b7b7;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.login-form .inputbox input:focus ~ label,
+.login-form .inputbox input:valid ~ label {
+  top: -15pt;
+  left: 0;
+  color: #006d7c;
+  font-size: 11pt;
+}
+.loginbox .grid-container-admin {
+  display: grid;
+  grid-template-areas:
+    "header logo"
+    "form form";
+  grid-gap: 10pt;
+}
+
+.loginbox h1 {
+  font-size: 32pt;
+  color: #006d7c;
+  font-weight: 600;
 }
