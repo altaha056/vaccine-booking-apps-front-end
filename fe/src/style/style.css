@@ -15,10 +15,50 @@
   background-position: center;
   position: relative;
   height: 100vh;
+  min-height: 100%;
   /* Center vertically and horizontally */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mainmenu-admin {
+  background-image: url(./bg3.png);
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position-x: 105%;
+  background-position-y: 115%;
+}
+.content {
+  margin-left: 20pt;
+  margin-right: 20pt;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 80pt;
+  text-align: center;
+}
+.footer img {
+  background-color: white;
+  padding: 5pt;
+  margin-left: 10pt;
+  height: 80pt;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header a {
+  font-size: 24pt;
+  color: #079cb0;
+}
+.user-bg-login {
+  background-image: url(./user_login_bg.jpg);
 }
 
 .loginbox {

@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
+import "../style/style.css";
+import Logo from "../style/logo.svg";
 
 const AdminMainMenu = () => {
-    return (
-        <div>
-            <p>asdasdasd</p>
-        </div>
-    )
-}
+  return (
+    <div className="mainmenu-admin">
+      <div className="content">
+        <p>asdasdas</p>
+      </div>
+      <div className="footer">
+        <img src={Logo} />
+      </div>
+    </div>
+  );
+};
 
-export default AdminMainMenu
+export default AdminMainMenu;
