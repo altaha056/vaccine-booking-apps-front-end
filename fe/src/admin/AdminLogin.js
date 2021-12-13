@@ -13,7 +13,7 @@ const AdminLogin = () => {
             <img src={Logo} alt="logo" />
           </div>
           <div className="login-form">
-            <form>
+            <form spellCheck="false">
               <div className="inputbox">
                 <input type="text" required />
                 <label>Email</label>
@@ -22,6 +22,7 @@ const AdminLogin = () => {
                 <input type="password" required />
                 <label>Password</label>
               </div>
+              <button>Continue</button>
             </form>
           </div>
         </div>
