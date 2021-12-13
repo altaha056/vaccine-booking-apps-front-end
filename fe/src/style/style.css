@@ -1,0 +1,258 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* content */
+.content button {
+  width: 300pt;
+  height: 35pt;
+  outline: none;
+  border: none;
+  background-color: #006d7c;
+  color: white;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-bottom: 20pt;
+}
+
+.content button:hover {
+  background-color: #079cb0;
+}
+
+tr,
+td,
+th {
+  border: 1px solid #079cb0;
+  background-color: white;
+  padding: 10pt;
+  color: #079cb0;
+}
+th {
+  font-weight: 600;
+}
+table {
+  border-collapse: collapse;
+  margin-bottom: 20pt;
+}
+table td .lihat {
+  color: #006d7c;
+  font-weight: 500;
+  cursor: pointer;
+}
+table td .ubah {
+  color: #079cb0;
+  font-weight: 500;
+  cursor: pointer;
+}
+table td .hapus {
+  color: #f60c0c;
+  cursor: pointer;
+  font-weight: 500;
+}
+table td .konfirmasi {
+  color: #43a009;
+  cursor: pointer;
+  font-weight: 500;
+}
+table td .na {
+  color: #b7b7b7;
+  cursor: pointer;
+  font-weight: 500;
+}
+.mainmenu-admin {
+  background-image: url(./bg3.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: 110%;
+  background-position-y: 145%;
+  padding: 20pt;
+  padding-bottom: 100pt;
+}
+.content {
+  margin: 20pt;
+}
+
+/* footer */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 80pt;
+  text-align: center;
+}
+.footer img {
+  background-color: white;
+  padding: 5pt;
+  margin-left: 10pt;
+  height: 80pt;
+}
+
+/* header */
+.header {
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: grid;
+  grid-template-areas: "navbar profile";
+  grid-gap: 10pt;
+  padding: 20pt;
+}
+
+.navbar {
+  max-width: 80%;
+  grid-area: navbar;
+  display: flex;
+  justify-content: space-between;
+}
+.navbar a {
+  color: #079cb0;
+  font-size: 14pt;
+  font-weight: 500;
+}
+.navbar h1 {
+  color: #006d7c;
+  font-size: 14pt;
+  font-weight: 600;
+}
+.header .profile {
+  grid-area: profile;
+  display: flex;
+  right: 0;
+  justify-content: right;
+  font-size: 14pt;
+  color: #079cb0;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.header .profile:hover {
+  color: #006d7c;
+}
+/* login */
+.admin-bg-login {
+  background-image: url(./admin_login_bg.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  min-height: 100%;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-bg-login {
+  background-image: url(./user_login_bg.jpg);
+}
+
+.loginbox {
+  min-height: 400px;
+  width: 420px;
+  background-color: white;
+  padding: 20pt;
+  border-radius: 20px;
+  margin: 40pt;
+}
+
+.login-header {
+  grid-area: header;
+  justify-content: left;
+  align-items: center;
+  display: flex;
+}
+.login-logo {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  grid-area: logo;
+}
+.login-logo img {
+  width: 110pt;
+}
+.login-form {
+  grid-area: form;
+}
+.login-form form {
+}
+.login-form .inputbox {
+  position: relative;
+}
+.login-form .inputbox input {
+  border: none;
+  padding: 5px 0;
+  outline: none;
+  width: 100%;
+  margin-bottom: 30pt;
+  background: transparent;
+  border-bottom: 1px solid #b7b7b7;
+  font-size: 14pt;
+  text-decoration: none;
+}
+.login-form .inputbox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 0;
+  font-size: 14pt;
+  color: #b7b7b7;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.login-form .inputbox input[type="password"] {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.login-form .inputbox input:focus ~ label,
+.login-form .inputbox input:hover ~ label,
+.login-form .inputbox input:valid ~ label {
+  top: -15pt;
+  left: 0;
+  color: #006d7c;
+  font-size: 11pt;
+}
+.login-form .inputbox input:focus,
+.login-form .inputbox input:valid {
+  border-bottom: 1px solid #079cb0;
+}
+
+.loginbox .grid-container-admin {
+  display: grid;
+  grid-template-areas:
+    "header logo"
+    "form form";
+  grid-gap: 10pt;
+}
+
+.loginbox h1 {
+  font-size: 28pt;
+  color: #006d7c;
+  font-weight: 600;
+}
+
+.loginbox button {
+  width: 100%;
+  height: 35pt;
+  outline: none;
+  border: none;
+  background-color: #006d7c;
+  color: white;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.loginbox button:hover {
+  background-color: #079cb0;
+}
