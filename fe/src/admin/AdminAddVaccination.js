@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../style/style.css";
 import Select from "react-select";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const lokasivaksin = [
   { value: "chocolate", label: "Chocolate" },
@@ -21,6 +23,19 @@ const sesivaksin = [
 ];
 
 const AdminAddVaccination = () => {
+  const [daftarRs, setRS] = useState([]);
+
+  const getRS = () => {
+    axios
+      .get("https://dekontaminasi.com/api/id/covid19/hospitals")
+      .then((response) => {
+        console.log(response);
+        const myRepo = response.data;
+        setRS(myRepo);
+      });
+  };
+  useEffect(() => getRS(), []);
+
   return (
     <div className="mainmenu-admin">
       <div className="header">
@@ -41,13 +56,31 @@ const AdminAddVaccination = () => {
           <div className="dropdown">
             <Select options={sesivaksin} />
           </div>
-          <p>Jenis Vaksin</p>
-          <div className="dropdown">
-            <Select options={jenisvaksin} />
+
+          <div className="kirikanan">
+            <div className="kiri">
+              <p>Jenis Vaksin</p>
+              <div className="dropdown">
+                <Select options={jenisvaksin} />
+              </div>
+            </div>
+            <div className="kanan">
+              <p>Stok Vaksin</p>
+              <input
+                className="inputnumber"
+                type="number"
+                name="stok vaksin"
+                min="10"
+                max="100"
+                required
+              />
+            </div>
           </div>
           <div className="dialog-button">
-            <div className="back">Kembali</div>
-            <div className="add">Tambah</div>
+            <Link to="/admin/main-menu" style={{ textDecoration: "inherit" }}>
+              <div className="back">Kembali</div>
+            </Link>
+            <input type="submit" className="add" value="Tambah" />
           </div>
         </form>
       </div>

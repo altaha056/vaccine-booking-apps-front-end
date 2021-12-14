@@ -20,11 +20,33 @@
 }
 .content form .dropdown {
   max-width: 300pt;
-  min-width: 300pt;
+  min-width: 100pt;
   border-radius: 10pt;
   margin-bottom: 20pt;
 }
+.content form .kirikanan {
+  display: flex;
+  justify-content: space-between;
+}
+.content form .kirikanan .kiri {
+  min-width: 180pt;
+}
+.content form .kirikanan .kanan {
+  min-width: 100pt;
+}
 
+.content form .inputnumber:focus {
+  outline: 1pt solid #888888;
+}
+.content form .inputnumber {
+  min-width: 100pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
 /* content */
 .content .dialog-button {
   display: flex;
@@ -43,7 +65,6 @@
   border-radius: 10pt;
   cursor: pointer;
   transition: 0.5s;
-  margin-bottom: 20pt;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +86,6 @@
   border-radius: 10pt;
   cursor: pointer;
   transition: 0.2s;
-  margin-bottom: 20pt;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,7 +168,7 @@ table td .na {
 }
 .content {
   margin: 20pt;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 /* footer */
@@ -157,13 +177,21 @@ table td .na {
   left: 0;
   bottom: 0;
   width: 80pt;
+  height: 80pt;
   text-align: center;
+  z-index: 33;
 }
 .footer img {
+  border-radius: 10pt 10pt 0pt 0pt;
+  left: 0;
+  bottom: 0;
   background-color: white;
   padding: 5pt;
   margin-left: 10pt;
+  width: 80pt;
   height: 80pt;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 }
 
 /* header */
