@@ -9,7 +9,73 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/*select form */
+.content form {
+  width: 300pt;
+}
+.content form p {
+  color: #888888;
+  font-size: 12pt;
+  margin-bottom: 5pt;
+}
+.content form .dropdown {
+  max-width: 300pt;
+  min-width: 300pt;
+  border-radius: 10pt;
+  margin-bottom: 20pt;
+}
+
 /* content */
+.content .dialog-button {
+  display: flex;
+  gap: 10pt;
+}
+
+.content .add {
+  width: 150pt;
+  height: 35pt;
+  outline: none;
+  border: none;
+  background-color: #006d7c;
+  color: white;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-bottom: 20pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content .add:hover {
+  background-color: #079cb0;
+}
+
+.content .back {
+  width: 150pt;
+  height: 35pt;
+  outline: none;
+  border: 2pt solid #c9c9c9;
+  background-color: #ffffff;
+  color: #888888;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 20pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back:hover {
+  border: 2pt solid #888888;
+  color: #888888;
+}
+
 .content button {
   width: 300pt;
   height: 35pt;
@@ -27,6 +93,8 @@
 
 .content button:hover {
   background-color: #079cb0;
+  color: white;
+  border: none;
 }
 
 tr,
@@ -80,6 +148,7 @@ table td .na {
 }
 .content {
   margin: 20pt;
+  min-height: 100vh;
 }
 
 /* footer */
@@ -108,7 +177,6 @@ table td .na {
   grid-gap: 10pt;
   padding: 20pt;
 }
-
 .navbar {
   max-width: 80%;
   grid-area: navbar;
@@ -139,7 +207,8 @@ table td .na {
 .header .profile:hover {
   color: #006d7c;
 }
-/* login */
+
+/* login and register*/
 .admin-bg-login {
   background-image: url(./admin_login_bg.jpg);
   background-size: cover;
@@ -155,7 +224,6 @@ table td .na {
 .user-bg-login {
   background-image: url(./user_login_bg.jpg);
 }
-
 .loginbox {
   min-height: 400px;
   width: 420px;
@@ -164,7 +232,6 @@ table td .na {
   border-radius: 20px;
   margin: 40pt;
 }
-
 .login-header {
   grid-area: header;
   justify-content: left;
@@ -224,7 +291,6 @@ table td .na {
 .login-form .inputbox input:valid {
   border-bottom: 1px solid #079cb0;
 }
-
 .loginbox .grid-container-admin {
   display: grid;
   grid-template-areas:
@@ -232,13 +298,11 @@ table td .na {
     "form form";
   grid-gap: 10pt;
 }
-
 .loginbox h1 {
   font-size: 28pt;
   color: #006d7c;
   font-weight: 600;
 }
-
 .loginbox button {
   width: 100%;
   height: 35pt;
@@ -252,7 +316,6 @@ table td .na {
   cursor: pointer;
   transition: 0.5s;
 }
-
 .loginbox button:hover {
   background-color: #079cb0;
 }

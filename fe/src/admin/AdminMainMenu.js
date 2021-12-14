@@ -1,7 +1,6 @@
 import React from "react";
 import "../style/style.css";
-import Logo from "../style/logo.svg";
-
+import { Link } from "react-router-dom";
 const AdminMainMenu = () => {
   return (
     <div className="mainmenu-admin">
@@ -137,10 +136,9 @@ const AdminMainMenu = () => {
             </td>
           </tr>
         </table>
-        <button>Tambah Program</button>
-      </div>
-      <div className="footer">
-        <img src={Logo} alt="footer" />
+        <Link to="/admin/add-vaccination">
+          <button>Tambah Program</button>
+        </Link>
       </div>
     </div>
   );
