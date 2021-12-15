@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const lokasivaksin = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: "RS USU", label: "RS USU" },
+  { value: "RS Bhayangkara", label: "RS Bhayangkara" },
+  { value: "RS Permata", label: "RS Permata" },
 ];
 
 const jenisvaksin = [
@@ -23,27 +23,14 @@ const sesivaksin = [
 ];
 
 const AdminAddVaccination = () => {
-  const [daftarRs, setRS] = useState([]);
-
-  const getRS = () => {
-    axios
-      .get("https://dekontaminasi.com/api/id/covid19/hospitals")
-      .then((response) => {
-        console.log(response);
-        const myRepo = response.data;
-        setRS(myRepo);
-      });
-  };
-  useEffect(() => getRS(), []);
-
   return (
     <div className="mainmenu-admin">
       <div className="header">
         <div className="navbar">
-          <h1>Tambah Program Vaksinasi</h1>
+          <h1 className="active">Tambah Program Vaksinasi</h1>
         </div>
         <div className="profile">
-          <a>Admin Altaha</a>
+          <h1>Admin Altaha</h1>
         </div>
       </div>
       <div className="content">

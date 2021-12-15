@@ -6,11 +6,18 @@ const AdminMainMenu = () => {
     <div className="mainmenu-admin">
       <div className="header">
         <div className="navbar">
-          <h1>Daftar Program Vaksinasi</h1>
+          <h1>
+            <span>Daftar Program Vaksinasi</span>
+          </h1>
+          <Link to="/admin/news" style={{ textDecoration: "inherit" }}>
+            <h1>Berita Vaksinasi</h1>
+          </Link>
         </div>
-        <div className="profile">
-          <a>Admin Altaha</a>
-        </div>
+        <Link to="/admin/profile" style={{ textDecoration: "inherit" }}>
+          <div className="profile">
+            <h1>Admin Altaha</h1>
+          </div>
+        </Link>
       </div>
       <div className="content">
         <table>

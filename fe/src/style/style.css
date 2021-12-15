@@ -48,6 +48,7 @@
   font-size: 14pt;
 }
 /* content */
+
 .content .dialog-button {
   display: flex;
   gap: 10pt;
@@ -78,7 +79,7 @@
   width: 150pt;
   height: 35pt;
   outline: none;
-  border: 2pt solid #c9c9c9;
+  border: 1pt solid #c9c9c9;
   background-color: #ffffff;
   color: #888888;
   font-weight: 500;
@@ -165,9 +166,13 @@ table td .na {
   background-position-y: 145%;
   padding: 20pt;
   padding-bottom: 100pt;
+  min-height: 100vh;
 }
 .content {
-  margin: 20pt;
+  margin-left: 20pt;
+  margin-right: 20pt;
+  margin-top: 80pt;
+  margin-bottom: 80pt;
   min-height: 100%;
 }
 
@@ -196,6 +201,8 @@ table td .na {
 
 /* header */
 .header {
+  align-items: center;
+  border-bottom: 1pt solid #079cb0;
   background-color: white;
   top: 0;
   left: 0;
@@ -204,31 +211,76 @@ table td .na {
   grid-template-areas: "navbar profile";
   grid-gap: 10pt;
   padding: 20pt;
+  position: fixed;
+}
+.navbar .active {
+  font-weight: 600;
+  color: #006d7c;
 }
 .navbar {
+  align-items: center;
   max-width: 80%;
   grid-area: navbar;
   display: flex;
-  justify-content: space-between;
+  gap: 20pt;
+  margin-left: 20pt;
+  text-decoration: none;
+}
+.navbar h1 {
+  max-width: 150pt;
+}
+.navbar h1:hover {
+  color: #006d7c;
+  cursor: pointer;
+}
+.navbar h1:active {
+  color: #079cb0;
+}
+.profile h1 {
+  max-width: 150pt;
+}
+.profile h1:hover {
+  color: #006d7c;
+  cursor: pointer;
+}
+.profile h1:active {
+  color: #079cb0;
+}
+h1 span {
+  color: #079cb0;
+  font-weight: 600;
 }
 .navbar a {
-  color: #079cb0;
+  color: #b7b7b7;
   font-size: 14pt;
   font-weight: 500;
 }
 .navbar h1 {
-  color: #006d7c;
+  color: #b7b7b7;
   font-size: 14pt;
-  font-weight: 600;
+  font-weight: 400;
+  transition: 0.2s;
+}
+.profile a {
+  color: #b7b7b7;
+  font-size: 14pt;
+  font-weight: 500;
+}
+.profile h1 {
+  color: #b7b7b7;
+  font-size: 14pt;
+  font-weight: 400;
+  transition: 0.2s;
 }
 .header .profile {
   grid-area: profile;
   display: flex;
   right: 0;
+  margin-right: 20pt;
   justify-content: right;
   font-size: 14pt;
-  color: #079cb0;
-  font-weight: 500;
+  color: #b7b7b7;
+  font-weight: 400;
   cursor: pointer;
   transition: 0.2s;
 }
