@@ -32,13 +32,15 @@ function NewsFetching() {
     return <div>Fetching Data...</div>;
   } else {
     return (
-      <ul>
-        {items.slice(0, 10).map((item, i) => (
-          <li key={i}>
-            {item.countryRegion} {item.confirmed} {item.deaths}
-          </li>
+      <div className="grid-container">
+        {items.slice(0, 30).map((item, i) => (
+          <div key={i} className="grid-item">
+            {item.countryRegion}
+            {item.confirmed}
+            {item.deaths}
+          </div>
         ))}
-      </ul>
+      </div>
     );
   }
 }
