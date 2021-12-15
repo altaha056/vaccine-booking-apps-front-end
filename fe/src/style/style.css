@@ -9,7 +9,121 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/* split content */
+.content .container-dual {
+  display: flex;
+  gap: 40pt;
+}
+
+/* content for profile */
+.content .profile {
+  min-width: 300pt;
+  max-width: 300pt;
+}
+.content .profile .property {
+  margin-bottom: 15pt;
+}
+.content .profile .field {
+  font-size: 12pt;
+  min-width: 100pt;
+  max-width: 200pt;
+  color: #079cb0;
+}
+.content .profile .value {
+  text-align: left;
+  font-size: 14pt;
+  min-width: 300pt;
+  font-weight: 500;
+  color: #006d7c;
+}
+/*select form */
+.content form {
+  width: 300pt;
+}
+.content form p {
+  color: #888888;
+  font-size: 12pt;
+  margin-bottom: 5pt;
+}
+.content form .dropdown {
+  max-width: 300pt;
+  min-width: 100pt;
+  border-radius: 10pt;
+  margin-bottom: 20pt;
+}
+.content form .kirikanan {
+  display: flex;
+  justify-content: space-between;
+}
+.content form .kirikanan .kiri {
+  min-width: 180pt;
+}
+.content form .kirikanan .kanan {
+  min-width: 100pt;
+}
+
+.content form .inputnumber:focus {
+  outline: 1pt solid #888888;
+}
+.content form .inputnumber {
+  min-width: 100pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
 /* content */
+
+.content .dialog-button {
+  display: flex;
+  gap: 10pt;
+}
+
+.content .add {
+  width: 150pt;
+  height: 35pt;
+  outline: none;
+  border: none;
+  background-color: #006d7c;
+  color: white;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content .add:hover {
+  background-color: #079cb0;
+}
+
+.content .back {
+  width: 150pt;
+  height: 35pt;
+  outline: none;
+  border: 1pt solid #c9c9c9;
+  background-color: #ffffff;
+  color: #888888;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 10pt;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back:hover {
+  border: 2pt solid #888888;
+  color: #888888;
+}
+
 .content button {
   width: 300pt;
   height: 35pt;
@@ -27,6 +141,8 @@
 
 .content button:hover {
   background-color: #079cb0;
+  color: white;
+  border: none;
 }
 
 tr,
@@ -46,26 +162,33 @@ table {
 }
 table td .lihat {
   color: #006d7c;
+  text-align: center;
   font-weight: 500;
   cursor: pointer;
 }
 table td .ubah {
   color: #079cb0;
+  text-align: center;
   font-weight: 500;
   cursor: pointer;
+  margin-bottom: 10pt;
 }
 table td .hapus {
   color: #f60c0c;
   cursor: pointer;
+  text-align: center;
+  margin-bottom: 10pt;
   font-weight: 500;
 }
 table td .konfirmasi {
   color: #43a009;
   cursor: pointer;
+  text-align: center;
   font-weight: 500;
 }
 table td .na {
   color: #b7b7b7;
+  text-align: center;
   cursor: pointer;
   font-weight: 500;
 }
@@ -77,9 +200,14 @@ table td .na {
   background-position-y: 145%;
   padding: 20pt;
   padding-bottom: 100pt;
+  min-height: 100vh;
 }
 .content {
-  margin: 20pt;
+  margin-left: 20pt;
+  margin-right: 20pt;
+  margin-top: 80pt;
+  margin-bottom: 80pt;
+  min-height: 100%;
 }
 
 /* footer */
@@ -88,17 +216,27 @@ table td .na {
   left: 0;
   bottom: 0;
   width: 80pt;
+  height: 80pt;
   text-align: center;
+  z-index: 33;
 }
 .footer img {
+  border-radius: 10pt 10pt 0pt 0pt;
+  left: 0;
+  bottom: 0;
   background-color: white;
   padding: 5pt;
   margin-left: 10pt;
+  width: 80pt;
   height: 80pt;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 }
 
 /* header */
 .header {
+  align-items: center;
+  border-bottom: 1pt solid #079cb0;
   background-color: white;
   top: 0;
   left: 0;
@@ -107,39 +245,84 @@ table td .na {
   grid-template-areas: "navbar profile";
   grid-gap: 10pt;
   padding: 20pt;
+  position: fixed;
 }
-
+.navbar .active {
+  font-weight: 600;
+  color: #006d7c;
+}
 .navbar {
+  align-items: center;
   max-width: 80%;
   grid-area: navbar;
   display: flex;
-  justify-content: space-between;
+  gap: 20pt;
+  margin-left: 20pt;
+  text-decoration: none;
+}
+.navbar h1 {
+  max-width: 150pt;
+}
+.navbar h1:hover {
+  color: #006d7c;
+  cursor: pointer;
+}
+.navbar h1:active {
+  color: #079cb0;
+}
+.profile h1 {
+  max-width: 150pt;
+}
+.profile h1:hover {
+  color: #006d7c;
+  cursor: pointer;
+}
+.profile h1:active {
+  color: #079cb0;
+}
+h1 span {
+  color: #079cb0;
+  font-weight: 600;
 }
 .navbar a {
-  color: #079cb0;
+  color: #b7b7b7;
   font-size: 14pt;
   font-weight: 500;
 }
 .navbar h1 {
-  color: #006d7c;
+  color: #b7b7b7;
   font-size: 14pt;
-  font-weight: 600;
+  font-weight: 400;
+  transition: 0.2s;
+}
+.profile a {
+  color: #b7b7b7;
+  font-size: 14pt;
+  font-weight: 500;
+}
+.profile h1 {
+  color: #b7b7b7;
+  font-size: 14pt;
+  font-weight: 400;
+  transition: 0.2s;
 }
 .header .profile {
   grid-area: profile;
   display: flex;
   right: 0;
+  margin-right: 20pt;
   justify-content: right;
   font-size: 14pt;
-  color: #079cb0;
-  font-weight: 500;
+  color: #b7b7b7;
+  font-weight: 400;
   cursor: pointer;
   transition: 0.2s;
 }
 .header .profile:hover {
   color: #006d7c;
 }
-/* login */
+
+/* login and register*/
 .admin-bg-login {
   background-image: url(./admin_login_bg.jpg);
   background-size: cover;
@@ -155,7 +338,6 @@ table td .na {
 .user-bg-login {
   background-image: url(./user_login_bg.jpg);
 }
-
 .loginbox {
   min-height: 400px;
   width: 420px;
@@ -164,7 +346,6 @@ table td .na {
   border-radius: 20px;
   margin: 40pt;
 }
-
 .login-header {
   grid-area: header;
   justify-content: left;
@@ -182,8 +363,6 @@ table td .na {
 }
 .login-form {
   grid-area: form;
-}
-.login-form form {
 }
 .login-form .inputbox {
   position: relative;
@@ -224,7 +403,6 @@ table td .na {
 .login-form .inputbox input:valid {
   border-bottom: 1px solid #079cb0;
 }
-
 .loginbox .grid-container-admin {
   display: grid;
   grid-template-areas:
@@ -232,13 +410,11 @@ table td .na {
     "form form";
   grid-gap: 10pt;
 }
-
 .loginbox h1 {
   font-size: 28pt;
   color: #006d7c;
   font-weight: 600;
 }
-
 .loginbox button {
   width: 100%;
   height: 35pt;
@@ -252,7 +428,6 @@ table td .na {
   cursor: pointer;
   transition: 0.5s;
 }
-
 .loginbox button:hover {
   background-color: #079cb0;
 }
