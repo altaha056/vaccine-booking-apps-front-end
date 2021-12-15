@@ -43,37 +43,16 @@ const AdminMainMenu = () => {
             <td>240</td>
             <td>239</td>
             <td>
-              <span className="lihat">Lihat</span>
+              <div className="lihat">Lihat</div>
             </td>
             <td>
-              <span className="ubah">Ubah</span>
-              <br />
-              <span className="hapus">Hapus</span>
+              <Link to="/admin/edit-vaccination">
+                <div className="ubah">Ubah</div>
+              </Link>
+              <div className="hapus">Hapus</div>
             </td>
             <td>
-              <span className="konfirmasi">Konfirmasi</span>
-            </td>
-          </tr>
-          <tr>
-            <td>2.</td>
-            <td>
-              RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka, Kec.
-              Medan Baru, Kota Medan, Sumatera Utara 20154
-            </td>
-            <td>Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.</td>
-            <td>Sinovac</td>
-            <td>240</td>
-            <td>239</td>
-            <td>
-              <span className="lihat">Lihat</span>
-            </td>
-            <td>
-              <span className="ubah">Ubah</span>
-              <br />
-              <span className="hapus">Hapus</span>
-            </td>
-            <td>
-              <span className="konfirmasi">Konfirmasi</span>
+              <div className="konfirmasi">Konfirmasi</div>
             </td>
           </tr>
           <tr>
@@ -87,59 +66,13 @@ const AdminMainMenu = () => {
             <td>240</td>
             <td>239</td>
             <td>
-              <span className="lihat">Lihat</span>
+              <div className="lihat">Lihat</div>
             </td>
             <td>
-              <span className="ubah">Ubah</span>
-              <br />
-              <span className="hapus">Hapus</span>
+              <div className="na">N/A</div>
             </td>
             <td>
-              <span className="konfirmasi">Konfirmasi</span>
-            </td>
-          </tr>
-          <tr>
-            <td>2.</td>
-            <td>
-              RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka, Kec.
-              Medan Baru, Kota Medan, Sumatera Utara 20154
-            </td>
-            <td>Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.</td>
-            <td>Sinovac</td>
-            <td>240</td>
-            <td>239</td>
-            <td>
-              <span className="lihat">Lihat</span>
-            </td>
-            <td>
-              <span className="ubah">Ubah</span>
-              <br />
-              <span className="hapus">Hapus</span>
-            </td>
-            <td>
-              <span className="konfirmasi">Konfirmasi</span>
-            </td>
-          </tr>
-          <tr>
-            <td>2.</td>
-            <td>
-              RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka, Kec.
-              Medan Baru, Kota Medan, Sumatera Utara 20154
-            </td>
-            <td>Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.</td>
-            <td>Sinovac</td>
-            <td>240</td>
-            <td>239</td>
-            <td>
-              <span className="lihat">Lihat</span>
-            </td>
-            <td>
-              <span className="ubah">Ubah</span>
-              <br />
-              <span className="hapus">Hapus</span>
-            </td>
-            <td>
-              <span className="konfirmasi">Konfirmasi</span>
+              <div className="na">Published</div>
             </td>
           </tr>
         </table>

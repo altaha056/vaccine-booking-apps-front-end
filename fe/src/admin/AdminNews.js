@@ -16,7 +16,7 @@ const AdminNews = () => {
         </div>
         <Link to="/admin/profile" style={{ textDecoration: "inherit" }}>
           <div className="profile">
-            <a>Admin Altaha</a>
+            <h1>Admin Altaha</h1>
           </div>
         </Link>
       </div>
