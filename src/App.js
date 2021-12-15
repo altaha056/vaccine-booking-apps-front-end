@@ -5,7 +5,7 @@ import Footer from "./footer/footer";
 import AdminAddVaccination from "./admin/AdminAddVaccination";
 import AdminNews from "./admin/AdminNews";
 import AdminProfile from "./admin/AdminProfile";
-import AdminEditVaccination from "./admin/AdminEditVaccination copy";
+import AdminEditVaccination from "./admin/AdminEditVaccination";
 function App() {
   return (
     <>
@@ -20,7 +20,11 @@ function App() {
           />
           <Route path="/admin/news" element={<AdminNews />} />
           <Route path="/admin/profile" element={<AdminProfile />} />
-          <Route path="/admin/edit-vaccination" element={<AdminEditVaccination />} />
+          <Route
+            path="/admin/edit-vaccination"
+            element={<AdminEditVaccination />}
+          />
+          <Route path="/admin/test" element={<AdminNews />} />
         </Routes>
       </Router>
     </>
