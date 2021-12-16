@@ -4,7 +4,7 @@ import useFetch from "react-fetch-hook";
 
 function NewsFetching() {
   const { isLoading, error, data } = useFetch(
-    "https://newsapi.org/v2/top-headlines?apiKey=e2c33fa4d8af42bf8273a226d28060e6&q=covid&country=id"
+    "https://newsapi.org/v2/top-headlines?apiKey=e2c33fa4d8af42bf8273a226d28060e6&q=covid"
   );
 
   if (isLoading) return "loading...";
