@@ -1,6 +1,6 @@
 import React from "react";
-import "../style/style.css";
 import { Link } from "react-router-dom";
+import NewsFetching from "./NewsFetching";
 
 const AdminNews = () => {
   return (
@@ -19,6 +19,11 @@ const AdminNews = () => {
             <h1>Admin Altaha</h1>
           </div>
         </Link>
+      </div>
+      <div className="content">
+        <div className="grid-container">
+          <NewsFetching />
+        </div>
       </div>
     </div>
   );
