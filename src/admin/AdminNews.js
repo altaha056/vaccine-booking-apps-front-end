@@ -21,7 +21,9 @@ const AdminNews = () => {
         </Link>
       </div>
       <div className="content">
-        <NewsFetching />
+        <div className="grid-container">
+          <NewsFetching />
+        </div>
       </div>
     </div>
   );

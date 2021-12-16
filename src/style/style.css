@@ -9,7 +9,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-/* grid */
+/* grid for news */
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -18,10 +18,35 @@
 }
 .grid-item {
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  border: 1px solid #b7b7b7;
   border-radius: 10pt;
-  padding: 20px;
   text-align: center;
+}
+.grid-item .description .detail p{
+  color: #b7b7b7;
+  font-size: 10pt;
+}
+.grid-item .description {
+  padding: 15pt;
+  gap: 5pt;
+  display: grid;
+}
+.grid-item p {
+  color: #006d7c;
+  text-align: left;
+  font-size: 12pt;
+}
+.grid-item h1 {
+  color: #006d7c;
+  font-size: 16pt;
+  font-weight: 600;
+  text-align: left;
+}
+.grid-item img {
+  border-radius: 10pt;
+  width: 300pt;
+  height: 200pt;
+  object-fit: cover;
 }
 /* split content */
 .content .container-dual {
