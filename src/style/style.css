@@ -311,7 +311,7 @@ table td .na {
 .navbar h1:active {
   color: #079cb0;
 }
-.profile h1 {
+.navbar .item {
   max-width: 150pt;
 }
 .profile h1:hover {
@@ -321,10 +321,7 @@ table td .na {
 .profile h1:active {
   color: #079cb0;
 }
-h1 span {
-  color: #079cb0;
-  font-weight: 600;
-}
+
 .navbar a {
   color: #b7b7b7;
   font-size: 14pt;
@@ -379,7 +376,7 @@ h1 span {
 .user-bg-login {
   background-image: url(./user_login_bg.jpg);
 }
-.error-message-container{
+.error-message-container {
   margin-top: 10pt;
 }
 .error-messages {

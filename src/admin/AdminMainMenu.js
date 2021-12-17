@@ -1,24 +1,11 @@
 import React from "react";
 import "../style/style.css";
 import { Link } from "react-router-dom";
+import { AdminHeader } from "./AdminHeader";
 const AdminMainMenu = () => {
   return (
     <div className="mainmenu-admin">
-      <div className="header">
-        <div className="navbar">
-          <h1>
-            <span>Daftar Program Vaksinasi</span>
-          </h1>
-          <Link to="/admin/news" style={{ textDecoration: "inherit" }}>
-            <h1>Berita Vaksinasi</h1>
-          </Link>
-        </div>
-        <Link to="/admin/profile" style={{ textDecoration: "inherit" }}>
-          <div className="profile">
-            <h1>Admin Altaha</h1>
-          </div>
-        </Link>
-      </div>
+      <AdminHeader />
       <div className="content">
         <table>
           <tr>

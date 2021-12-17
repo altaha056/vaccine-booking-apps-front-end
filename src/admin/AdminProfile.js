@@ -1,25 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../style/style.css";
-
+import { AdminHeader } from "./AdminHeader";
 const AdminProfile = () => {
   return (
     <div className="mainmenu-admin">
-      <div className="header">
-        <div className="navbar">
-          <Link to="/admin/main-menu" style={{ textDecoration: "inherit" }}>
-            <h1>Daftar Program Vaksinasi</h1>
-          </Link>
-          <Link to="/admin/news" style={{ textDecoration: "inherit" }}>
-            <h1>Berita Vaksinasi</h1>
-          </Link>
-        </div>
-        <div className="profile">
-          <h1>
-            <span>Admin Altaha</span>
-          </h1>
-        </div>
-      </div>
+      <AdminHeader />
       <div className="content">
         <div className="profile">
           <div className="property">
@@ -39,7 +25,7 @@ const AdminProfile = () => {
             <div className="value">Aktif</div>
           </div>
         </div>
-        <Link to="/admin/login"  style={{ textDecoration: "inherit" }}>
+        <Link to="/admin/login" style={{ textDecoration: "inherit" }}>
           <div className="back">Keluar</div>
         </Link>
       </div>
