@@ -6,6 +6,9 @@ import AdminAddVaccination from "./admin/AdminAddVaccination";
 import AdminNews from "./admin/AdminNews";
 import AdminProfile from "./admin/AdminProfile";
 import AdminEditVaccination from "./admin/AdminEditVaccination";
+
+import UserLandingPage from "./user/UserLandingPage";
+
 function App() {
   return (
     <>
@@ -25,6 +28,9 @@ function App() {
             element={<AdminEditVaccination />}
           />
           <Route path="/admin/test" element={<AdminNews />} />
+
+          <Route path="/user" element={<UserLandingPage />} />
+
           <Route path="*" element={<AdminLogin />} />
         </Routes>
       </Router>
