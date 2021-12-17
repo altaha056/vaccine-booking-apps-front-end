@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserRegVaccine = () => {
+const UserVaccineTicket = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const UserRegVaccine = () => {
     )
 }
 
-export default UserRegVaccine
+export default UserVaccineTicket

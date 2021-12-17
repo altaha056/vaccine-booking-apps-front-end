@@ -6,7 +6,6 @@ import AdminAddVaccination from "./admin/AdminAddVaccination";
 import AdminNews from "./admin/AdminNews";
 import AdminProfile from "./admin/AdminProfile";
 import AdminEditVaccination from "./admin/AdminEditVaccination";
-import NoMatch from "react-router-nomatch";
 function App() {
   return (
     <>
@@ -26,7 +25,7 @@ function App() {
             element={<AdminEditVaccination />}
           />
           <Route path="/admin/test" element={<AdminNews />} />
-          <Route element={<AdminLogin />} />
+          <Route path="*" element={<AdminLogin />} />
         </Routes>
       </Router>
     </>
