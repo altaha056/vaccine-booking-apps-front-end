@@ -1,11 +1,15 @@
-import React from 'react'
-
+import React from "react";
+import UserHeader from "./UserHeader";
 const UserVaccineInformation = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  return (
+    <>
+      <UserHeader />
+      <h1>Vaccine Information</h1>
+      <h1>Vaccine Information</h1>
+      <h1>Vaccine Information</h1>
+      <h1>Vaccine Information</h1>
+    </>
+  );
+};
 
-export default UserVaccineInformation
+export default UserVaccineInformation;

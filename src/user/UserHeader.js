@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../source/userheader.css";
 import { CSSTransition } from "react-transition-group";
-import Logo from "../source/logo.svg";
+import Logo1 from "../source/logo.svg";
+import { NavLink } from "react-router-dom";
 
 const UserHeader = () => {
   const [isNavVisible, setNavVisibility] = useState(false);
@@ -31,7 +32,9 @@ const UserHeader = () => {
 
   return (
     <header className="Header">
-      <p>Vaccine Booking System</p>
+      <div className="Logo">
+        <img src={Logo1} />
+      </div>
       <CSSTransition
         in={!isSmallScreen || isNavVisible}
         timeout={350}
@@ -39,15 +42,70 @@ const UserHeader = () => {
         unmountOnExit
       >
         <nav className="Nav">
-          <a href="/">Home</a>
-          <a href="/">Articles</a>
-          <a href="/">About</a>
-          <a href="/">About</a>
-          <a href="/">About</a>
+          <NavLink
+            to="/user/landingpage"
+            className="item"
+            style={({ isActive }) =>
+              isActive
+                ? {
+                    color: "#006d7c",
+                    fontWeight: "600",
+                    textDecoration: "none",
+                  }
+                : { color: "#b7b7b7", textDecoration: "none" }
+            }
+          >
+            <div className="ho">Beranda</div>
+          </NavLink>
+          <NavLink
+            to="/user/reg-vaccine"
+            className="item"
+            style={({ isActive }) =>
+              isActive
+                ? {
+                    color: "#006d7c",
+                    fontWeight: "600",
+                    textDecoration: "none",
+                  }
+                : { color: "#b7b7b7", textDecoration: "none" }
+            }
+          >
+            <div className="ho">Daftar Vaksin</div>
+          </NavLink>
+          <NavLink
+            to="/user/info-vacc"
+            className="item"
+            style={({ isActive }) =>
+              isActive
+                ? {
+                    color: "#006d7c",
+                    fontWeight: "600",
+                    textDecoration: "none",
+                  }
+                : { color: "#b7b7b7", textDecoration: "none" }
+            }
+          >
+            <div className="ho">Jadwal</div>
+          </NavLink>
+          <NavLink
+            to="/user/profile"
+            className="item"
+            style={({ isActive }) =>
+              isActive
+                ? {
+                    color: "#006d7c",
+                    fontWeight: "600",
+                    textDecoration: "none",
+                  }
+                : { color: "#b7b7b7", textDecoration: "none" }
+            }
+          >
+            <div className="ho">Profil</div>
+          </NavLink>
         </nav>
       </CSSTransition>
       <button onClick={toggleNav} className="Burger">
-        🍔
+        Menu
       </button>
     </header>
   );

@@ -1,12 +1,16 @@
-import React from 'react'
-import UserHeader from './UserHeader'
+import React from "react";
+import UserHeader from "./UserHeader";
 
 const UserLandingPage = () => {
-    return (
-        <div>
-            <UserHeader/>
-        </div>
-    )
-}
+  return (
+    <>
+      <UserHeader />
+      <h1>Beranda</h1>
+      <h1>Beranda</h1>
+      <h1>Beranda</h1>
+      <h1>Beranda</h1>
+    </>
+  );
+};
 
-export default UserLandingPage
+export default UserLandingPage;

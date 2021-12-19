@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "../style/style.css";
 
 export const AdminHeader = () => {
   return (
     <div className="header">
       <div className="navbar">
         <NavLink
-          className="item"
           to="/admin/main-menu"
           style={({ isActive }) =>
             isActive
@@ -18,7 +18,7 @@ export const AdminHeader = () => {
               : { color: "#b7b7b7", textDecoration: "none" }
           }
         >
-          Daftar Program Vaksinasi
+          <div className="item">Daftar Program Vaksinasi</div>
         </NavLink>
         <NavLink
           to="/admin/news"
@@ -33,7 +33,7 @@ export const AdminHeader = () => {
               : { color: "#b7b7b7", textDecoration: "none" }
           }
         >
-          Berita Vaksinasi
+          <div className="item">Berita Vaksinasi</div>
         </NavLink>
       </div>
       <NavLink
@@ -47,9 +47,9 @@ export const AdminHeader = () => {
               }
             : { color: "#b7b7b7", textDecoration: "none" }
         }
-        className="profile item"
+        className="profile"
       >
-        Admin Altaha
+        <div className="item">Admin Altaha</div>
       </NavLink>
     </div>
   );

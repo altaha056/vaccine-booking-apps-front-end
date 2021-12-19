@@ -199,6 +199,7 @@ th {
 }
 table {
   border-collapse: collapse;
+  min-width: 100vh;
   margin-bottom: 20pt;
 }
 table td .lihat {
@@ -304,8 +305,8 @@ table td .na {
 .navbar h1 {
   max-width: 150pt;
 }
-.navbar h1:hover {
-  color: #006d7c;
+.item:hover {
+  color: #079cb0;
   cursor: pointer;
 }
 .navbar h1:active {
@@ -352,7 +353,7 @@ table td .na {
   justify-content: right;
   font-size: 14pt;
   color: #b7b7b7;
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.2s;
 }
