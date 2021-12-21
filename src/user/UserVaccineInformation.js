@@ -1,5 +1,6 @@
 import React from "react";
 import UserHeader from "./UserHeader";
+import { Link } from "react-router-dom";
 const UserVaccineInformation = () => {
   return (
     <>
@@ -30,7 +31,11 @@ const UserVaccineInformation = () => {
               <td>
                 <div className="konfirmasi">Accepted</div>
               </td>
-              <td>Unduh</td>
+              <td>
+                <Link to="/user/ticket" style={{ textDecoration: "inherit" }}>
+                  <div className="ubah">Lihat</div>
+                </Link>
+              </td>
             </tr>
             <tr>
               <td>2.</td>
