@@ -30,10 +30,18 @@ const AdminMainMenu = () => {
             <td>240</td>
             <td>239</td>
             <td>
-              <div className="lihat">Lihat</div>
+              <Link
+                to="/admin/participant"
+                style={{ textDecoration: "inherit" }}
+              >
+                <div className="ubah">Lihat</div>
+              </Link>
             </td>
             <td>
-              <Link to="/admin/edit-vaccination">
+              <Link
+                to="/admin/edit-vaccination"
+                style={{ textDecoration: "inherit" }}
+              >
                 <div className="ubah">Ubah</div>
               </Link>
               <div className="hapus">Hapus</div>
@@ -53,7 +61,12 @@ const AdminMainMenu = () => {
             <td>240</td>
             <td>239</td>
             <td>
-              <div className="lihat">Lihat</div>
+              <Link
+                to="/admin/participant"
+                style={{ textDecoration: "inherit" }}
+              >
+                <div className="ubah">Lihat</div>
+              </Link>
             </td>
             <td>
               <div className="na">N/A</div>

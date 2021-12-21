@@ -104,7 +104,7 @@
 }
 
 .content form .inputnumber:focus {
-  outline: 1pt solid #888888;
+  outline: 1pt solid #079cb0;
 }
 .content form .inputnumber {
   min-width: 100pt;
@@ -116,7 +116,9 @@
   font-size: 14pt;
 }
 /* content */
-
+.mainmenu-user .content .dialog-button {
+  margin-top: 30pt;
+}
 .content .dialog-button {
   display: flex;
   gap: 10pt;
@@ -243,6 +245,90 @@ table td .na {
   padding: 20pt;
   padding-bottom: 100pt;
   min-height: 100vh;
+}
+
+
+.mainmenu-user2 .content form .inputuser:focus {
+  outline: 1pt solid #079cb0;
+}
+.mainmenu-user2 .content form .inputuser {
+  min-width: 300pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
+
+.mainmenu-user2 .content h1 {
+  font-size: 24pt;
+  color: #006d7c;
+  margin-bottom: 20pt;
+}
+.mainmenu-user2 .content .add {
+  margin-bottom: 10pt;
+}
+.mainmenu-user2 .content {
+  grid-template-areas: "auto auto";
+}
+.mainmenu-user2 .content p {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #006d7c;
+}
+.mainmenu-user2 .content ol {
+  font-size: 14pt;
+  color: #006d7c;
+  margin-bottom: 20pt;
+  line-height: 30pt;
+  margin-left: 18pt;
+}
+.mainmenu-user2 {
+  background-image: url(./bg2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: 100%;
+  background-position-y: 100%;
+  padding: 20pt;
+  padding-bottom: 100pt;
+  min-height: 100vh;
+}
+.mainmenu-user {
+  background-image: url(./bg_welcome.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: 250%;
+  background-position-y: 20%;
+  padding: 20pt;
+  padding-bottom: 100pt;
+  min-height: 100vh;
+}
+.mainmenu-user .content {
+  color: #006d7c;
+}
+.mainmenu-user .content h1 {
+  color: #006d7c;
+  max-width: 15ch;
+  font-size: 40pt;
+  margin-top: 10pt;
+  font-weight: 600;
+}
+.mainmenu-user .content p {
+  color: #006d7c;
+  max-width: 25ch;
+  font-size: 20pt;
+  font-weight: 500;
+}
+.mainmenu-user .content h2 {
+  color: #006d7c;
+  margin-bottom: 20pt;
+  max-width: 25ch;
+  font-size: 20pt;
+  font-weight: 500;
+}
+.mainmenu-user .content button {
+  margin-top: 20pt;
 }
 .content {
   margin-left: 20pt;
@@ -374,11 +460,60 @@ table td .na {
   justify-content: center;
   align-items: center;
 }
+.notfound-bg-login {
+  background-image: url(./notfound.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  min-height: 100%;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gotomainmenu-not-found {
+  color: #ffffff;
+}
+.gotomainmenu-not-found:hover {
+  color: #ffffff00;
+  font-weight: 700;
+  -webkit-text-stroke-width: 0.4pt;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+.notfound-bg-login .content-notfound {
+  font-size: 32pt;
+  color: white;
+  font-weight: 500;
+  max-width: 300pt;
+  vertical-align: text-top;
+  border-bottom: 3pt solid white;
+}
 .user-bg-login {
   background-image: url(./user_login_bg.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.yet-register {
+  color: #006d7c;
+  padding-top: 20pt;
+  padding-bottom: 20pt;
+  text-align: center;
+}
+.yet-register span {
+  color: #079cb0;
+  cursor: pointer;
+  font-weight: 600;
 }
 .error-message-container {
   margin-top: 10pt;
+  margin-bottom: 10pt;
 }
 .error-messages {
   color: red;
@@ -389,6 +524,7 @@ table td .na {
   width: 420px;
   background-color: white;
   padding: 20pt;
+  padding-bottom: 0pt;
   border-radius: 20px;
   margin: 40pt;
 }
