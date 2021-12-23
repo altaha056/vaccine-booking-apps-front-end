@@ -14,8 +14,10 @@ const UserVaccineList = () => {
               <th>No.</th>
               <th>Lokasi Vaksin</th>
               <th>Jadwal Vaksin</th>
+              <th>Sesi Vaksin</th>
               <th>Vaksin</th>
               <th>Stok</th>
+              <th>Daftar</th>
             </tr>
             <tr>
               <td>1.</td>
@@ -23,9 +25,18 @@ const UserVaccineList = () => {
                 RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
                 Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
               </td>
-              <td>Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.</td>
+              <td>Sesi 1 08.00 - 11.30 WIB.</td>
+              <td>Kamis 27 November 2021 </td>
               <td>Sinovac</td>
               <td>240</td>
+              <td>
+                <Link
+                  to="/user/reg-vaccine"
+                  style={{ textDecoration: "inherit" }}
+                >
+                  <div className="ubah">Daftar</div>
+                </Link>
+              </td>
             </tr>
             <tr>
               <td>2.</td>
@@ -33,9 +44,19 @@ const UserVaccineList = () => {
                 RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
                 Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
               </td>
-              <td>Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.</td>
+              <td>Sesi 1 08.00 - 11.30 WIB.</td>
+              <td>Kamis 27 November 2021 </td>
               <td>Sinovac</td>
               <td>240</td>
+
+              <td>
+                <Link
+                  to="/user/reg-vaccine"
+                  style={{ textDecoration: "inherit" }}
+                >
+                  <div className="ubah">Daftar</div>
+                </Link>
+              </td>
             </tr>
           </table>
 

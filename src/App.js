@@ -23,6 +23,7 @@ import UserVaccineList from "./user/UserVaccineList";
 import UserNotLogin from "./user/UserNotLogin";
 import UserAgreementBeforRegisterVaccine from "./user/UserAgreementBeforRegisterVaccine";
 import UserTicket from "./user/UserTicket";
+import UserEditVaccineRegistration from "./user/UserEditVaccineRegistration";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
             element={<UserAgreementBeforRegisterVaccine />}
           />
           <Route path="/user/ticket" element={<UserTicket />} />
+          <Route path="/user/edit-vaccination" element={<UserEditVaccineRegistration />} />
         </Routes>
       </Router>
     </>

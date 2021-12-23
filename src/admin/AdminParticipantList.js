@@ -26,10 +26,12 @@ const AdminParticipantList = () => {
                 </div>
               </div>
               <div className="property">
+                <div className="field">Jadwal Vaksin</div>
+                <div className="value">Kamis 27 November 2021</div>
+              </div>
+              <div className="property">
                 <div className="field">Sesi Vaksin</div>
-                <div className="value">
-                  Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.
-                </div>
+                <div className="value">Sesi 1 08.00 - 11.30 WIB.</div>
               </div>
               <div className="property">
                 <div className="field">Jenis Vaksin</div>
