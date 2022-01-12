@@ -33,7 +33,9 @@ const UserHeader = () => {
   return (
     <header className="Header">
       <div className="Logo">
-        <img src={Logo1} />
+        <NavLink to="/user/landingpage">
+          <img src={Logo1} />
+        </NavLink>
       </div>
       <CSSTransition
         in={!isSmallScreen || isNavVisible}
@@ -73,7 +75,7 @@ const UserHeader = () => {
             <div className="ho">Daftar Vaksin</div>
           </NavLink>
           <NavLink
-            to="/user/info-vacc"
+            to="/user/vaccine-list"
             className="item"
             style={({ isActive }) =>
               isActive

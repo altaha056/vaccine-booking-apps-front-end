@@ -10,6 +10,7 @@ const lokasivaksin = [
   { value: "RS Permata", label: "RS Permata" },
 ];
 
+const jadwalvaksin = [{ value: "11 Januari 2022", label: "11 Januari 2022" }];
 const jenisvaksin = [
   { value: "Astra zaneca", label: "Astra zaneca" },
   { value: "Sinovac", label: "Sinovac" },
@@ -38,6 +39,10 @@ const AdminAddVaccination = () => {
           <p>Lokasi Vaksin</p>
           <div className="dropdown">
             <Select options={lokasivaksin} />
+          </div>
+          <p>Jadwal Vaksin</p>
+          <div className="dropdown">
+            <Select options={jadwalvaksin} />
           </div>
           <p>Sesi Vaksin</p>
           <div className="dropdown">
