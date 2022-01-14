@@ -1,8 +1,11 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
+import NotFound from "../src/user/NotFound";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("renders learn react link", () => {
+  render(<NotFound />);
+  const text = screen.getByText(
+    /Sorry we can't find the page you looking for/i
+  );
+  expect(text).toBeInTheDocument();
 });
