@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
-
-const AdminLogin = () => {
+import { NavLink } from "react-router-dom";
+const UserLogin = () => {
   const baseData = {
     email: "",
     password: "",
@@ -36,8 +36,8 @@ const AdminLogin = () => {
     console.log("data: ", data);
   };
 
-  const handleSubmit=(event)=>{
-    if(data.email.length===0||data.password.length===0){
+  const handleSubmit = (event) => {
+    if (data.email.length === 0 || data.password.length === 0) {
       setErrMsg(
         <div className="error-messages">
           <p>Password can not be empty</p>
@@ -45,16 +45,15 @@ const AdminLogin = () => {
       );
       event.preventDefault();
     }
-  }
-  
+  };
+
   return (
-    <div className="admin-bg-login">
+    <div className="user-bg-login">
       <div className="loginbox">
         <div className="grid-container-admin">
           <div className="login-header">
             <h1>Login</h1>
           </div>
-
           <div className="login-logo">
             <img src={Logo} alt="logo" />
           </div>
@@ -81,11 +80,15 @@ const AdminLogin = () => {
                 />
                 <label>Password</label>
               </div>
-
               <button>Continue</button>
             </form>
-
             {/* here the error message */}
+            <div className="yet-register">
+              New User?
+              <NavLink to="/user/register" style={{textDecoration:"none"}}>
+                <span> Create Account</span>
+              </NavLink>
+            </div>
             <div className="error-message-container">
               {errMsgEmail}
               {errMsgPassword}
@@ -98,4 +101,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default UserLogin;
