@@ -23,5 +23,5 @@ jobs:
           CI: false
 
       - run: npm i
-      - run: npm run build CI=false
+      - run: CI='' npm run build
       - run: npm test
