@@ -24,5 +24,4 @@ yarn-error.log*
 *.pem
 *.yml
 
-package-lock.json
 package.json
