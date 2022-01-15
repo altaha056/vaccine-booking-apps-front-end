@@ -9,13 +9,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: 16.x
-                  cache: 'npm'
             - name: Use Node.js 16
-              env:
-                  CI: false
               uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.HOST }}
@@ -24,6 +18,7 @@ jobs:
                   port: 22
                   script: |
                       cd ~/vaccine-booking-apps-front-end/
+                      nvm -v
                       git pull origin main
                       git status
                       npm -v
