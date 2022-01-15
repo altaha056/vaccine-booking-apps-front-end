@@ -9,6 +9,11 @@ jobs:
         runs-on: ubuntu-18.04
         steps:
             - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 16.x
+            - name: Install
+              runs: npm install
             - name: Update
               uses: appleboy/ssh-action@master
               with:
@@ -20,6 +25,3 @@ jobs:
                       cd ~/vaccine-booking-apps-front-end/
                       node -v
                       npm -v
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: 16.x
