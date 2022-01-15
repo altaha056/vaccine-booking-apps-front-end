@@ -33,7 +33,6 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            sudo su
             cd ~/vaccine-booking-apps-front-end/
             git pull origin master
             git status
