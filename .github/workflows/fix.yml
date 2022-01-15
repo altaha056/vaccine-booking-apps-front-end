@@ -18,6 +18,4 @@ jobs:
                   port: 22
                   script: |
                       cd ~/vaccine-booking-apps-front-end/
-                      nvm use 16.1.2
-                      npm -v
-                      node -v
+                      ll
