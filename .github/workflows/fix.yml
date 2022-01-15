@@ -1,32 +1,31 @@
 name: FIX
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 16
-        with:
-          node-version: 16.x
-        env:
-          CI: false
-        uses: appleboy/ssh-action@master
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd ~/vaccine-booking-apps-front-end/
-            git pull origin main
-            git status
-            npm -v
-            npm i
-            npm run build
-            pm2 restart fe
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+            - name: Use Node.js 16
+              env:
+                  CI: false
+              uses: appleboy/ssh-action@master
+              with:
+                  node-version: 16.x
+                  cache: 'npm'
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.PRIVATE_KEY }}
+                  port: 22
+                  script: |
+                      cd ~/vaccine-booking-apps-front-end/
+                      git pull origin main
+                      git status
+                      npm -v
+                      npm i
+                      npm run build
+                      pm2 restart fe
