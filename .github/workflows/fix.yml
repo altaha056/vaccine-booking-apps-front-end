@@ -1,4 +1,4 @@
-name: FIX InsyaAllah
+name: FIX
 on:
   push:
     branches: [main]
@@ -7,27 +7,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Use Node.js 16
-        - uses: actions/setup-node@v1
-          with:
-            node-version: 16.x
-          env:
-            CI: false
-          uses: appleboy/ssh-action@master
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: "npm"
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USERNAME }}
-            key: ${{ secrets.PRIVATE_KEY }}
-            port: 22
-            script: |
-              cd ~/vaccine-booking-apps-front-end/
-              git pull origin main
-              git status
-              npm -v
-              npm i
-              npm run build
-              pm2 restart fe
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+        env:
+          CI: false
+        uses: appleboy/ssh-action@master
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/vaccine-booking-apps-front-end/
+            git pull origin main
+            git status
+            npm -v
+            npm i
+            npm run build
+            pm2 restart fe
