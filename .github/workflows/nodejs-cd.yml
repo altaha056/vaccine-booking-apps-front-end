@@ -42,6 +42,7 @@ jobs:
             cd ~/vaccine-booking-apps-front-end/
             git pull origin main
             git status
+            npm -v
             npm i
             npm run build
             pm2 restart fe
