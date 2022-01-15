@@ -18,7 +18,7 @@ jobs:
                   port: 22
                   script: |
                       cd ~/vaccine-booking-apps-front-end/
-                      nvm -v
+                      nvm install 16.1.2
                       git pull origin main
                       git status
                       npm -v
