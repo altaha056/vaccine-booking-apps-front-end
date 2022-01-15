@@ -23,7 +23,7 @@ const UserVaccineList = () => {
       <UserHeader />
       <div className="mainmenu-user">
         <div className="content">
-          <h2>Daftar Kegiatan Vaksinasi yang Akan dilaksanakan</h2>
+          <h2>Daftar dddddd Vaksinasi yang Akan dilaksanakan</h2>
           <table>
             <tr>
               <th>No.</th>
