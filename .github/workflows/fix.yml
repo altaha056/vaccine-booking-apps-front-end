@@ -21,7 +21,7 @@ jobs:
                   port: 22
                   script: |
                       cd ~/vaccine-booking-apps-front-end/
-                      npm i -g pm2 serve
+                      sudo npm i -g pm2 serve
                       git pull origin main
                       git status
                       npm -v
