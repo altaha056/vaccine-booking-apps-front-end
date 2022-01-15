@@ -13,7 +13,7 @@ jobs:
               with:
                   node-version: 16.x
             - name: Install
-              runs: npm install
+              run: npm install
             - name: Update
               uses: appleboy/ssh-action@master
               with:
