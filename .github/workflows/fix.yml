@@ -22,7 +22,4 @@ jobs:
                   script: |
                       cd ~/vaccine-booking-apps-front-end/
                       node -v
-                      sudo npm cache clean -f
-                      sudo npm install -g n
-                      sudo n stable
-                      sudo npm -v
+                      npm -v
