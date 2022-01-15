@@ -12,8 +12,6 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: 16.x
-            - name: Install
-              run: npm install
             - name: Update
               uses: appleboy/ssh-action@master
               with:
@@ -24,4 +22,5 @@ jobs:
                   script: |
                       cd ~/vaccine-booking-apps-front-end/
                       node -v
+                      npm i -g npm
                       npm -v
