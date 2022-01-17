@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
 import { NavLink } from "react-router-dom";
+import Axios from 'axios';
+
 const UserRegisterAccount = () => {
+  const url = "127.0.0.1:8000/users/register"
+
   const baseData = {
     email: "",
     password: "",
@@ -93,7 +97,6 @@ const UserRegisterAccount = () => {
         );
       }
     }
-
     if (name === "fullname") {
       if (regexFullname.test(value)) {
         setErrMsgFullname("");
@@ -132,6 +135,15 @@ const UserRegisterAccount = () => {
       );
       event.preventDefault();
     }
+    Axios.post(url, {
+      email: data.email,
+      fullname: data.fullname,
+      nik: data.nik,
+      password: data.password,
+      phonenumber: data.phonenumber
+    }).then(res=>{
+      console.log(res.data)
+    })
   };
 
   return (
