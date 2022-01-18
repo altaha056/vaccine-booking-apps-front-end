@@ -234,6 +234,15 @@ const UserRegisterAccount = () => {
                 <NavLink to="/user/login" style={{ textDecoration: "none" }}>
                   <span> Login</span>
                 </NavLink>
+                <br />
+                or
+                <br />
+                <NavLink
+                  to="/user/landingpage"
+                  style={{ textDecoration: "none" }}
+                >
+                  log in as guest
+                </NavLink>
               </div>
               <div className="error-message-container">
                 {errMsgEmail}

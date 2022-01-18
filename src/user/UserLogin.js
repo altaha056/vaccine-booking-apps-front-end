@@ -9,6 +9,7 @@ import { updateProfile } from "../store/actions/users";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const UserLogin = () => {
   const baseData = {
     email: "",
@@ -63,14 +64,22 @@ const UserLogin = () => {
 
       return;
     }
-    loginUser(data).then((res) => {
-      saveLoginState({ ...res.data, email: data.email });
-    });
+    loginUser(data)
+      .then((res) => {
+        saveLoginState({ ...res.data, email: data.email });
+        toast.success("berhasil login");
+      })
+      .catch(({ meta }) => {
+        //console.log(err);
+        meta.description.forEach((err) => {
+          toast.error(err);
+        });
+      });
   };
 
   return (
     <>
-      {user ? <Navigate to="/" /> : null}
+      {user ? <Navigate to="/user/profile" /> : null}
       <div className="user-bg-login">
         <div className="loginbox">
           <div className="grid-container-admin">
@@ -110,6 +119,15 @@ const UserLogin = () => {
                 New User?
                 <NavLink to="/user/register" style={{ textDecoration: "none" }}>
                   <span> Create Account</span>
+                </NavLink>
+                <br />
+                or
+                <br />
+                <NavLink
+                  to="/user/landingpage"
+                  style={{ textDecoration: "none" }}
+                >
+                  log in as guest
                 </NavLink>
               </div>
               <div className="error-message-container">

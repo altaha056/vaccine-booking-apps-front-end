@@ -4,11 +4,13 @@ import { Link, Navigate } from "react-router-dom";
 import "../style/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/actions/users";
+import { toast } from "react-toastify";
 const UserProfile = () => {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
   return (
     <>
+      {user ? null : <Navigate to="/user/yet-login" />}
       <UserHeader />
       <div className="mainmenu-user2">
         <div className="content">
@@ -27,9 +29,10 @@ const UserProfile = () => {
                 <div className="add">Jadwal Saya</div>
               </Link>
               <button
-                style={{ textDecoration: "inherit" }}
+                style={{ textDecoration: "inherit", width: "200px" }}
                 onClick={() => {
                   dispatch(logout());
+                  toast.warn("kamu sudah keluar");
                 }}
               >
                 <div className="back">Keluar</div>
