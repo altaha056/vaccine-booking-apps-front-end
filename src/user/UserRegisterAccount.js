@@ -7,8 +7,6 @@ import { registerUser } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
 
 const UserRegisterAccount = () => {
-  // const url = "https://vac.ykisumut.com/users/register";
-
   const baseData = {
     email: "",
     password: "",

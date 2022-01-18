@@ -26,8 +26,22 @@ import UserAgreementBeforRegisterVaccine from "./user/UserAgreementBeforRegister
 import UserTicket from "./user/UserTicket";
 import UserEditVaccineRegistration from "./user/UserEditVaccineRegistration";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import setAuthorizationHeader from "./config/axios/set-authorization-header";
+import { updateProfile } from "./store/actions/users";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("vac:token")) {
+      const userData = JSON.parse(localStorage.getItem("vac:token"));
+      console.log(userData);
+      setAuthorizationHeader(userData.token);
+      dispatch(updateProfile(userData));
+    }
+  }, []);
   return (
     <>
       <Footer />
