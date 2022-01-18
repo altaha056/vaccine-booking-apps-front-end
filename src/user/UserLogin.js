@@ -17,6 +17,10 @@ const UserLogin = () => {
   const [errMsgPassword, setErrMsgPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
+  const saveLoginState = (data) => {
+    localStorage.setItem("data:token", JSON.stringify(data));
+  };
+
   const handleInput = (e) => {
     const name = e.target.id;
     const value = e.target.value;
@@ -85,7 +89,7 @@ const UserLogin = () => {
             {/* here the error message */}
             <div className="yet-register">
               New User?
-              <NavLink to="/user/register" style={{textDecoration:"none"}}>
+              <NavLink to="/user/register" style={{ textDecoration: "none" }}>
                 <span> Create Account</span>
               </NavLink>
             </div>

@@ -11,6 +11,7 @@ import AdminEditVaccination from "./admin/AdminEditVaccination";
 import AdminParticipantList from "./admin/AdminParticipantList";
 // not found
 import NotFound from "./user/NotFound";
+import "react-toastify/dist/ReactToastify.css";
 
 // user
 import UserLandingPage from "./user/UserLandingPage";
@@ -24,6 +25,7 @@ import UserNotLogin from "./user/UserNotLogin";
 import UserAgreementBeforRegisterVaccine from "./user/UserAgreementBeforRegisterVaccine";
 import UserTicket from "./user/UserTicket";
 import UserEditVaccineRegistration from "./user/UserEditVaccineRegistration";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -64,9 +66,14 @@ function App() {
             element={<UserAgreementBeforRegisterVaccine />}
           />
           <Route path="/user/ticket" element={<UserTicket />} />
-          <Route path="/user/edit-vaccination" element={<UserEditVaccineRegistration />} />
+          <Route
+            path="/user/edit-vaccination"
+            element={<UserEditVaccineRegistration />}
+          />
         </Routes>
       </Router>
+
+      <ToastContainer position="top-right" autoClose={5000} />
     </>
   );
 }

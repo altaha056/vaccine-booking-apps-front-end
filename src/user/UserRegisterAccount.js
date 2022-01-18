@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
 import { NavLink } from "react-router-dom";
+import Axios from "axios";
+import { registerUser } from "../config/api/vaccine-post";
+import { toast } from "react-toastify";
+
 const UserRegisterAccount = () => {
+  // const url = "https://vac.ykisumut.com/users/register";
+
   const baseData = {
     email: "",
     password: "",
     confirmpassword: "",
     nik: "",
-    fullname: "",
+    name: "",
     phonenumber: "",
   };
   const [data, setData] = useState(baseData);
@@ -93,8 +99,7 @@ const UserRegisterAccount = () => {
         );
       }
     }
-
-    if (name === "fullname") {
+    if (name === "name") {
       if (regexFullname.test(value)) {
         setErrMsgFullname("");
       } else {
@@ -113,7 +118,7 @@ const UserRegisterAccount = () => {
     if (
       data.email.length === 0 ||
       data.password.length === 0 ||
-      data.fullname.length === 0 ||
+      data.name.length === 0 ||
       data.nik.length === 0 ||
       data.phonenumber.length === 0
     ) {
@@ -132,6 +137,17 @@ const UserRegisterAccount = () => {
       );
       event.preventDefault();
     }
+    registerUser(data)
+      .then((res) => {
+        toast.success("berhasil daftar");
+      })
+      .catch(({ meta }) => {
+        //console.log(err);
+        meta.description.forEach((err) => {
+          toast.error(err);
+        });
+      });
+    event.preventDefault();
   };
 
   return (
@@ -172,8 +188,8 @@ const UserRegisterAccount = () => {
                 <div className="inputbox">
                   <input
                     type="text"
-                    value={data.fullname}
-                    id="fullname"
+                    value={data.name}
+                    id="name"
                     onChange={handleInput}
                     required
                   />
