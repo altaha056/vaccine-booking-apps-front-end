@@ -9,6 +9,26 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/* loading */
+.loading-div {
+  font-size: 74pt;
+  text-align: center;
+  font-family: arial;
+  font-size: 24px;
+  margin: 25px;
+  /* Setup */
+  position: relative;
+}
+
+.loading-child {
+  color: #006d7c;
+  position: absolute;
+  top: 50%;
+  font-size: 48pt;
+  font-weight: 600;
+  left: 50%;
+  transform: translate(-50%, 200%);
+}
 /* grid for news */
 .grid-container {
   display: grid;
@@ -247,7 +267,6 @@ table td .na {
   min-height: 100vh;
 }
 
-
 .mainmenu-user2 .content form .inputuser:focus {
   outline: 1pt solid #079cb0;
 }
@@ -297,9 +316,8 @@ table td .na {
 .mainmenu-user {
   background-image: url(./bg_welcome.png);
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position-x: 250%;
-  background-position-y: 20%;
+  background-position: right;
+  background-size: contain;
   padding: 20pt;
   padding-bottom: 100pt;
   min-height: 100vh;
