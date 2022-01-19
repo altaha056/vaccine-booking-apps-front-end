@@ -7,4 +7,7 @@ api.interceptors.response.use(
   (res) => res.data,
   ({ response }) => Promise.reject(response.data)
 );
+
+export { default as setAuthorizationHeader } from "./set-authorization-header";
+
 export default api;

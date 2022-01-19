@@ -15,26 +15,17 @@ const UserVaccineList = () => {
     getVaccineList()
       .then(({ data }) => {
         setVaccineList(data);
-        toast.success("Data fetching complete");
+        toast.success("Seluruh data berhasil ditampilkan");
       })
       .catch(() => {
-        toast.error("internal server error");
+        toast.error("oops sepertinya ada kesalahan");
       });
   }, []);
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
-  if (!setVaccineList) {
-    return (
-      <>
-        <UserHeader />
-        <Loading />;
-      </>
-    );
-  }
-
-  return (
+  return vaccineList ? (
     <>
       {/* countLength = {vaccineList.length} */}
       <UserHeader />
@@ -109,6 +100,8 @@ const UserVaccineList = () => {
         </div>
       </div>
     </>
+  ) : (
+    <Loading />
   );
 };
 
