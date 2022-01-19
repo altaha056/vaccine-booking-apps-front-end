@@ -6,6 +6,7 @@ import { getVaccineList } from "../config/api/vaccine-post";
 import { useState } from "react";
 import moment from "moment";
 import { toast } from "react-toastify";
+import Loading from "../style/Loading";
 
 const UserVaccineList = () => {
   const [vaccineList, setVaccineList] = useState([]);
@@ -23,6 +24,15 @@ const UserVaccineList = () => {
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
+
+  if (!setVaccineList) {
+    return (
+      <>
+        <UserHeader />
+        <Loading />;
+      </>
+    );
+  }
 
   return (
     <>
