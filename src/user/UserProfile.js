@@ -5,6 +5,7 @@ import "../style/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/actions/users";
 import { toast } from "react-toastify";
+
 const UserProfile = () => {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();

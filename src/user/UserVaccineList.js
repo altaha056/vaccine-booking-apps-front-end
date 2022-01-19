@@ -101,7 +101,10 @@ const UserVaccineList = () => {
       </div>
     </>
   ) : (
-    <Loading />
+    <>
+      <UserHeader />
+      <Loading />
+    </>
   );
 };
 
