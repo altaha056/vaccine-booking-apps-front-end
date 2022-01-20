@@ -4,20 +4,26 @@ import { Link } from "react-router-dom";
 import { getParticipantbyUser } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
 import Loading from "../style/Loading";
+import { useSelector } from "react-redux";
+import UserNoParticipant from "./UserNoParticipant";
+import UserNotLogin from "./UserNotLogin";
 
 const UserVaccineInformation = () => {
   const [participantList, setParticipantList] = useState(null);
+  const { user } = useSelector((state) => state);
 
   useEffect(() => {
     getParticipantbyUser()
       .then(({ data }) => {
         console.log(data);
         setParticipantList(data);
-        toast.success("Seluruh data berhasil ditampilkan");
+        {
+          toast.success("Fetching data berhasil");
+        }
       })
       .catch((err) => {
         console.log(err.response);
-        toast.error("hmm sepertinya ada kesalahan");
+        toast.warn("hmm sepertinya ada kesalahan");
       });
   }, []);
   return participantList ? (
@@ -26,43 +32,59 @@ const UserVaccineInformation = () => {
 
       <div className="mainmenu-user2">
         <div className="content">
-          <h1>Daftar Vaksinasi Saya</h1>
+          {participantList.length > 0 ? (
+            <>
+              <h1>Daftar Vaksinasi Saya</h1>
+              <table>
+                <tr>
+                  <th>No.</th>
+                  <th>Nama Partisipan</th>
+                  <th>NIK</th>
+                  <th>Nomor Telepon</th>
+                  <th>Lokasi Vaksin</th>
+                  <th>Jadwal Vaksin</th>
+                  <th>Sesi Vaksin</th>
+                  <th>Keterangan</th>
+                  <th>Tiket</th>
+                </tr>
+                {participantList.map((par, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}.</td>
+                    <td>{par.Fullname}</td>
+                    <td>{par.Nik}</td>
+                    <td>{par.PhoneNumber}</td>
+                    <td>{par.Vac.Location}</td>
+                    <td>{par.Session.StartTime}</td>
+                    <td>{par.Session.StartTime}</td>
+                    <td>{par.Status}</td>
+                    <td>
+                      <Link
+                        to="/user/ticket"
+                        style={{ textDecoration: "inherit" }}
+                      >
+                        <div className="ubah">Lihat</div>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </table>
+            </>
+          ) : (
+            <>
+              {toast.info("tidak ada data untuk ditampilkan")}
 
-          <table>
-            <tr>
-              <th>No.</th>
-              <th>Nama Partisipan</th>
-              <th>NIK</th>
-              <th>Nomor Telepon</th>
-              <th>Lokasi Vaksin</th>
-              <th>Jadwal Vaksin</th>
-              <th>Sesi Vaksin</th>
-              <th>Keterangan</th>
-              <th>Tiket</th>
-            </tr>
-            {participantList.map((par, index) => (
-              <tr key={index}>
-                <td>{index + 1}.</td>
-                <td>{par.Fullname}</td>
-                <td>{par.Nik}</td>
-                <td>{par.PhoneNumber}</td>
-                <td>{par.Vac.Location}</td>
-                <td>{par.Session.StartTime}</td>
-                <td>{par.Session.StartTime}</td>
-                <td>{par.Status}</td>
-                <td>
-                  <Link to="/user/ticket" style={{ textDecoration: "inherit" }}>
-                    <div className="ubah">Lihat</div>
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </table>
+              <UserNoParticipant />
+            </>
+          )}
         </div>
       </div>
     </>
   ) : (
-    <Loading />
+    <>
+      {user ? null : <UserNotLogin />}
+      <UserHeader />
+      <Loading />
+    </>
   );
 };
 

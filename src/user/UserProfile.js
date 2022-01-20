@@ -5,13 +5,14 @@ import "../style/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/actions/users";
 import { toast } from "react-toastify";
+import UserNotLogin from "./UserNotLogin";
 
 const UserProfile = () => {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
   return (
     <>
-      {user ? null : <Navigate to="/user/yet-login" />}
+      {user ? null : <UserNotLogin />}
       <UserHeader />
       <div className="mainmenu-user2">
         <div className="content">

@@ -27,7 +27,6 @@ const UserVaccineList = () => {
 
   return vaccineList ? (
     <>
-      {/* countLength = {vaccineList.length} */}
       <UserHeader />
       <div className="mainmenu-user">
         <div className="content">
@@ -73,27 +72,6 @@ const UserVaccineList = () => {
             ))}
           </table>
 
-          {/* <table>
-            <tr>
-              <th>No.</th>
-              <th>Deskripsi Vaksin</th>
-              <th>Lokasi Vaksin</th>
-              <th>Sesi</th>
-              <th>Jenis Vaksin</th>
-              <th>Daftar</th>
-            </tr>
-            <tr>
-              <td rowSpan={2}>1</td>
-              <td rowSpan={2}>ini deskripsi</td>
-              <td rowSpan={2}>rs bhayangkara</td>
-              <td>sesi 1</td>
-              <td rowSpan={2}>astra</td>
-              <td rowSpan={2}>daftar</td>
-            </tr>
-            <tr>
-              <td>sesi 1</td>
-            </tr>
-          </table> */}
           <Link to="/user/agreement">
             <button>Daftar Vaksin</button>
           </Link>

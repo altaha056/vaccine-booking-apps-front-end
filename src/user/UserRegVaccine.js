@@ -3,9 +3,11 @@ import { useState } from "react";
 import UserHeader from "./UserHeader";
 import { NavLink } from "react-router-dom";
 
+import { useSelector } from "react-redux";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import UserNotLogin from "./UserNotLogin";
 
 const lokasivaksin = [
   { value: "RS USU", label: "RS USU" },
@@ -13,9 +15,7 @@ const lokasivaksin = [
   { value: "RS Permata", label: "RS Permata" },
 ];
 
-const jadwalvaksin = [
-  { value: "11 Januari 2022", label: "11 Januari 2022" }
-];
+const jadwalvaksin = [{ value: "11 Januari 2022", label: "11 Januari 2022" }];
 
 const jenisvaksin = [
   { value: "Astra zaneca", label: "Astra zaneca" },
@@ -39,6 +39,7 @@ const UserRegVaccine = () => {
     phonenumber: "",
   };
   const [data, setData] = useState(baseData);
+  const { user } = useSelector((state) => state);
 
   const regexEmail =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -163,12 +164,16 @@ const UserRegVaccine = () => {
 
   return (
     <>
+      {user ? null : <UserNotLogin />}
+
       <UserHeader />
 
       <div className="mainmenu-user2">
         <div className="content">
           <div className="container-dual">
             <div className="profile">
+              <h1>Daftar Vaksinasi</h1>
+
               <div className="property">
                 <div className="field">Rekomendasi lokasi terdekat</div>
                 <div className="value">

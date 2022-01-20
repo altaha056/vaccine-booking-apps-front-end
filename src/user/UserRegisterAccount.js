@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import Axios from "axios";
 import { registerUser } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const UserRegisterAccount = () => {
+  const { user } = useSelector((state) => state);
+
   const baseData = {
     email: "",
     password: "",
@@ -150,6 +153,7 @@ const UserRegisterAccount = () => {
 
   return (
     <>
+      {user ? <Navigate to="/user/profile" /> : null}
       <div className="user-bg-login">
         <div className="loginbox">
           <div className="grid-container-admin">

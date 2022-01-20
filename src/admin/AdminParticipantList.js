@@ -71,6 +71,7 @@ const AdminParticipantList = () => {
                   <td>08123123123</td>
                   <td>
                     <div className="konfirmasi">Accept</div>
+                    <br />
                     <div className="hapus">Reject</div>
                   </td>
                 </tr>
