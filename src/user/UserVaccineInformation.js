@@ -17,15 +17,18 @@ const UserVaccineInformation = () => {
       .then(({ data }) => {
         console.log(data);
         setParticipantList(data);
-        {
-          toast.success("Fetching data berhasil");
-        }
       })
       .catch((err) => {
         console.log(err.response);
         toast.warn("hmm sepertinya ada kesalahan");
       });
   }, []);
+
+  if (participantList == null) {
+    toast.info("tidak ada data untuk ditampilkan");
+  } else if (participantList > 0) {
+    toast.info("seluruh data berhasil ditampilkan");
+  }
   return participantList ? (
     <>
       <UserHeader />
@@ -71,8 +74,6 @@ const UserVaccineInformation = () => {
             </>
           ) : (
             <>
-              {toast.info("tidak ada data untuk ditampilkan")}
-
               <UserNoParticipant />
             </>
           )}

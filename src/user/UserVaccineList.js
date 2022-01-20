@@ -15,7 +15,7 @@ const UserVaccineList = () => {
     getVaccineList()
       .then(({ data }) => {
         setVaccineList(data);
-        toast.success("Seluruh data berhasil ditampilkan");
+        toast.info("Seluruh data berhasil ditampilkan");
       })
       .catch(() => {
         toast.error("oops sepertinya ada kesalahan");
