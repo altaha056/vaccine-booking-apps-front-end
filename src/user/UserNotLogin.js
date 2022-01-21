@@ -7,10 +7,11 @@ const UserNotLogin = () => {
       <UserHeader />
       <div className="mainmenu-user2">
         <div className="content">
-          <p>
-            Kelihatannya kamu belum login <br />
-            Yuk, login dulu
-          </p>
+          <h1>
+            Kamu belum boleh <br />
+            mengakses halaman ini <br />
+            yuk login dulu :D
+          </h1>
 
           <div className="dialog-button">
             <Link to="/user/register" style={{ textDecoration: "inherit" }}>

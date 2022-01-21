@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import UserHeader from "./UserHeader";
 import { NavLink } from "react-router-dom";
-
+import VacIcon from "../mapbox/VaccineIcon.png";
+import { useSelector } from "react-redux";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import UserNotLogin from "./UserNotLogin";
+import MapBox from "../mapbox/Mapbox";
+import { getNearbyFacilities } from "../config/api/vaccine-post";
+import { toast } from "react-toastify";
+import { getVaccineList } from "../config/api/vaccine-post";
 
 const lokasivaksin = [
   { value: "RS USU", label: "RS USU" },
@@ -13,9 +19,7 @@ const lokasivaksin = [
   { value: "RS Permata", label: "RS Permata" },
 ];
 
-const jadwalvaksin = [
-  { value: "11 Januari 2022", label: "11 Januari 2022" }
-];
+const jadwalvaksin = [{ value: "11 Januari 2022", label: "11 Januari 2022" }];
 
 const jenisvaksin = [
   { value: "Astra zaneca", label: "Astra zaneca" },
@@ -30,6 +34,19 @@ const sesivaksin = [
 ];
 
 const UserRegVaccine = () => {
+  const [vaccineList, setVaccineList] = useState([]);
+
+  useEffect(() => {
+    getVaccineList()
+      .then(({ data }) => {
+        setVaccineList(data);
+        console.log(data);
+      })
+      .catch(() => {
+        console.log("error");
+      });
+  }, []);
+
   const baseData = {
     email: "",
     password: "",
@@ -39,6 +56,9 @@ const UserRegVaccine = () => {
     phonenumber: "",
   };
   const [data, setData] = useState(baseData);
+  const { user } = useSelector((state) => state);
+
+  const [userLocation, setUserLocation] = useState();
 
   const regexEmail =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -80,7 +100,7 @@ const UserRegVaccine = () => {
         setErrMsgPassword(
           <div className="error-messages">
             <p>
-              Password minimum 8 characters wchic contain at least 1 number and
+              Password minimum 8 characters which contain at least 1 number and
               1 characters
             </p>
           </div>
@@ -161,40 +181,93 @@ const UserRegVaccine = () => {
     }
   };
 
+  const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
+    useState(null);
+
+  const [radius, setRadius] = useState(7);
+
+  const updateUserLocation = useCallback(
+    (latitude, longitude) => {
+      console.log(latitude, longitude);
+      setUserLocation({ latitude, longitude });
+
+      getNearbyFacilities({ latitude, longitude, radius })
+        .then(({ data }) => {
+          console.log(data);
+          setNearbyFacilitiesFromUserPos(data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          toast.warn("hmm sepertinya ada kesalahan");
+        });
+    },
+    [userLocation]
+  );
+
   return (
     <>
+      {user ? null : <UserNotLogin />}
+
       <UserHeader />
 
       <div className="mainmenu-user2">
         <div className="content">
+          <div className="peta">
+            <div className="titlemap">
+              <h1>Daftar Vaksinasi</h1>
+              {/* <img src={VacIcon} className="iconVaccine" /> */}
+              <button className="iconVaccine">
+                <img src={VacIcon} className="iconVaccine" />
+              </button>
+            </div>
+            <MapBox updateLocation={updateUserLocation} />
+          </div>
           <div className="container-dual">
             <div className="profile">
               <div className="property">
-                <div className="field">Rekomendasi lokasi terdekat</div>
-                <div className="value">
-                  RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
-                  Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
-                </div>
+                {nearbyFacilitiesFromUserPos ? (
+                  <>
+                    <div className="value">
+                      <p>Rekomendasi lokasi vaksinasi terdekat:</p>
+                      <br />
+                    </div>
+                    {nearbyFacilitiesFromUserPos.length >= 1 ? (
+                      <>
+                        {nearbyFacilitiesFromUserPos.map((loc, index) => (
+                          <>
+                            <div className="value">
+                              <h4>{loc.Location}</h4>
+                              <p>{loc.Address}</p>
+                              <br />
+                            </div>
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      <div className="value">
+                        <p>Tidak ada data untuk ditampilkan</p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="value">
+                    <p>
+                      Klik tombol lokasi saya di pojok kiri atas peta untuk
+                      melihat lokasi vaksinasi di sekitar{" "}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
             <div className="profile">
               <form>
                 <p>Nama</p>
-                <input
-                  className="inputuser"
-                  type="text"
-                  name="nama"
-                  min="10"
-                  max="100"
-                  required
-                />
+                <input className="inputuser" type="text" name="nama" required />
                 <p>NIK</p>
                 <input
                   className="inputuser"
                   type="number"
                   name="nik"
-                  min="10"
-                  max="100"
                   required
                 />
                 <p>Nomor telepon</p>
@@ -202,8 +275,6 @@ const UserRegVaccine = () => {
                   className="inputuser"
                   type="number"
                   name="nomor_telepon"
-                  min="10"
-                  max="100"
                   required
                 />
                 <p>Alamat</p>
@@ -211,8 +282,6 @@ const UserRegVaccine = () => {
                   className="inputuser"
                   type="text"
                   name="alamat"
-                  min="10"
-                  max="100"
                   required
                 />
 
@@ -232,7 +301,7 @@ const UserRegVaccine = () => {
                 </div>
                 <div className="dialog-button">
                   <Link
-                    to="/admin/main-menu"
+                    to="/user/landingpage"
                     style={{ textDecoration: "inherit" }}
                   >
                     <div className="back">Kembali</div>

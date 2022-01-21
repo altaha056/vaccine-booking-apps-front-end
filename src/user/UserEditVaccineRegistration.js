@@ -233,14 +233,14 @@ const UserEditVaccineRegistration = () => {
                 <div className="dropdown">
                   <Select options={jadwalvaksin} />
                 </div>
-                
+
                 <p>Sesi Vaksin</p>
                 <div className="dropdown">
                   <Select options={sesivaksin} />
                 </div>
                 <div className="dialog-button">
                   <Link
-                    to="/admin/main-menu"
+                    to="/user/landingpage"
                     style={{ textDecoration: "inherit" }}
                   >
                     <div className="back">Kembali</div>

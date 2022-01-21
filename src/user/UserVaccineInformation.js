@@ -1,91 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserHeader from "./UserHeader";
 import { Link } from "react-router-dom";
+import { getParticipantbyUser } from "../config/api/vaccine-post";
+import { toast } from "react-toastify";
+import Loading from "../style/Loading";
+import { useSelector } from "react-redux";
+import UserNoParticipant from "./UserNoParticipant";
+import UserNotLogin from "./UserNotLogin";
+import moment from "moment";
+
 const UserVaccineInformation = () => {
-  return (
+  const [participantList, setParticipantList] = useState(null);
+  const { user } = useSelector((state) => state);
+
+  const formatDate = (date) => moment(date).locale("id").format("ll");
+  const formatHour = (date) => moment(date).format("LT");
+
+  useEffect(() => {
+    getParticipantbyUser()
+      .then(({ data }) => {
+        console.log(data);
+        setParticipantList(data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        toast.warn("hmm sepertinya ada kesalahan");
+      });
+  }, []);
+
+  if (participantList == null) {
+    toast.info("tidak ada data untuk ditampilkan");
+  } else if (participantList > 0) {
+    toast.info("seluruh data berhasil ditampilkan");
+  }
+  return participantList ? (
     <>
       <UserHeader />
 
       <div className="mainmenu-user2">
         <div className="content">
-          <h1>Daftar Vaksinasi Saya</h1>
-
-          <table>
-            <tr>
-              <th>No.</th>
-              <th>Nama Partisipan</th>
-              <th>NIK</th>
-              <th>Nomor Telepon</th>
-              <th>Lokasi Vaksin</th>
-              <th>Jadwal Vaksin</th>
-              <th>Sesi Vaksin</th>
-              <th>Keterangan</th>
-              <th>Tiket</th>
-              <th>Edit</th>
-            </tr>
-            <tr>
-              <td>1.</td>
-              <td>Altaha</td>
-              <td>1234567891123456</td>
-              <td>08123123123</td>
-              <td>RS Bhayangkara</td>
-              <td>Senin, 11 Januari 2022</td>
-              <td>Sesi 1 08.00 - 12.00 WIB</td>
-              <td>
-                <div className="konfirmasi">Accepted</div>
-              </td>
-              <td>
-                <Link to="/user/ticket" style={{ textDecoration: "inherit" }}>
-                  <div className="ubah">Lihat</div>
-                </Link>
-              </td>
-              <td>
-                <div className="na">-</div>
-              </td>
-            </tr>
-            <tr>
-              <td>2.</td>
-              <td>Aditya</td>
-              <td>1234567891123456</td>
-              <td>08123123123</td>
-              <td>RS Bhayangkara</td>
-              <td>Senin, 11 Januari 2022</td>
-              <td>Sesi 1 08.00 - 12.00 WIB</td>
-              <td>
-                <div className="na">Pending</div>
-              </td>
-              <td>-</td>
-
-              <td>
-                <Link
-                  to="/user/edit-vaccination"
-                  style={{ textDecoration: "inherit" }}
-                >
-                  <div className="ubah">Ubah</div>
-                </Link>
-                <div className="hapus">Hapus</div>
-              </td>
-            </tr>
-            <tr>
-              <td>3.</td>
-              <td>Bagja</td>
-              <td>1234567891123456</td>
-              <td>08123123123</td>
-              <td>RS Bhayangkara</td>
-              <td>Senin, 11 Januari 2022</td>
-              <td>Sesi 1 08.00 - 12.00 WIB</td>
-              <td>
-                <div className="hapus">Rejected</div>
-              </td>
-              <td>-</td>
-
-              <td>
-                <div className="hapus">Hapus</div>
-              </td>
-            </tr>
-          </table>
+          {participantList.length > 0 ? (
+            <>
+              <h1>Daftar Vaksinasi Saya</h1>
+              <table>
+                <tr>
+                  <th>No.</th>
+                  <th>Nama Partisipan</th>
+                  <th>Lokasi Vaksin</th>
+                  <th>Alamat Vaksin</th>
+                  <th>Jadwal Vaksin</th>
+                  <th>Sesi Vaksin</th>
+                  <th>Keterangan</th>
+                  <th>Tiket</th>
+                </tr>
+                {participantList.map((par, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}.</td>
+                    <td>{par.Fullname}</td>
+                    <td>{par.Vac.Location}</td>
+                    <td>{par.Vac.Address}</td>
+                    <td>{formatDate(par.Session.StartTime)}</td>
+                    <td>
+                      {par.Session.Description}
+                      <br />
+                      {formatHour(par.Session.StartTime)}
+                    </td>
+                    <td>{par.Status}</td>
+                    <td>
+                      <Link
+                        to="/user/ticket"
+                        style={{ textDecoration: "inherit" }}
+                      >
+                        <div className="ubah">Lihat</div>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </table>
+            </>
+          ) : (
+            <>
+              <UserNoParticipant />
+            </>
+          )}
         </div>
       </div>
+    </>
+  ) : (
+    <>
+      {user ? null : <UserNotLogin />}
+      <UserHeader />
+      <Loading />
     </>
   );
 };

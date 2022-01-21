@@ -26,9 +26,26 @@ import UserAgreementBeforRegisterVaccine from "./user/UserAgreementBeforRegister
 import UserTicket from "./user/UserTicket";
 import UserEditVaccineRegistration from "./user/UserEditVaccineRegistration";
 import { ToastContainer } from "react-toastify";
+import { useEffect, useState } from "react";
+import { updateProfile } from "./store/actions/users";
+import { useDispatch } from "react-redux";
+import { setAuthorizationHeader } from "./config/axios";
+import Loading from "./style/Loading";
 
 function App() {
-  return (
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("vac:token")) {
+      const userData = JSON.parse(localStorage.getItem("vac:token"));
+      setAuthorizationHeader(userData.token);
+      dispatch(updateProfile(userData));
+      setLoading(true);
+    } else setLoading(true);
+  }, []);
+  return loading ? (
     <>
       <Footer />
       <Router>
@@ -75,7 +92,7 @@ function App() {
 
       <ToastContainer position="top-right" autoClose={5000} />
     </>
-  );
+  ) : null;
 }
 
 export default App;

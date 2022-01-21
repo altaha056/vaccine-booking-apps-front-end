@@ -60,7 +60,7 @@ const UserHeader = () => {
             <div className="ho">Beranda</div>
           </NavLink>
           <NavLink
-            to="/user/reg-vaccine"
+            to="/user/agreement"
             className="item"
             style={({ isActive }) =>
               isActive
