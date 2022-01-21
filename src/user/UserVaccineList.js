@@ -71,10 +71,6 @@ const UserVaccineList = () => {
               </tr>
             ))}
           </table>
-
-          <Link to="/user/agreement">
-            <button>Daftar Vaksin</button>
-          </Link>
         </div>
       </div>
     </>

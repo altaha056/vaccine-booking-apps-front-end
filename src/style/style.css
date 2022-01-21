@@ -8,6 +8,30 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* peta */
+.content .peta {
+  margin-bottom: 20pt;
+}
+.content .peta .dialogbox {
+  background-color: white;
+  color: #006d7c;
+}
+.content .peta .iconVaccine {
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+}
+.peta_description {
+  color: #006d7c;
+}
+.titlemap {
+  display: flex;
+  gap: 10pt;
+}
+.iconVaccine {
+  width: 2rem;
+  height: 2rem;
+}
 
 /* loading */
 .loading-div {
@@ -188,21 +212,16 @@
 }
 
 .content button {
-  width: 300pt;
-  height: 35pt;
+  background-color: transparent;
+  height: auto;
   outline: none;
   border: none;
-  background-color: #006d7c;
-  color: white;
-  font-weight: 500;
-  font-size: 14pt;
-  border-radius: 10pt;
+  color: #006d7c;
   cursor: pointer;
   transition: 0.5s;
-  margin-bottom: 20pt;
 }
 
-.content button:hover {
+.content .button:hover {
   background-color: #079cb0;
   color: white;
   border: none;
@@ -291,8 +310,8 @@ table td .na {
 .mainmenu-user2 .content {
   grid-template-areas: "auto auto";
 }
-.mainmenu-user2 .content p {
-  font-size: 12pt;
+.mainmenu-user2 .content .paragraph {
+  font-size: 14pt;
   font-weight: 600;
   color: #006d7c;
 }

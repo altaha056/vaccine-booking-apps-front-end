@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 import UserHeader from "./UserHeader";
 import { NavLink } from "react-router-dom";
-
+import VacIcon from "../mapbox/VaccineIcon.png";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import UserNotLogin from "./UserNotLogin";
+import MapBox from "../mapbox/Mapbox";
 
 const lokasivaksin = [
   { value: "RS USU", label: "RS USU" },
@@ -170,10 +171,18 @@ const UserRegVaccine = () => {
 
       <div className="mainmenu-user2">
         <div className="content">
+          <div className="peta">
+            <div className="titlemap">
+              <h1>Daftar Vaksinasi</h1>
+              {/* <img src={VacIcon} className="iconVaccine" /> */}
+              <button className="iconVaccine">
+                <img src={VacIcon} className="iconVaccine" />
+              </button>
+            </div>
+            <MapBox />
+          </div>
           <div className="container-dual">
             <div className="profile">
-              <h1>Daftar Vaksinasi</h1>
-
               <div className="property">
                 <div className="field">Rekomendasi lokasi terdekat</div>
                 <div className="value">
@@ -237,7 +246,7 @@ const UserRegVaccine = () => {
                 </div>
                 <div className="dialog-button">
                   <Link
-                    to="/admin/main-menu"
+                    to="/user/landingpage"
                     style={{ textDecoration: "inherit" }}
                   >
                     <div className="back">Kembali</div>

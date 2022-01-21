@@ -11,7 +11,7 @@ const UserAgreementBeforRegisterVaccine = () => {
       <UserHeader />
       <div className="mainmenu-user2">
         <div className="content">
-          <p>Persyaratan vaksinasi:</p>
+          <p className="paragraph">Persyaratan vaksinasi:</p>
 
           <ol>
             <li>Berusia 12 tahun ke atas</li>
