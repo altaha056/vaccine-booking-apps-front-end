@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import UserHeader from "./UserHeader";
 import { NavLink } from "react-router-dom";
@@ -11,6 +11,7 @@ import UserNotLogin from "./UserNotLogin";
 import MapBox from "../mapbox/Mapbox";
 import { getNearbyFacilities } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
+import { getVaccineList } from "../config/api/vaccine-post";
 
 const lokasivaksin = [
   { value: "RS USU", label: "RS USU" },
@@ -33,6 +34,19 @@ const sesivaksin = [
 ];
 
 const UserRegVaccine = () => {
+  const [vaccineList, setVaccineList] = useState([]);
+
+  useEffect(() => {
+    getVaccineList()
+      .then(({ data }) => {
+        setVaccineList(data);
+        console.log(data);
+      })
+      .catch(() => {
+        console.log("error");
+      });
+  }, []);
+
   const baseData = {
     email: "",
     password: "",
@@ -170,12 +184,13 @@ const UserRegVaccine = () => {
   const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
     useState(null);
 
+  const [radius, setRadius] = useState(7);
+
   const updateUserLocation = useCallback(
     (latitude, longitude) => {
       console.log(latitude, longitude);
       setUserLocation({ latitude, longitude });
 
-      let radius = 10;
       getNearbyFacilities({ latitude, longitude, radius })
         .then(({ data }) => {
           console.log(data);
@@ -210,14 +225,13 @@ const UserRegVaccine = () => {
           <div className="container-dual">
             <div className="profile">
               <div className="property">
-                <div className="field"></div>
                 {nearbyFacilitiesFromUserPos ? (
                   <>
                     <div className="value">
                       <p>Rekomendasi lokasi vaksinasi terdekat:</p>
                       <br />
                     </div>
-                    {nearbyFacilitiesFromUserPos.length != null ? (
+                    {nearbyFacilitiesFromUserPos.length >= 1 ? (
                       <>
                         {nearbyFacilitiesFromUserPos.map((loc, index) => (
                           <>
@@ -230,7 +244,9 @@ const UserRegVaccine = () => {
                         ))}
                       </>
                     ) : (
-                      <p>Tidak ada data untuk ditampilkan</p>
+                      <div className="value">
+                        <p>Tidak ada data untuk ditampilkan</p>
+                      </div>
                     )}
                   </>
                 ) : (
@@ -239,7 +255,6 @@ const UserRegVaccine = () => {
                       Klik tombol lokasi saya di pojok kiri atas peta untuk
                       melihat lokasi vaksinasi di sekitar{" "}
                     </p>
-                    <br />
                   </div>
                 )}
               </div>
