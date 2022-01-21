@@ -5,12 +5,14 @@ import "../style/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/actions/users";
 import { toast } from "react-toastify";
+import UserNotLogin from "./UserNotLogin";
+
 const UserProfile = () => {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
   return (
     <>
-      {user ? null : <Navigate to="/user/yet-login" />}
+      {user ? null : <UserNotLogin />}
       <UserHeader />
       <div className="mainmenu-user2">
         <div className="content">
@@ -25,18 +27,26 @@ const UserProfile = () => {
                 <div className="field">NIK</div>
                 <div className="value">{user?.nik}</div>
               </div>
-              <Link to="/user/info-vacc" style={{ textDecoration: "inherit" }}>
-                <div className="add">Jadwal Saya</div>
-              </Link>
-              <button
-                style={{ textDecoration: "inherit", width: "200px" }}
-                onClick={() => {
-                  dispatch(logout());
-                  toast.warn("kamu sudah keluar");
-                }}
-              >
-                <div className="back">Keluar</div>
-              </button>
+              {/*  */}
+              <div className="dialog-button">
+                <button
+                  onClick={() => {
+                    dispatch(logout());
+                    toast.warn("kamu sudah keluar");
+                  }}
+                  style={{ textDecoration: "inherit" }}
+                  className="back"
+                >
+                  <div>Keluar</div>
+                </button>
+                <Link
+                  to="/user/info-vacc"
+                  style={{ textDecoration: "inherit" }}
+                >
+                  <button className="add">Jadwal Saya</button>
+                </Link>
+              </div>
+              {/*  */}
             </div>
             <div className="profile">
               <div className="property">

@@ -18,7 +18,6 @@ const AdminMainMenu = () => {
             <th>Sisa Stok</th>
             <th>Peserta</th>
             <th>Edit</th>
-            <th>Konfirmasi</th>
           </tr>
           <tr>
             <td>1.</td>
@@ -40,16 +39,7 @@ const AdminMainMenu = () => {
               </Link>
             </td>
             <td>
-              <Link
-                to="/admin/edit-vaccination"
-                style={{ textDecoration: "inherit" }}
-              >
-                <div className="ubah">Ubah</div>
-              </Link>
               <div className="hapus">Hapus</div>
-            </td>
-            <td>
-              <div className="konfirmasi">Konfirmasi</div>
             </td>
           </tr>
           <tr>
@@ -74,13 +64,10 @@ const AdminMainMenu = () => {
             <td>
               <div className="na">N/A</div>
             </td>
-            <td>
-              <div className="na">Published</div>
-            </td>
           </tr>
         </table>
-        <Link to="/admin/add-vaccination">
-          <button>Tambah Program</button>
+        <Link to="/admin/add-vaccination" style={{ textDecoration: "inherit" }}>
+          <div className="add">Tambah Kegiatan</div>
         </Link>
       </div>
     </div>

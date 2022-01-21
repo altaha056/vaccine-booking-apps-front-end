@@ -9,3 +9,5 @@ export const detailsOwnUser = () => api.get("/user");
 export const getParticipantbyUser = () => {
   return api.get("/participant/user");
 };
+
+export const getNearbyFacilities = (data) => api.post("/near", data);

@@ -8,8 +8,9 @@ const UserNotLogin = () => {
       <div className="mainmenu-user2">
         <div className="content">
           <h1>
-            Untuk mengakses halaman ini <br />
-            kamu harus login dulu
+            Kamu belum boleh <br />
+            mengakses halaman ini <br />
+            yuk login dulu :D
           </h1>
 
           <div className="dialog-button">

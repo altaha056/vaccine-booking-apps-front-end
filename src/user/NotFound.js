@@ -7,7 +7,7 @@ const NotFound = () => {
     <>
       <div className="notfound-bg-login">
         <div className="content-notfound">
-          Sorry we can't find the page you looking for 😢
+          Maaf halaman yang kamu cari tidak ada 😢
           <NavLink
             to="/user/landingpage"
             className="item"
