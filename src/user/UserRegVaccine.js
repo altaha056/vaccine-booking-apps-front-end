@@ -175,7 +175,7 @@ const UserRegVaccine = () => {
       console.log(latitude, longitude);
       setUserLocation({ latitude, longitude });
 
-      let radius = 20;
+      let radius = 10;
       getNearbyFacilities({ latitude, longitude, radius })
         .then(({ data }) => {
           console.log(data);
@@ -210,23 +210,24 @@ const UserRegVaccine = () => {
           <div className="container-dual">
             <div className="profile">
               <div className="property">
-                <div className="field">Rekomendasi lokasi terdekat</div>
-                <div className="value">
-                  RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
-                  Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
-                  <br />
-                  {userLocation?.lat}
-                  <br />
-                  {userLocation?.long}
-                  <br />
-                  {/* {nearbyFacilitiesFromUserPos
-                    ? nearbyFacilitiesFromUserPos.length > 0
-                      ? nearbyFacilitiesFromUserPos.map((loc, index) => {
-                          loc.Location;
-                        })
-                      : null
-                    : null} */}
-                </div>
+                <div className="field"></div>
+                {nearbyFacilitiesFromUserPos ? (
+                  <>
+                    <div className="value">
+                      <p>Rekomendasi lokasi vaksinasi terdekat:</p>
+                      <br />
+                    </div>
+                    {nearbyFacilitiesFromUserPos.map((loc, index) => (
+                      <>
+                        <div className="value">
+                          <h4>{loc.Location}</h4>
+                          <p>{loc.Address}</p>
+                          <br />
+                        </div>
+                      </>
+                    ))}
+                  </>
+                ) : null}
               </div>
             </div>
             <div className="profile">
