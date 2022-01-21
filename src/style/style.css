@@ -9,6 +9,15 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 /* peta */
+.peta .mylocation {
+  padding: 5pt;
+  margin: 5pt;
+  background-color: white;
+  color: #006d7c;
+  font-weight: 600;
+  font-size: 14pt;
+}
+
 .content .peta {
   margin-bottom: 20pt;
 }

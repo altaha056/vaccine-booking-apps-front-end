@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import UserHeader from "./UserHeader";
 import { NavLink } from "react-router-dom";
@@ -41,6 +41,8 @@ const UserRegVaccine = () => {
   };
   const [data, setData] = useState(baseData);
   const { user } = useSelector((state) => state);
+
+  const [userLocation, setUserLocation] = useState();
 
   const regexEmail =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -163,6 +165,14 @@ const UserRegVaccine = () => {
     }
   };
 
+  const updateUserLocation = useCallback(
+    (lat, long) => {
+      console.log(lat, long);
+      setUserLocation({ lat, long });
+    },
+    [userLocation]
+  );
+
   return (
     <>
       {user ? null : <UserNotLogin />}
@@ -179,7 +189,7 @@ const UserRegVaccine = () => {
                 <img src={VacIcon} className="iconVaccine" />
               </button>
             </div>
-            <MapBox />
+            <MapBox updateLocation={updateUserLocation} />
           </div>
           <div className="container-dual">
             <div className="profile">
@@ -188,6 +198,10 @@ const UserRegVaccine = () => {
                 <div className="value">
                   RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
                   Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
+                  <br />
+                  {userLocation?.lat}
+                  <br />
+                  {userLocation?.long}
                 </div>
               </div>
             </div>
