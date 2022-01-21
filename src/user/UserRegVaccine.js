@@ -217,37 +217,42 @@ const UserRegVaccine = () => {
                       <p>Rekomendasi lokasi vaksinasi terdekat:</p>
                       <br />
                     </div>
-                    {nearbyFacilitiesFromUserPos.map((loc, index) => (
+                    {nearbyFacilitiesFromUserPos.length != null ? (
                       <>
-                        <div className="value">
-                          <h4>{loc.Location}</h4>
-                          <p>{loc.Address}</p>
-                          <br />
-                        </div>
+                        {nearbyFacilitiesFromUserPos.map((loc, index) => (
+                          <>
+                            <div className="value">
+                              <h4>{loc.Location}</h4>
+                              <p>{loc.Address}</p>
+                              <br />
+                            </div>
+                          </>
+                        ))}
                       </>
-                    ))}
+                    ) : (
+                      <p>Tidak ada data untuk ditampilkan</p>
+                    )}
                   </>
-                ) : null}
+                ) : (
+                  <div className="value">
+                    <p>
+                      Klik tombol lokasi saya di pojok kiri atas peta untuk
+                      melihat lokasi vaksinasi di sekitar{" "}
+                    </p>
+                    <br />
+                  </div>
+                )}
               </div>
             </div>
             <div className="profile">
               <form>
                 <p>Nama</p>
-                <input
-                  className="inputuser"
-                  type="text"
-                  name="nama"
-                  min="10"
-                  max="100"
-                  required
-                />
+                <input className="inputuser" type="text" name="nama" required />
                 <p>NIK</p>
                 <input
                   className="inputuser"
                   type="number"
                   name="nik"
-                  min="10"
-                  max="100"
                   required
                 />
                 <p>Nomor telepon</p>
@@ -255,8 +260,6 @@ const UserRegVaccine = () => {
                   className="inputuser"
                   type="number"
                   name="nomor_telepon"
-                  min="10"
-                  max="100"
                   required
                 />
                 <p>Alamat</p>
@@ -264,8 +267,6 @@ const UserRegVaccine = () => {
                   className="inputuser"
                   type="text"
                   name="alamat"
-                  min="10"
-                  max="100"
                   required
                 />
 
