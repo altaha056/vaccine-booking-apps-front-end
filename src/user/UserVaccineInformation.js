@@ -7,10 +7,14 @@ import Loading from "../style/Loading";
 import { useSelector } from "react-redux";
 import UserNoParticipant from "./UserNoParticipant";
 import UserNotLogin from "./UserNotLogin";
+import moment from "moment";
 
 const UserVaccineInformation = () => {
   const [participantList, setParticipantList] = useState(null);
   const { user } = useSelector((state) => state);
+
+  const formatDate = (date) => moment(date).locale("id").format("ll");
+  const formatHour = (date) => moment(date).format("LT");
 
   useEffect(() => {
     getParticipantbyUser()
@@ -42,9 +46,8 @@ const UserVaccineInformation = () => {
                 <tr>
                   <th>No.</th>
                   <th>Nama Partisipan</th>
-                  <th>NIK</th>
-                  <th>Nomor Telepon</th>
                   <th>Lokasi Vaksin</th>
+                  <th>Alamat Vaksin</th>
                   <th>Jadwal Vaksin</th>
                   <th>Sesi Vaksin</th>
                   <th>Keterangan</th>
@@ -54,11 +57,14 @@ const UserVaccineInformation = () => {
                   <tr key={index}>
                     <td>{index + 1}.</td>
                     <td>{par.Fullname}</td>
-                    <td>{par.Nik}</td>
-                    <td>{par.PhoneNumber}</td>
                     <td>{par.Vac.Location}</td>
-                    <td>{par.Session.StartTime}</td>
-                    <td>{par.Session.StartTime}</td>
+                    <td>{par.Vac.Address}</td>
+                    <td>{formatDate(par.Session.StartTime)}</td>
+                    <td>
+                      {par.Session.Description}
+                      <br />
+                      {formatHour(par.Session.StartTime)}
+                    </td>
                     <td>{par.Status}</td>
                     <td>
                       <Link

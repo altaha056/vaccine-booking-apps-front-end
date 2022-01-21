@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import UserNotLogin from "./UserNotLogin";
 import MapBox from "../mapbox/Mapbox";
+import { getNearbyFacilities } from "../config/api/vaccine-post";
+import { toast } from "react-toastify";
 
 const lokasivaksin = [
   { value: "RS USU", label: "RS USU" },
@@ -84,7 +86,7 @@ const UserRegVaccine = () => {
         setErrMsgPassword(
           <div className="error-messages">
             <p>
-              Password minimum 8 characters wchic contain at least 1 number and
+              Password minimum 8 characters which contain at least 1 number and
               1 characters
             </p>
           </div>
@@ -165,10 +167,24 @@ const UserRegVaccine = () => {
     }
   };
 
+  const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
+    useState(null);
+
   const updateUserLocation = useCallback(
-    (lat, long) => {
-      console.log(lat, long);
-      setUserLocation({ lat, long });
+    (latitude, longitude) => {
+      console.log(latitude, longitude);
+      setUserLocation({ latitude, longitude });
+
+      let radius = 20;
+      getNearbyFacilities({ latitude, longitude, radius })
+        .then(({ data }) => {
+          console.log(data);
+          setNearbyFacilitiesFromUserPos(data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          toast.warn("hmm sepertinya ada kesalahan");
+        });
     },
     [userLocation]
   );
@@ -202,6 +218,14 @@ const UserRegVaccine = () => {
                   {userLocation?.lat}
                   <br />
                   {userLocation?.long}
+                  <br />
+                  {/* {nearbyFacilitiesFromUserPos
+                    ? nearbyFacilitiesFromUserPos.length > 0
+                      ? nearbyFacilitiesFromUserPos.map((loc, index) => {
+                          loc.Location;
+                        })
+                      : null
+                    : null} */}
                 </div>
               </div>
             </div>
