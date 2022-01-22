@@ -1,6 +1,29 @@
 import React from "react";
 import UserHeader from "./UserHeader";
+import { getParticipantbyId } from "../config/api/vaccine-post";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 const UserTicket = () => {
+  const [participantData, setParticipantData] = useState(null);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    getParticipantbyId(id)
+      .then(({ data }) => {
+        console.log(data);
+        setParticipantData(data);
+        toast.info("semua data berhasil dimuat");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        toast.warn("hmm sepertinya ada kesalahan");
+      });
+  }, []);
+
   return (
     <>
       <UserHeader />
@@ -11,19 +34,19 @@ const UserTicket = () => {
               <h1>Tiket Vaksinasi</h1>
               <div className="property">
                 <div className="field">Nama Partisipan</div>
-                <div className="value">Altaha</div>
+                <div className="value">{participantData?.Fullname}</div>
               </div>
               <div className="property">
                 <div className="field">NIK</div>
-                <div className="value">1234567891123456</div>
+                <div className="value">{participantData?.Nik}</div>
               </div>
               <div className="property">
                 <div className="field">Alamat</div>
-                <div className="value">Jl. Pancasila Nomor 1</div>
+                <div className="value">{participantData?.Address}</div>
               </div>
               <div className="property">
                 <div className="field">Nomor Telepon</div>
-                <div className="value">08123123123</div>
+                <div className="value">{participantData?.PhoneNumber}</div>
               </div>
             </div>
             <div className="profile">
@@ -34,18 +57,23 @@ const UserTicket = () => {
               <div className="property">
                 <div className="field">Lokasi Vaksin</div>
                 <div className="value">
-                  RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
-                  Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
+                  {participantData?.Vac.Location}
+                  <br />
+                  {participantData?.Vac.Address}
                 </div>
               </div>
               <div className="property">
                 <div className="field">Jadwal Vaksin</div>
-                <div className="value">12 Januari 2022</div>
+                <div className="value">
+                  {participantData?.Session.StartTime}
+                </div>
               </div>
 
               <div className="property">
                 <div className="field">Sesi Vaksin</div>
-                <div className="value">Sesi 1 08.00-12.00 wib</div>
+                <div className="value">
+                  {participantData?.Session.StartTime}
+                </div>
               </div>
             </div>
           </div>
