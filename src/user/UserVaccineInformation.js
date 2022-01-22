@@ -64,7 +64,7 @@ const UserVaccineInformation = () => {
                     <td>{par.Status}</td>
                     <td>
                       <Link
-                        to="/user/ticket"
+                        to={`/user/ticket/${par.ID}`}
                         style={{ textDecoration: "inherit" }}
                       >
                         <div className="ubah">Lihat</div>
