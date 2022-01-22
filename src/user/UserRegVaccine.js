@@ -21,6 +21,8 @@ const UserRegVaccine = () => {
   const [lokasiVaksin, setLokasiVaksin] = useState([]);
 
   const [sesiVaksin, setSesiVaksin] = useState([]);
+  const [selectedVaccineLocation, setSelectedVaccineLocation] = useState();
+  const [selectedSessionId, setSelectedSessionId] = useState();
 
   useEffect(() => {
     getVaccineList()
@@ -42,8 +44,9 @@ const UserRegVaccine = () => {
   const baseData = {
     nik: "",
     fullname: "",
-    phonenumber: "",
-    alamat: "",
+    phone_number: "",
+    address: "",
+    session_id: "",
   };
   const [data, setData] = useState(baseData);
   const { user } = useSelector((state) => state);
@@ -69,26 +72,33 @@ const UserRegVaccine = () => {
     console.log("data: ", data);
   };
 
-  const handleSubmit = (event) => {
-    if (
-      data.fullname.length === 0 ||
-      data.nik.length === 0 ||
-      data.phonenumber.length === 0
-    ) {
-      setErrMsg(
-        <div className="error-messages">
-          <p>You must fill all fields</p>
-        </div>
-      );
+  const handleSubmit = useCallback(
+    (event) => {
       event.preventDefault();
-    }
-    if (data.password != data.confirmpassword) {
-      setErrMsg(
-        <div className="error-messages">
-          <p>Password not match</p>
-        </div>
-      );
-      registerParticipant(data, lokasiVaksin.ID)
+
+      if (
+        data.fullname.length === 0 ||
+        data.nik.length === 0 ||
+        data.phone_number.length === 0
+      ) {
+        setErrMsg(
+          <div className="error-messages">
+            <p>You must fill all fields</p>
+          </div>
+        );
+        event.preventDefault();
+      }
+      if (data.password != data.confirmpassword) {
+        setErrMsg(
+          <div className="error-messages">
+            <p>Password not match</p>
+          </div>
+        );
+      }
+
+      data.session_id = selectedSessionId?.value;
+
+      registerParticipant(data, selectedVaccineLocation.value)
         .then((res) => {
           toast.success("pendaftaran berhasil");
         })
@@ -98,8 +108,9 @@ const UserRegVaccine = () => {
           });
         });
       event.preventDefault();
-    }
-  };
+    },
+    [selectedSessionId, data]
+  );
 
   const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
     useState(null);
@@ -124,8 +135,6 @@ const UserRegVaccine = () => {
     [userLocation]
   );
 
-  const [selectedVaccineLocation, setSelectedVaccineLocation] = useState();
-  const [selectedSessionId, setSelectedSessionId] = useState();
   useEffect(() => {
     setSelectedSessionId(null);
     if (selectedVaccineLocation) {
@@ -224,15 +233,17 @@ const UserRegVaccine = () => {
                   className="inputuser"
                   type="number"
                   onChange={handleInput}
-                  id="phonenumber"
-                  value={data.phonenumber}
+                  id="phone_number"
+                  value={data.phone_number}
                   required
                 />
                 <p>Alamat</p>
                 <input
                   className="inputuser"
                   type="text"
-                  name="alamat"
+                  onChange={handleInput}
+                  id="address"
+                  value={data.address}
                   required
                 />
 
@@ -242,6 +253,7 @@ const UserRegVaccine = () => {
                     options={lokasiVaksin}
                     value={selectedVaccineLocation}
                     onChange={setSelectedVaccineLocation}
+                    required
                   />
                 </div>
 
@@ -251,6 +263,9 @@ const UserRegVaccine = () => {
                     options={sesiVaksin}
                     value={selectedSessionId}
                     onChange={setSelectedSessionId}
+                    id="session_id"
+                    required
+                    // onChange={handleInput}
                   />
                 </div>
                 <div className="dialog-button">
