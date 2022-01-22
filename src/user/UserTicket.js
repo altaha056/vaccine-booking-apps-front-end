@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Pdf from "react-to-pdf";
 import moment from "moment";
 
 const UserTicket = () => {
@@ -14,6 +15,14 @@ const UserTicket = () => {
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
+
+  const ref = React.createRef();
+
+  const options = {
+    orientation: "landscape",
+    unit: "in",
+    format: [20, 10],
+  };
 
   useEffect(() => {
     getParticipantbyId(id)
@@ -29,10 +38,10 @@ const UserTicket = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <UserHeader />
       <div className="mainmenu-user2">
-        <div className="content">
+        <div className="content" ref={ref}>
           <div className="container-dual">
             <div className="profile">
               <h1>Tiket Vaksinasi</h1>
@@ -51,6 +60,21 @@ const UserTicket = () => {
               <div className="property">
                 <div className="field">Nomor Telepon</div>
                 <div className="value">{participantData?.PhoneNumber}</div>
+              </div>
+
+              <div className="property">
+                <div className="add">
+                  <Pdf
+                    targetRef={ref}
+                    filename="tiken-vaksin.pdf"
+                    x={1.2}
+                    y={1.2}
+                    scale={1.6}
+                    options={options}
+                  >
+                    {({ toPdf }) => <div onClick={toPdf}>Unduh pdf</div>}
+                  </Pdf>
+                </div>
               </div>
             </div>
             <div className="profile">
@@ -77,7 +101,6 @@ const UserTicket = () => {
                   {formatDate(participantData?.Session.StartTime)}
                 </div>
               </div>
-
               <div className="property">
                 <div className="field">Sesi Vaksin</div>
                 <div className="value">
@@ -90,7 +113,7 @@ const UserTicket = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
