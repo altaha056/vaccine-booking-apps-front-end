@@ -8,7 +8,60 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* peta */
+.peta .mylocation {
+  padding: 5pt;
+  margin: 5pt;
+  background-color: white;
+  color: #006d7c;
+  font-weight: 600;
+  font-size: 14pt;
+}
 
+.content .peta {
+  margin-bottom: 20pt;
+}
+.content .peta .dialogbox {
+  background-color: white;
+  color: #006d7c;
+}
+.content .peta .iconVaccine {
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+}
+.peta_description {
+  color: #006d7c;
+}
+.titlemap {
+  display: flex;
+  gap: 10pt;
+}
+.iconVaccine {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* loading */
+.loading-div {
+  font-size: 74pt;
+  text-align: center;
+  font-family: arial;
+  font-size: 24px;
+  margin: 25px;
+  /* Setup */
+  position: relative;
+}
+
+.loading-child {
+  color: #006d7c;
+  position: absolute;
+  top: 50%;
+  font-size: 48pt;
+  font-weight: 600;
+  left: 50%;
+  transform: translate(-50%, 200%);
+}
 /* grid for news */
 .grid-container {
   display: grid;
@@ -104,7 +157,7 @@
 }
 
 .content form .inputnumber:focus {
-  outline: 1pt solid #888888;
+  outline: 1pt solid #079cb0;
 }
 .content form .inputnumber {
   min-width: 100pt;
@@ -116,7 +169,9 @@
   font-size: 14pt;
 }
 /* content */
-
+.mainmenu-user .content .dialog-button {
+  margin-top: 30pt;
+}
 .content .dialog-button {
   display: flex;
   gap: 10pt;
@@ -166,21 +221,16 @@
 }
 
 .content button {
-  width: 300pt;
-  height: 35pt;
+  background-color: transparent;
+  height: auto;
   outline: none;
   border: none;
-  background-color: #006d7c;
-  color: white;
-  font-weight: 500;
-  font-size: 14pt;
-  border-radius: 10pt;
+  color: #006d7c;
   cursor: pointer;
   transition: 0.5s;
-  margin-bottom: 20pt;
 }
 
-.content button:hover {
+.content .button:hover {
   background-color: #079cb0;
   color: white;
   border: none;
@@ -199,6 +249,7 @@ th {
 }
 table {
   border-collapse: collapse;
+  min-width: 100vh;
   margin-bottom: 20pt;
 }
 table td .lihat {
@@ -242,6 +293,88 @@ table td .na {
   padding: 20pt;
   padding-bottom: 100pt;
   min-height: 100vh;
+}
+
+.mainmenu-user2 .content form .inputuser:focus {
+  outline: 1pt solid #079cb0;
+}
+.mainmenu-user2 .content form .inputuser {
+  min-width: 300pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
+
+.mainmenu-user2 .content h1 {
+  font-size: 24pt;
+  color: #006d7c;
+  margin-bottom: 20pt;
+}
+.mainmenu-user2 .content .add {
+  margin-bottom: 10pt;
+}
+.mainmenu-user2 .content {
+  grid-template-areas: "auto auto";
+}
+.mainmenu-user2 .content .paragraph {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #006d7c;
+}
+.mainmenu-user2 .content ol {
+  font-size: 14pt;
+  color: #006d7c;
+  margin-bottom: 20pt;
+  line-height: 30pt;
+  margin-left: 18pt;
+}
+.mainmenu-user2 {
+  background-image: url(./bg2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: 100%;
+  background-position-y: 100%;
+  padding: 20pt;
+  padding-bottom: 100pt;
+  min-height: 100vh;
+}
+.mainmenu-user {
+  background-image: url(./bg_welcome.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+  padding: 20pt;
+  padding-bottom: 100pt;
+  min-height: 100vh;
+}
+.mainmenu-user .content {
+  color: #006d7c;
+}
+.mainmenu-user .content h1 {
+  color: #006d7c;
+  max-width: 15ch;
+  font-size: 40pt;
+  margin-top: 10pt;
+  font-weight: 600;
+}
+.mainmenu-user .content p {
+  color: #006d7c;
+  max-width: 25ch;
+  font-size: 20pt;
+  font-weight: 500;
+}
+.mainmenu-user .content h2 {
+  color: #006d7c;
+  margin-bottom: 20pt;
+  max-width: 25ch;
+  font-size: 20pt;
+  font-weight: 500;
+}
+.mainmenu-user .content button {
+  margin-top: 20pt;
 }
 .content {
   margin-left: 20pt;
@@ -304,14 +437,14 @@ table td .na {
 .navbar h1 {
   max-width: 150pt;
 }
-.navbar h1:hover {
-  color: #006d7c;
+.item:hover {
+  color: #079cb0;
   cursor: pointer;
 }
 .navbar h1:active {
   color: #079cb0;
 }
-.profile h1 {
+.navbar .item {
   max-width: 150pt;
 }
 .profile h1:hover {
@@ -321,10 +454,7 @@ table td .na {
 .profile h1:active {
   color: #079cb0;
 }
-h1 span {
-  color: #079cb0;
-  font-weight: 600;
-}
+
 .navbar a {
   color: #b7b7b7;
   font-size: 14pt;
@@ -355,7 +485,7 @@ h1 span {
   justify-content: right;
   font-size: 14pt;
   color: #b7b7b7;
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -376,11 +506,60 @@ h1 span {
   justify-content: center;
   align-items: center;
 }
+.notfound-bg-login {
+  background-image: url(./notfound.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  min-height: 100%;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gotomainmenu-not-found {
+  color: #ffffff;
+}
+.gotomainmenu-not-found:hover {
+  color: #ffffff00;
+  font-weight: 700;
+  -webkit-text-stroke-width: 0.4pt;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+.notfound-bg-login .content-notfound {
+  font-size: 32pt;
+  color: white;
+  font-weight: 500;
+  max-width: 300pt;
+  vertical-align: text-top;
+  border-bottom: 3pt solid white;
+}
 .user-bg-login {
   background-image: url(./user_login_bg.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.error-message-container{
+.yet-register {
+  color: #006d7c;
+  padding-top: 20pt;
+  padding-bottom: 20pt;
+  text-align: center;
+}
+.yet-register span {
+  color: #079cb0;
+  cursor: pointer;
+  font-weight: 600;
+}
+.error-message-container {
   margin-top: 10pt;
+  margin-bottom: 10pt;
 }
 .error-messages {
   color: red;
@@ -391,6 +570,7 @@ h1 span {
   width: 420px;
   background-color: white;
   padding: 20pt;
+  padding-bottom: 0pt;
   border-radius: 20px;
   margin: 40pt;
 }

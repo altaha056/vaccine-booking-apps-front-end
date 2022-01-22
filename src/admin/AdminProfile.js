@@ -1,49 +1,67 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutadmin } from "../store/actions/admins";
 import "../style/style.css";
+import { AdminHeader } from "./AdminHeader";
+import { toast } from "react-toastify";
+import AdminLogin from "./AdminLogin";
 
 const AdminProfile = () => {
+  const { admin } = useSelector((state_admin) => state_admin);
+
+  const dispatch = useDispatch();
+
   return (
-    <div className="mainmenu-admin">
-      <div className="header">
-        <div className="navbar">
-          <Link to="/admin/main-menu" style={{ textDecoration: "inherit" }}>
-            <h1>Daftar Program Vaksinasi</h1>
-          </Link>
-          <Link to="/admin/news" style={{ textDecoration: "inherit" }}>
-            <h1>Berita Vaksinasi</h1>
-          </Link>
-        </div>
-        <div className="profile">
-          <h1>
-            <span>Admin Altaha</span>
-          </h1>
-        </div>
-      </div>
-      <div className="content">
-        <div className="profile">
-          <div className="property">
-            <div className="field">Nama</div>
-            <div className="value">Altaha</div>
+    <>
+      {admin ? (
+        <>
+          <div className="mainmenu-admin">
+            <AdminHeader />
+            <div className="content">
+              <div className="container-dual">
+                <div className="profile">
+                  <div className="property">
+                    <div className="field">Nama</div>
+                    <div className="value">Altaha</div>
+                  </div>
+                  <div className="property">
+                    <div className="field">Email</div>
+                    <div className="value">altaha@gmail.com</div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      dispatch(logoutadmin());
+                      toast.warn("kamu sudah keluar");
+                    }}
+                    style={{ textDecoration: "inherit" }}
+                    className="back"
+                  >
+                    <div>Keluar</div>
+                  </button>
+                </div>
+                <div className="profile">
+                  <div className="property">
+                    <div className="field">Jabatan</div>
+                    <div className="value">Administrator</div>
+                  </div>
+                  <div className="property">
+                    <div className="field">Status</div>
+                    <div className="value">Aktif</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="property">
-            <div className="field">Email</div>
-            <div className="value">altaha@gmail.com</div>
-          </div>
-          <div className="property">
-            <div className="field">Jabatan</div>
-            <div className="value">Administrator</div>
-          </div>
-          <div className="property">
-            <div className="field">Status</div>
-            <div className="value">Aktif</div>
-          </div>
-        </div>
-        <Link to="/admin/login"  style={{ textDecoration: "inherit" }}>
-          <div className="back">Keluar</div>
-        </Link>
-      </div>
-    </div>
+        </>
+      ) : (
+        <>
+          <AdminLogin />
+          {toast.info("anda harus login sebagai admin")}
+        </>
+      )}
+    </>
   );
 };
 

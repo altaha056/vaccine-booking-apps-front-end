@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthorizationHeader } from "../config/axios";
-import { updateProfileAdmin } from "../store/actions/admins";
-import { adminLogin } from "../config/api/vaccine-post";
-import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
+import setAuthorizationHeader from "../config/axios/set-authorization-header";
+import { detailsOwnUser, loginUser } from "../config/api/vaccine-post";
+import { useDispatch } from "react-redux";
+import { updateProfile } from "../store/actions/users";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-
-const AdminLogin = () => {
+import { toast } from "react-toastify";
+const UserLogin = () => {
   const baseData = {
     email: "",
     password: "",
@@ -24,12 +26,12 @@ const AdminLogin = () => {
   const [errMsg, setErrMsg] = useState("");
   const dispatch = useDispatch();
 
-  const { admin } = useSelector((state_admin) => state_admin);
+  const { user } = useSelector((state) => state);
 
-  const saveLoginState = (data_admin) => {
-    localStorage.setItem("vac:token-admin", JSON.stringify(data_admin));
-    setAuthorizationHeader(data_admin.Token);
-    dispatch(updateProfileAdmin(data_admin));
+  const saveLoginState = (data) => {
+    localStorage.setItem("vac:token", JSON.stringify(data));
+    setAuthorizationHeader(data.token);
+    dispatch(updateProfile(data));
   };
 
   const handleInput = (e) => {
@@ -59,16 +61,17 @@ const AdminLogin = () => {
           <p>Password can not be empty</p>
         </div>
       );
+
       return;
     }
-    adminLogin(data)
+    loginUser(data)
       .then((res) => {
         saveLoginState({ ...res.data, email: data.email });
         toast.success("berhasil login");
       })
       .catch(({ meta }) => {
+        //console.log(err);
         meta.description.forEach((err) => {
-          console.log(err);
           toast.error(err);
         });
       });
@@ -76,14 +79,13 @@ const AdminLogin = () => {
 
   return (
     <>
-      {admin ? <Navigate to="/admin/profile" /> : null}
-      <div className="admin-bg-login">
+      {user ? <Navigate to="/user/profile" /> : null}
+      <div className="user-bg-login">
         <div className="loginbox">
           <div className="grid-container-admin">
             <div className="login-header">
               <h1>Login</h1>
             </div>
-
             <div className="login-logo">
               <img src={Logo} alt="logo" />
             </div>
@@ -110,11 +112,21 @@ const AdminLogin = () => {
                   />
                   <label>Password</label>
                 </div>
-
                 <button type="submit">Continue</button>
               </form>
-
               {/* here the error message */}
+              <div className="yet-register">
+                <NavLink to="/user/register" style={{ textDecoration: "none" }}>
+                  <span> create account</span>
+                </NavLink>{" "}
+                or{" "}
+                <NavLink
+                  to="/user/landingpage"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span> log in as guest</span>
+                </NavLink>
+              </div>
               <div className="error-message-container">
                 {errMsgEmail}
                 {errMsgPassword}
@@ -128,4 +140,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default UserLogin;

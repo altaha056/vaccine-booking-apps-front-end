@@ -9,6 +9,7 @@ const lokasivaksin = [
   { value: "RS Bhayangkara", label: "RS Bhayangkara" },
   { value: "RS Permata", label: "RS Permata" },
 ];
+const jadwalvaksin = [{ value: "11 Januari 2022", label: "11 Januari 2022" }];
 
 const jenisvaksin = [
   { value: "Astra zaneca", label: "Astra zaneca" },
@@ -44,10 +45,12 @@ const AdminEditVaccination = () => {
               </div>
             </div>
             <div className="property">
+              <div className="field">Jadwal Vaksin</div>
+              <div className="value">11 Januari 2022</div>
+            </div>
+            <div className="property">
               <div className="field">Sesi Vaksin</div>
-              <div className="value">
-                Sesi 1 Kamis 27 November 2021 08.00 - 11.30 WIB.
-              </div>
+              <div className="value">Sesi 1 08.00 - 11.30 WIB.</div>
             </div>
             <div className="property">
               <div className="field">Jenis Vaksin</div>
@@ -62,6 +65,10 @@ const AdminEditVaccination = () => {
             <p>Lokasi Vaksin</p>
             <div className="dropdown">
               <Select options={lokasivaksin} />
+            </div>
+            <p>Jadwal Vaksin</p>
+            <div className="dropdown">
+              <Select options={jadwalvaksin} />
             </div>
             <p>Sesi Vaksin</p>
             <div className="dropdown">
