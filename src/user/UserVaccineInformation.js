@@ -21,6 +21,7 @@ const UserVaccineInformation = () => {
       .then(({ data }) => {
         console.log(data);
         setParticipantList(data);
+        toast.info("semua data berhasil dimuat");
       })
       .catch((err) => {
         console.log(err.response);
@@ -28,11 +29,6 @@ const UserVaccineInformation = () => {
       });
   }, []);
 
-  if (participantList == null) {
-    toast.info("tidak ada data untuk ditampilkan");
-  } else if (participantList > 0) {
-    toast.info("seluruh data berhasil ditampilkan");
-  }
   return participantList ? (
     <>
       <UserHeader />
@@ -88,9 +84,14 @@ const UserVaccineInformation = () => {
     </>
   ) : (
     <>
-      {user ? null : <UserNotLogin />}
-      <UserHeader />
-      <Loading />
+      {user ? (
+        <>
+          <UserHeader />
+          <Loading />
+        </>
+      ) : (
+        <UserNotLogin />
+      )}
     </>
   );
 };
