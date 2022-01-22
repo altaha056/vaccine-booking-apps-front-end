@@ -11,3 +11,8 @@ export const getParticipantbyUser = () => {
 };
 
 export const getNearbyFacilities = (data) => api.post("/near", data);
+
+export const adminLogin = (data) => api.post("/admin/login", data);
+
+export const registerParticipant = (data, vacId) =>
+  api.post("/participant", data, { params: { vacId } });

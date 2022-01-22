@@ -9,38 +9,32 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import UserNotLogin from "./UserNotLogin";
 import MapBox from "../mapbox/Mapbox";
-import { getNearbyFacilities } from "../config/api/vaccine-post";
+import {
+  getNearbyFacilities,
+  registerParticipant,
+} from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
 import { getVaccineList } from "../config/api/vaccine-post";
 
-const lokasivaksin = [
-  { value: "RS USU", label: "RS USU" },
-  { value: "RS Bhayangkara", label: "RS Bhayangkara" },
-  { value: "RS Permata", label: "RS Permata" },
-];
-
-const jadwalvaksin = [{ value: "11 Januari 2022", label: "11 Januari 2022" }];
-
-const jenisvaksin = [
-  { value: "Astra zaneca", label: "Astra zaneca" },
-  { value: "Sinovac", label: "Sinovac" },
-  { value: "Moderna", label: "Moderna" },
-  { value: "Pfizer", label: "Pfizer" },
-];
-
-const sesivaksin = [
-  { value: "Sesi 1. 07:00 - 12:00", label: "Sesi 1. 07:00 - 12:00" },
-  { value: "Sesi 2. 13:00 - 16.00", label: "Sesi 2. 13:00 - 16.00" },
-];
-
 const UserRegVaccine = () => {
   const [vaccineList, setVaccineList] = useState([]);
+  const [lokasiVaksin, setLokasiVaksin] = useState([]);
+
+  const [sesiVaksin, setSesiVaksin] = useState([]);
+  const [selectedVaccineLocation, setSelectedVaccineLocation] = useState();
+  const [selectedSessionId, setSelectedSessionId] = useState();
 
   useEffect(() => {
     getVaccineList()
       .then(({ data }) => {
         setVaccineList(data);
         console.log(data);
+        setLokasiVaksin(
+          data.map(({ ID, Location, Address }) => ({
+            value: ID,
+            label: Location + " " + Address,
+          }))
+        );
       })
       .catch(() => {
         console.log("error");
@@ -48,24 +42,16 @@ const UserRegVaccine = () => {
   }, []);
 
   const baseData = {
-    email: "",
-    password: "",
-    confirmpassword: "",
     nik: "",
     fullname: "",
-    phonenumber: "",
+    phone_number: "",
+    address: "",
+    session_id: "",
   };
   const [data, setData] = useState(baseData);
   const { user } = useSelector((state) => state);
 
   const [userLocation, setUserLocation] = useState();
-
-  const regexEmail =
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  const [errMsgEmail, setErrMsgEmail] = useState("");
-
-  const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i;
-  const [errMsgPassword, setErrMsgPassword] = useState("");
 
   const regexFullname = /^[a-zA-Z\s]{6,30}$/i;
   const [errMsgFullname, setErrMsgFullname] = useState("");
@@ -82,104 +68,49 @@ const UserRegVaccine = () => {
     const name = e.target.id;
     const value = e.target.value;
 
-    if (name === "email") {
-      if (regexEmail.test(value)) {
-        setErrMsgEmail("");
-      } else {
-        setErrMsgEmail(
+    setData({ ...data, [name]: value });
+    console.log("data: ", data);
+  };
+
+  const handleSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
+
+      if (
+        data.fullname.length === 0 ||
+        data.nik.length === 0 ||
+        data.phone_number.length === 0
+      ) {
+        setErrMsg(
           <div className="error-messages">
-            <p>Seems like your email not valid</p>
+            <p>You must fill all fields</p>
           </div>
         );
+        event.preventDefault();
       }
-    }
-    if (name === "password") {
-      if (regexPassword.test(value)) {
-        setErrMsgPassword("");
-      } else {
-        setErrMsgPassword(
-          <div className="error-messages">
-            <p>
-              Password minimum 8 characters which contain at least 1 number and
-              1 characters
-            </p>
-          </div>
-        );
-      }
-    }
-    if (name === "confirmpassword") {
-      if (value === data.password) {
-        setErrMsgPassword("");
-      } else {
-        setErrMsgPassword(
+      if (data.password != data.confirmpassword) {
+        setErrMsg(
           <div className="error-messages">
             <p>Password not match</p>
           </div>
         );
       }
-    }
-    if (name === "phonenumber") {
-      if (regexPhoneNumber.test(value)) {
-        setErrMsgPhoneNumber("");
-      } else {
-        setErrMsgPhoneNumber(
-          <div className="error-messages">
-            <p>Phone number must contains 9-14 numbers only</p>
-          </div>
-        );
-      }
-    }
-    if (name === "nik") {
-      if (regexNik.test(value)) {
-        setErrMsgNik("");
-      } else {
-        setErrMsgNik(
-          <div className="error-messages">
-            <p>NIK must contain 16 numbers</p>
-          </div>
-        );
-      }
-    }
 
-    if (name === "fullname") {
-      if (regexFullname.test(value)) {
-        setErrMsgFullname("");
-      } else {
-        setErrMsgFullname(
-          <div className="error-messages">
-            <p>Fullname only accept 6-30 characters</p>
-          </div>
-        );
-      }
-    }
-    setData({ ...data, [name]: value });
-    console.log("data: ", data);
-  };
+      data.session_id = selectedSessionId?.value;
 
-  const handleSubmit = (event) => {
-    if (
-      data.email.length === 0 ||
-      data.password.length === 0 ||
-      data.fullname.length === 0 ||
-      data.nik.length === 0 ||
-      data.phonenumber.length === 0
-    ) {
-      setErrMsg(
-        <div className="error-messages">
-          <p>You must fill all fields</p>
-        </div>
-      );
+      registerParticipant(data, selectedVaccineLocation.value)
+        .then((res) => {
+          toast.success("pendaftaran berhasil");
+        })
+        .catch(({ meta }) => {
+          meta.description.forEach((err) => {
+            toast.error(err);
+          });
+        });
       event.preventDefault();
-    }
-    if (data.password != data.confirmpassword) {
-      setErrMsg(
-        <div className="error-messages">
-          <p>Password not match</p>
-        </div>
-      );
-      event.preventDefault();
-    }
-  };
+    },
+    [selectedSessionId, data]
+  );
 
   const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
     useState(null);
@@ -203,6 +134,24 @@ const UserRegVaccine = () => {
     },
     [userLocation]
   );
+
+  useEffect(() => {
+    setSelectedSessionId(null);
+    if (selectedVaccineLocation) {
+      for (let i = 0; i < vaccineList.length; i++) {
+        const element = vaccineList[i];
+        if (element.ID == selectedVaccineLocation.value) {
+          setSesiVaksin(
+            element.Sessions.map(({ ID, Description, StartTime }) => ({
+              value: ID,
+              label: Description + " " + StartTime,
+            }))
+          );
+        }
+      }
+      console.log(selectedVaccineLocation);
+    }
+  }, [selectedVaccineLocation]);
 
   return (
     <>
@@ -260,44 +209,64 @@ const UserRegVaccine = () => {
               </div>
             </div>
             <div className="profile">
-              <form>
+              <form spellCheck="false" onSubmit={handleSubmit}>
                 <p>Nama</p>
-                <input className="inputuser" type="text" name="nama" required />
+                <input
+                  className="inputuser"
+                  type="text"
+                  id="fullname"
+                  onChange={handleInput}
+                  value={data.fullname}
+                  required
+                />
                 <p>NIK</p>
                 <input
                   className="inputuser"
                   type="number"
-                  name="nik"
+                  onChange={handleInput}
+                  id="nik"
+                  value={data.nik}
                   required
                 />
                 <p>Nomor telepon</p>
                 <input
                   className="inputuser"
                   type="number"
-                  name="nomor_telepon"
+                  onChange={handleInput}
+                  id="phone_number"
+                  value={data.phone_number}
                   required
                 />
                 <p>Alamat</p>
                 <input
                   className="inputuser"
                   type="text"
-                  name="alamat"
+                  onChange={handleInput}
+                  id="address"
+                  value={data.address}
                   required
                 />
 
                 <p>Lokasi Vaksin</p>
                 <div className="dropdown">
-                  <Select options={lokasivaksin} />
-                </div>
-
-                <p>Jadwal Vaksin</p>
-                <div className="dropdown">
-                  <Select options={jadwalvaksin} />
+                  <Select
+                    options={lokasiVaksin}
+                    value={selectedVaccineLocation}
+                    onChange={setSelectedVaccineLocation}
+                    required
+                  />
                 </div>
 
                 <p>Sesi Vaksin</p>
                 <div className="dropdown">
-                  <Select options={sesivaksin} />
+                  <Select
+                    options={sesiVaksin}
+                    value={selectedSessionId}
+                    onChange={setSelectedSessionId}
+                    id="session_id"
+                    required
+                    // onChange={handleInput}
+                  />
                 </div>
                 <div className="dialog-button">
                   <Link

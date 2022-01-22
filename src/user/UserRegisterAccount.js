@@ -60,7 +60,7 @@ const UserRegisterAccount = () => {
         setErrMsgPassword(
           <div className="error-messages">
             <p>
-              Password minimum 8 characters wchic contain at least 1 number and
+              Password minimum 8 characters which contain at least 1 number and
               1 characters
             </p>
           </div>
