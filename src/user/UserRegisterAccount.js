@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { registerUser } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
@@ -115,6 +115,8 @@ const UserRegisterAccount = () => {
     console.log("data: ", data);
   };
 
+  const [successRegistered, setSuccessRegistered] = useState(false);
+
   const handleSubmit = (event) => {
     if (
       data.email.length === 0 ||
@@ -141,6 +143,7 @@ const UserRegisterAccount = () => {
     registerUser(data)
       .then((res) => {
         toast.success("berhasil daftar");
+        setSuccessRegistered(true);
       })
       .catch(({ meta }) => {
         //console.log(err);
@@ -151,8 +154,11 @@ const UserRegisterAccount = () => {
     event.preventDefault();
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
+      {successRegistered ? navigate("/user/login") : null}
       {user ? <Navigate to="/user/profile" /> : null}
       <div className="user-bg-login">
         <div className="loginbox">
