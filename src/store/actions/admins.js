@@ -1,10 +1,10 @@
-import { LOGOUT, UPDATE_PROFILE } from "../../constants/types/admins";
+import { LOGOUT_ADMIN, UPDATE_PROFILE_ADMIN } from "../../constants/types/admins";
 
-export const updateProfile = (profile = {}) => {
+export const updateProfileAdmin = (profile_admin = {}) => {
   return {
-    type: UPDATE_PROFILE,
-    payload: profile,
+    type: UPDATE_PROFILE_ADMIN,
+    payload: profile_admin,
   };
 };
 
-export const logout = () => ({ type: LOGOUT });
+export const logoutadmin = () => ({ type: LOGOUT_ADMIN });
