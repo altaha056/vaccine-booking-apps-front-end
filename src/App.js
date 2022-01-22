@@ -31,6 +31,7 @@ import { updateProfile } from "./store/actions/users";
 import { useDispatch } from "react-redux";
 import { setAuthorizationHeader } from "./config/axios";
 import Loading from "./style/Loading";
+import { updateProfileAdmin } from "./store/actions/admins";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,16 @@ function App() {
       setLoading(true);
     } else setLoading(true);
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("vac:token-admin")) {
+      const adminData = JSON.parse(localStorage.getItem("vac:token-admin"));
+      setAuthorizationHeader(adminData.Token);
+      dispatch(updateProfileAdmin(adminData));
+      setLoading(true);
+    } else setLoading(true);
+  }, []);
+
   return loading ? (
     <>
       <Footer />

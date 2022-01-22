@@ -1,0 +1,3 @@
+export const OAUTH_ADMIN = "OAUTH_ADMIN";
+export const UPDATE_PROFILE_ADMIN = "UPDATE_PROFILE_ADMIN";
+export const LOGOUT_ADMIN = "LOGOUT_ADMIN";
