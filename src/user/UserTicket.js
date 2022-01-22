@@ -5,11 +5,15 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 const UserTicket = () => {
   const [participantData, setParticipantData] = useState(null);
 
   const { id } = useParams();
+
+  const formatDate = (date) => moment(date).locale("id").format("ll");
+  const formatHour = (date) => moment(date).format("LT");
 
   useEffect(() => {
     getParticipantbyId(id)
@@ -52,7 +56,12 @@ const UserTicket = () => {
             <div className="profile">
               <div className="property">
                 <div className="field">Nomor Vaksin</div>
-                <div className="value">2839747236482387462384</div>
+                <div className="value">
+                  {participantData?.Vac.ID}
+                  {participantData?.SessionID}
+                  {participantData?.UserID}
+                  {participantData?.ID}
+                </div>
               </div>
               <div className="property">
                 <div className="field">Lokasi Vaksin</div>
@@ -65,14 +74,16 @@ const UserTicket = () => {
               <div className="property">
                 <div className="field">Jadwal Vaksin</div>
                 <div className="value">
-                  {participantData?.Session.StartTime}
+                  {formatDate(participantData?.Session.StartTime)}
                 </div>
               </div>
 
               <div className="property">
                 <div className="field">Sesi Vaksin</div>
                 <div className="value">
-                  {participantData?.Session.StartTime}
+                  {participantData?.Session.Description}
+                  <br />
+                  {formatHour(participantData?.Session.StartTime)}
                 </div>
               </div>
             </div>
