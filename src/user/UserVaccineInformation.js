@@ -84,9 +84,14 @@ const UserVaccineInformation = () => {
     </>
   ) : (
     <>
-      {user ? null : <UserNotLogin />}
-      <UserHeader />
-      <Loading />
+      {user ? (
+        <>
+          <UserHeader />
+          <Loading />
+        </>
+      ) : (
+        <UserNotLogin />
+      )}
     </>
   );
 };
