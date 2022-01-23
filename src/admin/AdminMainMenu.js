@@ -36,7 +36,7 @@ const AdminMainMenu = () => {
         <div className="content">
           {vaccineList ? (
             <>
-              <h2>Daftar Vaksinasi yang Akan dilaksanakan</h2>
+              <h2>Daftar Seluruh Program Vaksinasi</h2>
               <table>
                 <tr>
                   <th>No.</th>
