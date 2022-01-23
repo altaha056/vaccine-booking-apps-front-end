@@ -46,6 +46,7 @@ const AdminOwnVac = () => {
                   <th>Lokasi Vaksin</th>
                   <th>Sesi</th>
                   <th>Jenis Vaksin</th>
+                  <th>Partisipan</th>
                 </tr>
 
                 {vaccineList.map((vaccine, index) => (
@@ -72,6 +73,14 @@ const AdminOwnVac = () => {
                       ))}
                     </td>
                     <td>{vaccine.VacType}</td>
+                    <td>
+                      <Link
+                        to={`/admin/participant/${vaccine.ID}`}
+                        style={{ textDecoration: "inherit" }}
+                      >
+                        <div className="ubah">Lihat</div>
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </table>

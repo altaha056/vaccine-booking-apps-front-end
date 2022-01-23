@@ -20,3 +20,5 @@ export const registerParticipant = (data, vacId) =>
 export const getParticipantbyId = (userId) => api.get(`/participant/${userId}`);
 
 export const getVacbyAdminId = (adminId) => api.get(`/vacbyadmin/${adminId}`);
+export const getParticipantByVacId = (adminId) =>
+  api.get(`/participant/vac/${adminId}`);
