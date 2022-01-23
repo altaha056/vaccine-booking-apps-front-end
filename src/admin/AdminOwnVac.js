@@ -16,18 +16,18 @@ const AdminOwnVac = () => {
   const [vaccineList, setVaccineList] = useState([]);
 
   const { admin } = useSelector((state_admin) => state_admin);
-  const { adminId } = admin.ID;
 
   useEffect(() => {
-    getVacbyAdminId(adminId)
-      .then(({ data }) => {
-        setVaccineList(data);
-        toast.info("Seluruh data berhasil dimuat");
-      })
-      .catch(() => {
-        toast.error("oops sepertinya ada kesalahan");
-      });
-  }, []);
+    if (admin)
+      getVacbyAdminId(admin.ID)
+        .then(({ data }) => {
+          setVaccineList(data);
+          toast.info("Seluruh data berhasil dimuat");
+        })
+        .catch(() => {
+          toast.error("oops sepertinya ada kesalahan");
+        });
+  }, [admin]);
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
