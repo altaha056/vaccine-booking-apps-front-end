@@ -360,6 +360,13 @@ table td .na {
   margin-top: 10pt;
   font-weight: 600;
 }
+.mainmenu-admin .content h1 {
+  color: #006d7c;
+  max-width: 15ch;
+  font-size: 40pt;
+  margin-top: 10pt;
+  font-weight: 600;
+}
 .mainmenu-user .content p {
   color: #006d7c;
   max-width: 25ch;
@@ -367,6 +374,13 @@ table td .na {
   font-weight: 500;
 }
 .mainmenu-user .content h2 {
+  color: #006d7c;
+  margin-bottom: 20pt;
+  max-width: 25ch;
+  font-size: 20pt;
+  font-weight: 500;
+}
+.mainmenu-admin .content h2 {
   color: #006d7c;
   margin-bottom: 20pt;
   max-width: 25ch;

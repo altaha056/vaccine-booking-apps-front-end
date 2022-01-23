@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 import UserHeader from "./UserHeader";
-import { Link } from "react-router-dom";
 import { getVaccineList } from "../config/api/vaccine-post";
 import { useState } from "react";
 import moment from "moment";
@@ -63,14 +62,6 @@ const UserVaccineList = () => {
                   ))}
                 </td>
                 <td>{vaccine.VacType}</td>
-                {/* <td>
-                  <Link
-                    to="/user/reg-vaccine"
-                    style={{ textDecoration: "inherit" }}
-                  >
-                    <div className="ubah">Daftar</div>
-                  </Link>
-                </td> */}
               </tr>
             ))}
           </table>

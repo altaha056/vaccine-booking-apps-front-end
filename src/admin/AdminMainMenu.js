@@ -1,76 +1,80 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/style.css";
 import { Link } from "react-router-dom";
 import { AdminHeader } from "./AdminHeader";
+
+import { getVaccineList } from "../config/api/vaccine-post";
+import { useState } from "react";
+import moment from "moment";
+import { toast } from "react-toastify";
+import Loading from "../style/Loading";
+
 const AdminMainMenu = () => {
-  return (
-    <div className="mainmenu-admin">
+  const [vaccineList, setVaccineList] = useState([]);
+
+  useEffect(() => {
+    getVaccineList()
+      .then(({ data }) => {
+        setVaccineList(data);
+        toast.info("Seluruh data berhasil ditampilkan");
+      })
+      .catch(() => {
+        toast.error("oops sepertinya ada kesalahan");
+      });
+  }, []);
+
+  const formatDate = (date) => moment(date).locale("id").format("ll");
+  const formatHour = (date) => moment(date).format("LT");
+
+  return vaccineList ? (
+    <>
       <AdminHeader />
-      <div className="content">
-        <table>
-          <tr>
-            <th>No.</th>
-            <th>Lokasi Vaksin</th>
-            <th>Jadwal Vaksin</th>
-            <th>Sesi Vaksin</th>
-            <th>Vaksin</th>
-            <th>Stok</th>
-            <th>Sisa Stok</th>
-            <th>Peserta</th>
-            <th>Edit</th>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>
-              RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka, Kec.
-              Medan Baru, Kota Medan, Sumatera Utara 20154
-            </td>
-            <td>Kamis 27 November 2021 </td>
-            <td>Sesi 1 08.00 - 11.30 WIB.</td>
-            <td>Sinovac</td>
-            <td>240</td>
-            <td>239</td>
-            <td>
-              <Link
-                to="/admin/participant"
-                style={{ textDecoration: "inherit" }}
-              >
-                <div className="ubah">Lihat</div>
-              </Link>
-            </td>
-            <td>
-              <div className="hapus">Hapus</div>
-            </td>
-          </tr>
-          <tr>
-            <td>2.</td>
-            <td>
-              RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka, Kec.
-              Medan Baru, Kota Medan, Sumatera Utara 20154
-            </td>
-            <td>Kamis 27 November 2021 </td>
-            <td>Sesi 1 13.00.00 - 17.30 WIB.</td>
-            <td>Sinovac</td>
-            <td>240</td>
-            <td>239</td>
-            <td>
-              <Link
-                to="/admin/participant"
-                style={{ textDecoration: "inherit" }}
-              >
-                <div className="ubah">Lihat</div>
-              </Link>
-            </td>
-            <td>
-              <div className="na">N/A</div>
-            </td>
-          </tr>
-        </table>
-        <Link to="/admin/add-vaccination" style={{ textDecoration: "inherit" }}>
-          <div className="add">Tambah Kegiatan</div>
-        </Link>
+      <div className="mainmenu-admin">
+        <div className="content">
+          <h2>Daftar Vaksinasi yang Akan dilaksanakan</h2>
+          <table>
+            <tr>
+              <th>No.</th>
+              <th>Deskripsi Vaksin</th>
+              <th>Lokasi Vaksin</th>
+              <th>Sesi</th>
+              <th>Jenis Vaksin</th>
+            </tr>
+            {vaccineList.map((vaccine, index) => (
+              <tr key={index}>
+                <td>{index + 1}.</td>
+                <td>{vaccine.Description}</td>
+                <td style={{ width: 400 }}>
+                  {vaccine.Location}
+                  <br />
+                  {vaccine.Address}
+                </td>
+                <td>
+                  {vaccine.Sessions.map((ses, i) => (
+                    <>
+                      {ses.Description}: <br />
+                      {formatDate(ses.StartTime)}
+                      {" - "}
+                      {formatDate(ses.EndTime)} <br />
+                      {formatHour(ses.StartTime)} {" - "}
+                      {formatHour(ses.EndTime)}
+                      <br />
+                      <br />
+                    </>
+                  ))}
+                </td>
+                <td>{vaccine.VacType}</td>
+              </tr>
+            ))}
+          </table>
+        </div>
       </div>
-    </div>
+    </>
+  ) : (
+    <>
+      <AdminHeader />
+      <Loading />
+    </>
   );
 };
 
