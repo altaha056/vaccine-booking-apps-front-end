@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { logoutadmin } from "../store/actions/admins";
 import "../style/style.css";
 import { AdminHeader } from "./AdminHeader";
@@ -23,11 +23,11 @@ const AdminProfile = () => {
                 <div className="profile">
                   <div className="property">
                     <div className="field">Nama</div>
-                    <div className="value">Altaha</div>
+                    <div className="value">{admin?.Name}</div>
                   </div>
                   <div className="property">
                     <div className="field">Email</div>
-                    <div className="value">altaha@gmail.com</div>
+                    <div className="value">{admin?.Email}</div>
                   </div>
 
                   <button
@@ -44,11 +44,7 @@ const AdminProfile = () => {
                 <div className="profile">
                   <div className="property">
                     <div className="field">Jabatan</div>
-                    <div className="value">Administrator</div>
-                  </div>
-                  <div className="property">
-                    <div className="field">Status</div>
-                    <div className="value">Aktif</div>
+                    <div className="value">{admin?.Position}</div>
                   </div>
                 </div>
               </div>
@@ -57,7 +53,7 @@ const AdminProfile = () => {
         </>
       ) : (
         <>
-          <AdminLogin />
+          <Navigate to="/admin/login" />
           {toast.info("anda harus login sebagai admin")}
         </>
       )}
