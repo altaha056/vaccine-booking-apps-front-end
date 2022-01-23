@@ -67,7 +67,7 @@ const UserTicket = () => {
                 <div className="add">
                   <Pdf
                     targetRef={ref}
-                    filename="tiken-vaksin.pdf"
+                    filename="tiket-vaksin.pdf"
                     x={1.2}
                     y={1.2}
                     scale={1.6}
