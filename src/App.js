@@ -76,7 +76,10 @@ function App() {
             element={<AdminEditVaccination />}
           />
           <Route path="/admin/test" element={<AdminNews />} />
-          <Route path="/admin/participant" element={<AdminParticipantList />} />
+          <Route
+            path="/admin/participant/:id"
+            element={<AdminParticipantList />}
+          />
 
           {/* not found */}
           <Route path="*" element={<NotFound />} />
