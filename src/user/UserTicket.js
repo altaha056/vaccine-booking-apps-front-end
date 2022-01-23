@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Pdf from "react-to-pdf";
 import moment from "moment";
+import { useTable, usePagination } from "react-table";
 
 const UserTicket = () => {
   const [participantData, setParticipantData] = useState(null);
@@ -29,7 +30,7 @@ const UserTicket = () => {
       .then(({ data }) => {
         console.log(data);
         setParticipantData(data);
-        toast.info("semua data berhasil dimuat");
+        toast.info("data berhasil dimuat");
       })
       .catch((err) => {
         console.log(err.response);
@@ -66,7 +67,7 @@ const UserTicket = () => {
                 <div className="add">
                   <Pdf
                     targetRef={ref}
-                    filename="tiken-vaksin.pdf"
+                    filename="tiket-vaksin.pdf"
                     x={1.2}
                     y={1.2}
                     scale={1.6}

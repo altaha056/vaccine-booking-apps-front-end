@@ -15,6 +15,7 @@ import {
 } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
 import { getVaccineList } from "../config/api/vaccine-post";
+import moment from "moment";
 
 const UserRegVaccine = () => {
   const [vaccineList, setVaccineList] = useState([]);
@@ -51,6 +52,8 @@ const UserRegVaccine = () => {
   const [data, setData] = useState(baseData);
   const { user } = useSelector((state) => state);
 
+  const formatDate = (date) => moment(date).locale("id").format("ll");
+  const formatHour = (date) => moment(date).format("LT");
   const [userLocation, setUserLocation] = useState();
 
   const regexFullname = /^[a-zA-Z\s]{6,30}$/i;
@@ -98,13 +101,13 @@ const UserRegVaccine = () => {
 
       data.session_id = selectedSessionId?.value;
 
-      registerParticipant(data, selectedVaccineLocation.value)
+      registerParticipant(data, selectedVaccineLocation?.value)
         .then((res) => {
-          toast.success("pendaftaran berhasil");
+          toast.success("pendaftaran berhasil 🤩 🥳 ");
         })
         .catch(({ meta }) => {
           meta.description.forEach((err) => {
-            toast.error(err);
+            toast.warn(err);
           });
         });
       event.preventDefault();
@@ -144,7 +147,12 @@ const UserRegVaccine = () => {
           setSesiVaksin(
             element.Sessions.map(({ ID, Description, StartTime }) => ({
               value: ID,
-              label: Description + " " + StartTime,
+              label:
+                Description +
+                " tanggal " +
+                formatDate(StartTime) +
+                " pukul " +
+                formatDate(StartTime),
             }))
           );
         }
