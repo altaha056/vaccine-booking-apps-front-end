@@ -3,21 +3,23 @@ import "../style/style.css";
 import { Link, Navigate } from "react-router-dom";
 import { AdminHeader } from "./AdminHeader";
 
-import { getVaccineList } from "../config/api/vaccine-post";
+import { getVacbyAdminId, getVaccineList } from "../config/api/vaccine-post";
+
 import { useState } from "react";
 import moment from "moment";
 import { toast } from "react-toastify";
 import Loading from "../style/Loading";
-import { useDispatch, useSelector } from "react-redux";
+import { createSelectorHook, useDispatch, useSelector } from "react-redux";
 import AdminLogin from "./AdminLogin";
 
-const AdminMainMenu = () => {
+const AdminOwnVac = () => {
   const [vaccineList, setVaccineList] = useState([]);
 
   const { admin } = useSelector((state_admin) => state_admin);
+  const { adminId } = admin.ID;
 
   useEffect(() => {
-    getVaccineList()
+    getVacbyAdminId(adminId)
       .then(({ data }) => {
         setVaccineList(data);
         toast.info("Seluruh data berhasil dimuat");
@@ -88,4 +90,4 @@ const AdminMainMenu = () => {
   );
 };
 
-export default AdminMainMenu;
+export default AdminOwnVac;

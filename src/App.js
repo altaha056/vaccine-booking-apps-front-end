@@ -32,6 +32,7 @@ import { useDispatch } from "react-redux";
 import { setAuthorizationHeader } from "./config/axios";
 import Loading from "./style/Loading";
 import { updateProfileAdmin } from "./store/actions/admins";
+import AdminOwnVac from "./admin/AdminOwnVac";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ function App() {
           {/* admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/main-menu" element={<AdminMainMenu />} />
+          <Route path="/admin/ownvac" element={<AdminOwnVac />} />
           <Route
             path="/admin/add-vaccination"
             element={<AdminAddVaccination />}
