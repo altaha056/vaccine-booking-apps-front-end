@@ -150,12 +150,8 @@ const AdminParticipantList = () => {
                           </div>
                         </>
                       ) : null}
-                      {par.Status == "VACCINATED" ? (
-                        <div className="konfirmasi">vaccinated</div>
-                      ) : null}
-                      {par.Status == "canceled" ? (
-                        <div className="hapus">canceled</div>
-                      ) : null}
+                      {par.Status == "VACCINATED" ? <>vaccinated</> : null}
+                      {par.Status == "canceled" ? <>canceled</> : null}
                     </td>
                   </tr>
                 ))}
