@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "../style/style.css";
 import { Link, Navigate } from "react-router-dom";
 import { AdminHeader } from "./AdminHeader";
@@ -17,17 +17,21 @@ const AdminOwnVac = () => {
 
   const { admin } = useSelector((state_admin) => state_admin);
 
+  const getAllData = useCallback(() => {
+    getVacbyAdminId(admin.ID)
+      .then(({ data }) => {
+        setVaccineList(data);
+        // toast.info("Seluruh data berhasil dimuat");
+      })
+      .catch(() => {
+        toast.error("oops sepertinya ada kesalahan");
+      });
+  }, []);
+
   useEffect(() => {
-    if (admin)
-      getVacbyAdminId(admin.ID)
-        .then(({ data }) => {
-          setVaccineList(data);
-          toast.info("Seluruh data berhasil dimuat");
-        })
-        .catch(() => {
-          toast.error("oops sepertinya ada kesalahan");
-        });
+    if (admin) getAllData();
   }, [admin]);
+
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
@@ -38,15 +42,16 @@ const AdminOwnVac = () => {
         <div className="content">
           {vaccineList ? (
             <>
-              <h2>Daftar Vaksinasi yang Akan dilaksanakan</h2>
+              <h2>Daftar Vaksinasi Saya</h2>
               <table>
                 <tr>
                   <th>No.</th>
                   <th>Deskripsi Vaksin</th>
                   <th>Lokasi Vaksin</th>
                   <th>Sesi</th>
-                  <th>Jenis Vaksin</th>
+                  <th>Vaksin</th>
                   <th>Partisipan</th>
+                  <th>Hapus</th>
                 </tr>
 
                 {vaccineList.map((vaccine, index) => (
@@ -72,7 +77,13 @@ const AdminOwnVac = () => {
                         </>
                       ))}
                     </td>
-                    <td>{vaccine.VacType}</td>
+                    <td>
+                      {vaccine.VacType}
+
+                      <br />
+                      {"Stok vaksin: "}
+                      {vaccine.Stock}
+                    </td>
                     <td>
                       <Link
                         to={`/admin/participant/${vaccine.ID}`}
@@ -80,6 +91,9 @@ const AdminOwnVac = () => {
                       >
                         <div className="ubah">Lihat</div>
                       </Link>
+                    </td>
+                    <td>
+                      <div className="hapus">Hapus</div>
                     </td>
                   </tr>
                 ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import "../style/style.css";
 import Select from "react-select";
@@ -8,23 +8,52 @@ import { toast } from "react-toastify";
 import {
   getParticipantbyId,
   getParticipantByVacId,
+  getVacbyId,
 } from "../config/api/vaccine-post";
 import { AdminHeader } from "./AdminHeader";
+import { putParticipantCanceled } from "../config/api/vaccine-post";
+import { putParticipantVaccinated } from "../config/api/vaccine-post";
 import UserNoParticipant from "../user/UserNoParticipant";
+
 const AdminParticipantList = () => {
-  const [participantData, setParticipantData] = useState(null);
+  const [participantData, setParticipantData] = useState([]);
+  const [vaccinationData, setVaccinationData] = useState(null);
 
   const { id } = useParams();
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
-  useEffect(() => {
+  const getAllData = useCallback(() => {
     getParticipantByVacId(id)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         setParticipantData(data);
-        toast.info("data berhasil dimuat");
+        // toast.info("data berhasil dimuat");
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        toast.warn("hmm sepertinya ada kesalahan");
+      });
+  }, []);
+
+  const cancelingUser = useCallback((id) => {
+    putParticipantCanceled(id).then(() => getAllData());
+  }, []);
+
+  const vaccinatingUser = useCallback((id) => {
+    putParticipantVaccinated(id).then(() => getAllData());
+  }, []);
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+
+  useEffect(() => {
+    getVacbyId(id)
+      .then(({ data }) => {
+        console.log(data);
+        setVaccinationData(data);
       })
       .catch((err) => {
         console.log(err.response);
@@ -42,74 +71,108 @@ const AdminParticipantList = () => {
             <div className="profile">
               <div className="property">
                 <div className="field">Lokasi</div>
-                <div className="value">
-                  RS Universitas Sumatera Utara Jl. Dr. Mansyur No.66, Merdeka,
-                  Kec. Medan Baru, Kota Medan, Sumatera Utara 20154
-                </div>
+                <div className="value">{vaccinationData?.Location}</div>
               </div>
               <div className="property">
-                <div className="field">Jadwal Vaksin</div>
-                <div className="value">Kamis 27 November 2021</div>
+                <div className="field">Alamat</div>
+                <div className="value">{vaccinationData?.Address}</div>
               </div>
-              <div className="property">
-                <div className="field">Sesi Vaksin</div>
-                <div className="value">Sesi 1 08.00 - 11.30 WIB.</div>
-              </div>
+
               <div className="property">
                 <div className="field">Jenis Vaksin</div>
-                <div className="value">Sinovac</div>
+                <div className="value">{vaccinationData?.VacType}</div>
               </div>
               <div className="property">
                 <div className="field">Stok Vaksin</div>
-                <div className="value">240</div>
+                <div className="value">{vaccinationData?.Stock}</div>
               </div>
+            </div>
+            <div className="profile">
+              <div className="property">
+                <div className="field">Jadwal dan Sesi Vaksin</div>
+                <div className="value">
+                  {vaccinationData?.Sessions.map((ses, i) => (
+                    <>
+                      {ses.Description}: <br />
+                      {formatDate(ses.StartTime)}
+                      {" - "}
+                      {formatDate(ses.EndTime)} <br />
+                      {formatHour(ses.StartTime)} {" - "}
+                      {formatHour(ses.EndTime)}
+                      <br />
+                      <br />
+                    </>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          {participantData.length != 0 ? (
+            <>
+              <h2>Daftar Partisipan</h2>
+              <table>
+                <tr>
+                  <th>No.</th>
+                  <th>Nama Partisipan</th>
+                  <th>NIK</th>
+                  <th>Nomor Telepon</th>
+                  <th>Alamat</th>
+                  <th>Sesi</th>
+                  <th>Status</th>
+                </tr>
+                {participantData.map((par, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}.</td>
+                    <td>{par.Fullname}</td>
+                    <td>{par.Nik}</td>
+                    <td>{par.PhoneNumber}</td>
+                    <td>{par.Address}</td>
+                    <td>
+                      {par.Session.Description}
+                      <br />
+                      {formatHour(par.Session.StartTime)}
+                    </td>
+                    <td>
+                      {par.Status == "registered" ? (
+                        <>
+                          <div
+                            className="konfirmasi"
+                            onClick={() => vaccinatingUser(par.ID)}
+                          >
+                            Vaccinate
+                          </div>
+                          <br />
+                          <div
+                            className="hapus"
+                            onClick={() => cancelingUser(par.ID)}
+                          >
+                            Reject
+                          </div>
+                        </>
+                      ) : null}
+                      {par.Status == "VACCINATED" ? <>vaccinated</> : null}
+                      {par.Status == "canceled" ? <>canceled</> : null}
+                    </td>
+                  </tr>
+                ))}
+              </table>
 
               <div className="dialog-button">
                 <Link to="/admin/ownvac" style={{ textDecoration: "inherit" }}>
                   <div className="back">Kembali</div>
                 </Link>
               </div>
-            </div>
-            <div className="profile">
-              {participantData ? (
-                <>
-                  <div className="property">
-                    <div className="value">Daftar Peserta</div>
-                  </div>
-                  <table>
-                    <tr>
-                      <th>No.</th>
-                      <th>Nama Partisipan</th>
-                      <th>NIK</th>
-                      <th>Nomor Telepon</th>
-                      <th>Alamat</th>
-                      <th>Sesi</th>
-                      <th>Status</th>
-                    </tr>
-                    {participantData.map((par, index) => (
-                      <tr key={index}>
-                        <td>{index + 1}.</td>
-                        <td>{par.Fullname}</td>
-                        <td>{par.Nik}</td>
-                        <td>{par.PhoneNumber}</td>
-                        <td>{par.Address}</td>
-                        <td>
-                          {par.Session.Description}
-                          <br />
-                          {formatHour(par.Session.StartTime)}
-                        </td>
-                        <td>{par.Status}</td>
-                      </tr>
-                    ))}
-                  </table>
-                </>
-              ) : (
-                <>
-                  <UserNoParticipant />
-                </>
-              )}
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <h2>Belum ada partisipan</h2>
+              <div className="dialog-button">
+                <Link to="/admin/ownvac" style={{ textDecoration: "inherit" }}>
+                  <div className="back">Kembali</div>
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
