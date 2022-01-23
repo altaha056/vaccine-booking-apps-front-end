@@ -16,3 +16,5 @@ export const adminLogin = (data) => api.post("/admin/login", data);
 
 export const registerParticipant = (data, vacId) =>
   api.post("/participant", data, { params: { vacId } });
+
+export const getParticipantbyId = (userId) => api.get(`/participant/${userId}`);

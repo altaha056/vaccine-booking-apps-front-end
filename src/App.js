@@ -35,7 +35,6 @@ import { updateProfileAdmin } from "./store/actions/admins";
 
 function App() {
   const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -93,7 +92,7 @@ function App() {
             path="/user/agreement"
             element={<UserAgreementBeforRegisterVaccine />}
           />
-          <Route path="/user/ticket" element={<UserTicket />} />
+          <Route path="/user/ticket/:id" element={<UserTicket />} />
           <Route
             path="/user/edit-vaccination"
             element={<UserEditVaccineRegistration />}
