@@ -25,3 +25,9 @@ export const getVacbyId = (vacId) => api.get(`/vac/${vacId}`);
 
 export const getParticipantByVacId = (adminId) =>
   api.get(`/participant/vac/${adminId}`);
+
+export const putParticipantVaccinated = (id) =>
+  api.put("/participant/vaccinated", null, { params: { id } });
+
+export const putParticipantCanceled = (id) =>
+  api.put("/participant/canceled", null, { params: { id } });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import "../style/style.css";
 import Select from "react-select";
@@ -11,7 +11,10 @@ import {
   getVacbyId,
 } from "../config/api/vaccine-post";
 import { AdminHeader } from "./AdminHeader";
+import { putParticipantCanceled } from "../config/api/vaccine-post";
+import { putParticipantVaccinated } from "../config/api/vaccine-post";
 import UserNoParticipant from "../user/UserNoParticipant";
+
 const AdminParticipantList = () => {
   const [participantData, setParticipantData] = useState([]);
   const [vaccinationData, setVaccinationData] = useState(null);
@@ -21,18 +24,31 @@ const AdminParticipantList = () => {
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
-  useEffect(() => {
+  const getAllData = useCallback(() => {
     getParticipantByVacId(id)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         setParticipantData(data);
-        toast.info("data berhasil dimuat");
+        // toast.info("data berhasil dimuat");
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
         toast.warn("hmm sepertinya ada kesalahan");
       });
   }, []);
+
+  const cancelingUser = useCallback((id) => {
+    putParticipantCanceled(id).then(() => getAllData());
+  }, []);
+
+  const vaccinatingUser = useCallback((id) => {
+    putParticipantVaccinated(id).then(() => getAllData());
+  }, []);
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+
   useEffect(() => {
     getVacbyId(id)
       .then(({ data }) => {
@@ -61,6 +77,15 @@ const AdminParticipantList = () => {
                 <div className="field">Alamat</div>
                 <div className="value">{vaccinationData?.Address}</div>
               </div>
+
+              <div className="property">
+                <div className="field">Jenis Vaksin</div>
+                <div className="value">{vaccinationData?.VacType}</div>
+              </div>
+              <div className="property">
+                <div className="field">Stok Vaksin</div>
+                <div className="value">{vaccinationData?.Stock}</div>
+              </div>
             </div>
             <div className="profile">
               <div className="property">
@@ -81,17 +106,6 @@ const AdminParticipantList = () => {
                 </div>
               </div>
             </div>
-            <div className="profile">
-              <div className="property">
-                <div className="field">Jenis Vaksin</div>
-                <div className="value">{vaccinationData?.VacType}</div>
-              </div>
-              <div className="property">
-                <div className="field">Stok Vaksin</div>
-                <div className="value">{vaccinationData?.Stock}</div>
-              </div>
-            </div>
-            <div className="profile"></div>
           </div>
           {participantData.length != 0 ? (
             <>
@@ -118,7 +132,31 @@ const AdminParticipantList = () => {
                       <br />
                       {formatHour(par.Session.StartTime)}
                     </td>
-                    <td>{par.Status}</td>
+                    <td>
+                      {par.Status == "registered" ? (
+                        <>
+                          <div
+                            className="konfirmasi"
+                            onClick={() => vaccinatingUser(par.ID)}
+                          >
+                            Vaccinate
+                          </div>
+                          <br />
+                          <div
+                            className="hapus"
+                            onClick={() => cancelingUser(par.ID)}
+                          >
+                            Reject
+                          </div>
+                        </>
+                      ) : null}
+                      {par.Status == "VACCINATED" ? (
+                        <div className="konfirmasi">vaccinated</div>
+                      ) : null}
+                      {par.Status == "canceled" ? (
+                        <div className="hapus">canceled</div>
+                      ) : null}
+                    </td>
                   </tr>
                 ))}
               </table>

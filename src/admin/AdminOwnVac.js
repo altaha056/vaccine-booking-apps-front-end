@@ -45,7 +45,7 @@ const AdminOwnVac = () => {
                   <th>Deskripsi Vaksin</th>
                   <th>Lokasi Vaksin</th>
                   <th>Sesi</th>
-                  <th>Jenis Vaksin</th>
+                  <th>Vaksin</th>
                   <th>Partisipan</th>
                 </tr>
 
@@ -72,7 +72,13 @@ const AdminOwnVac = () => {
                         </>
                       ))}
                     </td>
-                    <td>{vaccine.VacType}</td>
+                    <td>
+                      {vaccine.VacType}
+
+                      <br />
+                      {"Stok vaksin: "}
+                      {vaccine.Stock}
+                    </td>
                     <td>
                       <Link
                         to={`/admin/participant/${vaccine.ID}`}

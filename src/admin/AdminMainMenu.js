@@ -43,7 +43,7 @@ const AdminMainMenu = () => {
                   <th>Deskripsi Vaksin</th>
                   <th>Lokasi Vaksin</th>
                   <th>Sesi</th>
-                  <th>Jenis Vaksin</th>
+                  <th>Vaksin</th>
                 </tr>
 
                 {vaccineList.map((vaccine, index) => (
@@ -69,7 +69,12 @@ const AdminMainMenu = () => {
                         </>
                       ))}
                     </td>
-                    <td>{vaccine.VacType}</td>
+                    <td>
+                      {vaccine.VacType}
+                      <br />
+                      {"Stok vaksin: "}
+                      {vaccine.Stock}
+                    </td>
                   </tr>
                 ))}
               </table>
