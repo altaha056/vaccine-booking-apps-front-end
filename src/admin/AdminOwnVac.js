@@ -3,7 +3,11 @@ import "../style/style.css";
 import { Link, Navigate } from "react-router-dom";
 import { AdminHeader } from "./AdminHeader";
 
-import { getVacbyAdminId, getVaccineList } from "../config/api/vaccine-post";
+import {
+  deleteVac,
+  getVacbyAdminId,
+  getVaccineList,
+} from "../config/api/vaccine-post";
 
 import { useState } from "react";
 import moment from "moment";
@@ -28,6 +32,10 @@ const AdminOwnVac = () => {
       });
   }, []);
 
+  const deleteVaccination = useCallback((id) => {
+    deleteVac(id).then(() => getAllData());
+  }, []);
+
   useEffect(() => {
     if (admin) getAllData();
   }, [admin]);
@@ -43,6 +51,14 @@ const AdminOwnVac = () => {
           {vaccineList ? (
             <>
               <h2>Daftar Vaksinasi Saya</h2>
+              <Link
+                to="/admin/add-vaccination"
+                style={{ textDecoration: "inherit" }}
+              >
+                <div className="add">Tambah Vaksinasi</div>
+              </Link>
+              <br />
+
               <table>
                 <tr>
                   <th>No.</th>
@@ -93,7 +109,12 @@ const AdminOwnVac = () => {
                       </Link>
                     </td>
                     <td>
-                      <div className="hapus">Hapus</div>
+                      <div
+                        className="hapus"
+                        onClick={() => deleteVaccination(vaccine.ID)}
+                      >
+                        Hapus
+                      </div>
                     </td>
                   </tr>
                 ))}
