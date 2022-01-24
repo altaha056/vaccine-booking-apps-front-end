@@ -307,6 +307,18 @@ table td .na {
   border: 1pt solid #b7b7b7;
   font-size: 14pt;
 }
+.mainmenu-admin .content form .inputuser:focus {
+  outline: 1pt solid #079cb0;
+}
+.mainmenu-admin .content form .inputuser {
+  min-width: 300pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
 
 .mainmenu-user2 .content h1 {
   font-size: 24pt;
