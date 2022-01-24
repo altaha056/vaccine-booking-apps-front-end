@@ -56,8 +56,9 @@ const AdminAddVaccination = () => {
           <div className="mainmenu-admin">
             <div className="content">
               <h2>Tambah Kegiatan Vaksinasi Baru</h2>
+              <AdminMapBox/>
+
               <form spellCheck="false" onSubmit={handleSubmit}>
-                <AdminMapBox />
                 <div className="container-dual">
                   <div className="profile">
                     <p>Lokasi</p>

@@ -37,8 +37,8 @@ const AdminOwnVac = () => {
   }, []);
 
   useEffect(() => {
-    if (admin) getAllData();
-  }, [admin]);
+    getAllData();
+  }, []);
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
