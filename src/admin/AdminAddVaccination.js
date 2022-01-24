@@ -7,6 +7,7 @@ import { AdminHeader } from "./AdminHeader";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addVacApi } from "../config/api/vaccine-post";
+import AdminMapBox from "../mapbox/AdminMapBox";
 
 const AdminAddVaccination = () => {
   const { admin } = useSelector((state_admin) => state_admin);
@@ -56,6 +57,7 @@ const AdminAddVaccination = () => {
             <div className="content">
               <h2>Tambah Kegiatan Vaksinasi Baru</h2>
               <form spellCheck="false" onSubmit={handleSubmit}>
+                <AdminMapBox />
                 <div className="container-dual">
                   <div className="profile">
                     <p>Lokasi</p>
