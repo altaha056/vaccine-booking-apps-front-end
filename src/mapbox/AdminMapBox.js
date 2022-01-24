@@ -8,7 +8,7 @@ mapboxgl.accessToken =
 export default function AdminMapBox({ onChangePlace = (data) => {} }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(110);
+  const [lng, setLng] = useState(100);
   const [lat, setLat] = useState(0);
   const [zoom, setZoom] = useState(5);
   const [tempat, setTempat] = useState();
