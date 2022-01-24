@@ -1,15 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYWx0YWhhIiwiYSI6ImNreW1lYnp6bDAxbWcyb2xqZjZsYzYwdWsifQ.7Oezd-XT8iHNi4rr2Jtphw";
 
-export default function AdminMapBox() {
+export default function AdminMapBox({ onChangePlace = (data) => {} }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(9);
+  const [lng, setLng] = useState(110);
+  const [lat, setLat] = useState(0);
+  const [zoom, setZoom] = useState(5);
+  const [tempat, setTempat] = useState();
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -24,10 +26,20 @@ export default function AdminMapBox() {
       // console.log(e);
       const { lat, lng } = lngLat;
       fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?limit=1&types=poi%2Ccountry%2Cregion%2Caddress&access_token=pk.eyJ1IjoiYWx0YWhhIiwiYSI6ImNreW1lYnp6bDAxbWcyb2xqZjZsYzYwdWsifQ.7Oezd-XT8iHNi4rr2Jtphw`
-      );
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?limit=1&types=poi%2Ccountry%2Cregion%2Caddress%2Cneighborhood%2Cplace%2Cpostcode%2Clocality%2Cdistrict&access_token=pk.eyJ1IjoiYWx0YWhhIiwiYSI6ImNreW1lYnp6bDAxbWcyb2xqZjZsYzYwdWsifQ.7Oezd-XT8iHNi4rr2Jtphw`
+      )
+        .then((res) => {
+          if (res.status === 200) return res.json();
+        })
+        .then((resJson) => {
+          setTempat(resJson.features[0]);
+        });
     });
   }, []);
+
+  useEffect(() => {
+    onChangePlace(tempat);
+  }, [tempat]);
 
   useEffect(() => {
     if (!map.current) return; // wait for map to initialize
@@ -39,11 +51,10 @@ export default function AdminMapBox() {
   });
 
   return (
-    <div>
-      <div className="sidebar">
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+    <>
+      <div>
+        <div ref={mapContainer} className="map-container" />
       </div>
-      <div ref={mapContainer} className="map-container" />
-    </div>
+    </>
   );
 }

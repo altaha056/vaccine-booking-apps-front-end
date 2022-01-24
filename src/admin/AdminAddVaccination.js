@@ -16,20 +16,20 @@ const AdminAddVaccination = () => {
     description: "",
     location: "",
     address: "",
-    latitude: "",
-    longitude: "",
-    sessions: "",
+    latitude: 0,
+    longitude: 0,
+    sessions: [],
     vacType: "",
-    stock: "",
+    stock: 0,
   };
   const [data, setData] = useState(baseData);
 
   const handleInput = (e) => {
     const name = e.target.id;
-    const value = e.target.value;
+    const value =
+      e.target.type == "number" ? Number(e.target.value) : e.target.value;
 
     setData({ ...data, [name]: value });
-    console.log("data: ", data);
   };
 
   const handleSubmit = useCallback(
@@ -48,6 +48,21 @@ const AdminAddVaccination = () => {
     [data]
   );
 
+  const ambilTempat = useCallback(
+    (tempat) => {
+      console.log(tempat);
+      if (tempat)
+        setData({
+          ...data,
+          address: tempat.place_name,
+          latitude: tempat.center[0],
+          longitude: tempat.center[1],
+          location: tempat.text,
+        });
+    },
+    [data]
+  );
+
   return (
     <>
       {admin ? (
@@ -56,38 +71,30 @@ const AdminAddVaccination = () => {
           <div className="mainmenu-admin">
             <div className="content">
               <h2>Tambah Kegiatan Vaksinasi Baru</h2>
-              <AdminMapBox/>
 
               <form spellCheck="false" onSubmit={handleSubmit}>
                 <div className="container-dual">
                   <div className="profile">
-                    <p>Lokasi</p>
-                    <input
-                      className="inputuser"
-                      type="text"
-                      id="location"
-                      onChange={handleInput}
-                      value={data.location}
-                      disabled
-                      required
-                    />
-                    <p>Alamat</p>
-                    <input
-                      className="inputuser"
-                      type="text"
-                      id="address"
-                      onChange={handleInput}
-                      value={data.address}
-                      disabled
-                      required
-                    />
+                    <AdminMapBox onChangePlace={ambilTempat} />
+                    <br />
+
                     <p>Deskripsi Vaksinasi</p>
-                    <input
-                      className="inputuser"
+                    <textarea
+                      className="inputpeta"
                       type="text"
                       id="description"
                       onChange={handleInput}
                       value={data.description}
+                      required
+                    />
+
+                    <p>Jenis Vaksin</p>
+                    <input
+                      className="inputuser"
+                      type="text"
+                      id="vacType"
+                      onChange={handleInput}
+                      value={data.vacType}
                       required
                     />
                     <p>Stok Vaksin</p>
@@ -101,6 +108,27 @@ const AdminAddVaccination = () => {
                     />
                   </div>
                   <div className="profile">
+                    <p>Lokasi</p>
+                    <input
+                      className="inputuser"
+                      type="text"
+                      id="location"
+                      onChange={handleInput}
+                      value={data.location}
+                      disabled
+                      required
+                    />
+
+                    <p>Alamat</p>
+                    <textarea
+                      className="inputpeta"
+                      type="text"
+                      id="address"
+                      onChange={handleInput}
+                      value={data.address}
+                      disabled
+                      required
+                    />
                     <p>Latitude</p>
                     <input
                       className="inputuser"
@@ -121,16 +149,7 @@ const AdminAddVaccination = () => {
                       disabled
                       required
                     />
-
-                    <p>Jenis Vaksin</p>
-                    <input
-                      className="inputuser"
-                      type="text"
-                      id="vacType"
-                      onChange={handleInput}
-                      value={data.vacType}
-                      required
-                    />
+                    <input type="submit" className="add" value="Tambah" />
                   </div>
                 </div>
               </form>
