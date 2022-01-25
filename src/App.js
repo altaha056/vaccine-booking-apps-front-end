@@ -80,6 +80,7 @@ function App() {
             path="/admin/participant/:id"
             element={<AdminParticipantList />}
           />
+          <Route path="/admin/editvac/:id" element={<AdminEditVaccination />} />
 
           {/* not found */}
           <Route path="*" element={<NotFound />} />

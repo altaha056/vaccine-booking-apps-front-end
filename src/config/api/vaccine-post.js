@@ -37,3 +37,5 @@ export const deleteVac = (id) => api.delete(`/vac/${id}`);
 export const addVacApi = (data) => api.post("/vac", data);
 
 export const deleteParticipant = (id) => api.delete(`/participant/${id}`);
+
+export const updateVac = (data) => api.put("/vac");
