@@ -10,7 +10,7 @@ import { addVacApi } from "../config/api/vaccine-post";
 import AdminMapBox from "../mapbox/AdminMapBox";
 
 const AdminAddVaccination = () => {
-  const zulutime = ""
+  const zulutime = "";
   const [inputList, setInputList] = useState([
     {
       Description: "",
@@ -22,6 +22,7 @@ const AdminAddVaccination = () => {
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
+
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
@@ -94,6 +95,8 @@ const AdminAddVaccination = () => {
       { Description: "", StartTime: "", EndTime: "" },
     ]);
   };
+
+  const addZulu = ":00Z00:00";
 
   return (
     <>
@@ -214,7 +217,6 @@ const AdminAddVaccination = () => {
                           <p>Jadwal mulai sesi</p>
                           <input
                             type="datetime-local"
-                            step="0.001"
                             name="StartTime"
                             className="inputuser"
                             value={x.StartTime}
@@ -223,7 +225,6 @@ const AdminAddVaccination = () => {
                           <p>Jadwal selesai sesi</p>
                           <input
                             type="datetime-local"
-                            step="0.001"
                             name="EndTime"
                             className="inputuser"
                             value={x.EndTime}

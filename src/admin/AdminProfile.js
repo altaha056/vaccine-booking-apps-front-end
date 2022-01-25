@@ -53,7 +53,7 @@ const AdminProfile = () => {
         </>
       ) : (
         <>
-          <Navigate to="/admin/login" />
+          <AdminLogin />
           {toast.info("anda harus login sebagai admin")}
         </>
       )}
