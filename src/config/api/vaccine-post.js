@@ -33,3 +33,7 @@ export const putParticipantCanceled = (id) =>
   api.put("/participant/canceled", null, { params: { id } });
 
 export const deleteVac = (id) => api.delete(`/vac/${id}`);
+
+export const addVacApi = (data) => api.post("/vac", data);
+
+export const deleteParticipant = (id) => api.delete(`/participant/${id}`);

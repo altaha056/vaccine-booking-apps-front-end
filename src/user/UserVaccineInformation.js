@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import UserHeader from "./UserHeader";
 import { Link } from "react-router-dom";
 import { getParticipantbyUser } from "../config/api/vaccine-post";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import UserNoParticipant from "./UserNoParticipant";
 import UserNotLogin from "./UserNotLogin";
 import moment from "moment";
+import { deleteParticipant } from "../config/api/vaccine-post";
 
 const UserVaccineInformation = () => {
   const [participantList, setParticipantList] = useState(null);
@@ -16,17 +17,28 @@ const UserVaccineInformation = () => {
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
-  useEffect(() => {
+  const getAllData = useCallback(() => {
     getParticipantbyUser()
       .then(({ data }) => {
         console.log(data);
         setParticipantList(data);
-        toast.info("semua data berhasil dimuat");
+        // toast.info("semua data berhasil dimuat");
       })
       .catch((err) => {
         console.log(err.response);
         toast.warn("hmm sepertinya ada kesalahan");
       });
+  }, []);
+
+  const deletePar = useCallback((id) => {
+    deleteParticipant(id).then(() => {
+      getAllData();
+      toast.info("data partsipan berhasil dihapus");
+    });
+  }, []);
+
+  useEffect(() => {
+    getAllData();
   }, []);
 
   return participantList ? (
@@ -48,6 +60,7 @@ const UserVaccineInformation = () => {
                   <th>Sesi Vaksin</th>
                   <th>Keterangan</th>
                   <th>Tiket</th>
+                  <th>Hapus</th>
                 </tr>
                 {participantList.map((par, index) => (
                   <tr key={index}>
@@ -69,6 +82,11 @@ const UserVaccineInformation = () => {
                       >
                         <div className="ubah">Lihat</div>
                       </Link>
+                    </td>
+                    <td>
+                      <div className="hapus" onClick={() => deletePar(par.ID)}>
+                        Hapus
+                      </div>
                     </td>
                   </tr>
                 ))}

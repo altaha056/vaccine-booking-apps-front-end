@@ -265,6 +265,19 @@ table td .ubah {
   cursor: pointer;
   margin-bottom: 10pt;
 }
+.hapus-sesi {
+  color: #f60c0c;
+  cursor: pointer;
+  margin-left: 10pt;
+  font-weight: 500;
+}
+.tambah-sesi {
+  color: #f60c0c;
+  cursor: pointer;
+  margin-left: 10pt;
+  font-weight: 500;
+}
+
 table td .hapus {
   color: #f60c0c;
   cursor: pointer;
@@ -305,6 +318,31 @@ table td .na {
   min-height: 30pt;
   padding-left: 10pt;
   border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
+.mainmenu-admin .content form .inputuser:focus {
+  outline: 1pt solid #079cb0;
+}
+.mainmenu-admin .content form .inputuser {
+  min-width: 300pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
+
+.mainmenu-admin .content form .inputpeta {
+  min-width: 300pt;
+  max-width: 300pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 100pt;
+  max-height: 100pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  padding-top: 10pt;
   font-size: 14pt;
 }
 

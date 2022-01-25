@@ -75,6 +75,7 @@ const UserRegVaccine = () => {
     console.log("data: ", data);
   };
 
+  <br />;
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
