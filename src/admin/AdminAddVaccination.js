@@ -10,7 +10,6 @@ import { addVacApi } from "../config/api/vaccine-post";
 import AdminMapBox from "../mapbox/AdminMapBox";
 
 const AdminAddVaccination = () => {
-  const zulutime = "";
   const [inputList, setInputList] = useState([
     {
       Description: "",
@@ -36,7 +35,7 @@ const AdminAddVaccination = () => {
     address: "",
     latitude: 0,
     longitude: 0,
-    sessions: inputList,
+    sessions: [],
     vacType: "",
     stock: 1,
   };
@@ -89,14 +88,16 @@ const AdminAddVaccination = () => {
   };
 
   // handle click event of the Add button
-  const handleAddClick = () => {
+  const handleAddClick = useCallback(() => {
     setInputList([
       ...inputList,
       { Description: "", StartTime: "", EndTime: "" },
     ]);
-  };
+  }, [inputList]);
 
-  const addZulu = ":00Z00:00";
+  useEffect(() => {
+    setData({ ...data, sessions: inputList });
+  }, [inputList]);
 
   return (
     <>
@@ -235,6 +236,12 @@ const AdminAddVaccination = () => {
                     })}
 
                     {JSON.stringify(data)}
+                    <p>.</p>
+                    <p>.</p>
+                    <p>.</p>
+                    <p>.</p>
+                    <p>.</p>
+                    {JSON.stringify(inputList)}
                   </div>
                 </div>
               </form>
