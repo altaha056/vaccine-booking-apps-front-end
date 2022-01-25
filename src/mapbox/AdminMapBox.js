@@ -25,6 +25,7 @@ export default function AdminMapBox({ onChangePlace = (data) => {} }) {
     map.current.on("click", ({ lngLat }) => {
       // console.log(e);
       const { lat, lng } = lngLat;
+
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?limit=1&types=poi%2Ccountry%2Cregion%2Caddress%2Cneighborhood%2Cplace%2Cpostcode%2Clocality%2Cdistrict&access_token=pk.eyJ1IjoiYWx0YWhhIiwiYSI6ImNreW1lYnp6bDAxbWcyb2xqZjZsYzYwdWsifQ.7Oezd-XT8iHNi4rr2Jtphw`
       )
@@ -49,7 +50,6 @@ export default function AdminMapBox({ onChangePlace = (data) => {} }) {
       setZoom(map.current.getZoom().toFixed(2));
     });
   });
-
   return (
     <>
       <div>

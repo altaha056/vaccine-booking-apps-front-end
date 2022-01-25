@@ -265,6 +265,19 @@ table td .ubah {
   cursor: pointer;
   margin-bottom: 10pt;
 }
+.hapus-sesi {
+  color: #f60c0c;
+  cursor: pointer;
+  margin-left: 10pt;
+  font-weight: 500;
+}
+.tambah-sesi {
+  color: #f60c0c;
+  cursor: pointer;
+  margin-left: 10pt;
+  font-weight: 500;
+}
+
 table td .hapus {
   color: #f60c0c;
   cursor: pointer;

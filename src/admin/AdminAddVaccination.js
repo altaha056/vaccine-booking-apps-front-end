@@ -10,6 +10,23 @@ import { addVacApi } from "../config/api/vaccine-post";
 import AdminMapBox from "../mapbox/AdminMapBox";
 
 const AdminAddVaccination = () => {
+  const zulutime = ""
+  const [inputList, setInputList] = useState([
+    {
+      Description: "",
+      StartTime: "",
+      EndTime: "",
+    },
+  ]);
+
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index][name] = value;
+    setInputList(list);
+  };
+
   const { admin } = useSelector((state_admin) => state_admin);
 
   const baseData = {
@@ -18,9 +35,9 @@ const AdminAddVaccination = () => {
     address: "",
     latitude: 0,
     longitude: 0,
-    sessions: [],
+    sessions: inputList,
     vacType: "",
-    stock: 0,
+    stock: 1,
   };
   const [data, setData] = useState(baseData);
 
@@ -62,6 +79,21 @@ const AdminAddVaccination = () => {
     },
     [data]
   );
+
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setInputList(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setInputList([
+      ...inputList,
+      { Description: "", StartTime: "", EndTime: "" },
+    ]);
+  };
 
   return (
     <>
@@ -106,6 +138,7 @@ const AdminAddVaccination = () => {
                       value={data.stock}
                       required
                     />
+                    <input type="submit" className="add" value="Tambah" />
                   </div>
                   <div className="profile">
                     <p>Lokasi</p>
@@ -115,7 +148,6 @@ const AdminAddVaccination = () => {
                       id="location"
                       onChange={handleInput}
                       value={data.location}
-                      disabled
                       required
                     />
 
@@ -126,7 +158,6 @@ const AdminAddVaccination = () => {
                       id="address"
                       onChange={handleInput}
                       value={data.address}
-                      disabled
                       required
                     />
                     <p>Latitude</p>
@@ -136,7 +167,6 @@ const AdminAddVaccination = () => {
                       id="latitude"
                       onChange={handleInput}
                       value={data.latitude}
-                      disabled
                       required
                     />
                     <p>Longitude</p>
@@ -146,10 +176,64 @@ const AdminAddVaccination = () => {
                       id="longitude"
                       onChange={handleInput}
                       value={data.longitude}
-                      disabled
                       required
                     />
-                    <input type="submit" className="add" value="Tambah" />
+
+                    {/*  */}
+                    {inputList.map((x, i) => {
+                      return (
+                        <>
+                          <p className="value">
+                            Sesi {i + 1}
+                            {inputList.length !== 1 && (
+                              <button
+                                onClick={() => handleRemoveClick(i)}
+                                className="hapus-sesi"
+                              >
+                                Hapus sesi
+                              </button>
+                            )}
+                            {inputList.length - 1 === i && (
+                              <button
+                                onClick={handleAddClick}
+                                className="tambah-sesi"
+                              >
+                                Tambah sesi
+                              </button>
+                            )}
+                          </p>
+                          <p>Deskripsi sesi</p>
+                          <input
+                            name="Description"
+                            className="inputuser"
+                            type="text"
+                            placeholder="Masukkan nama sesi"
+                            value={x.Description}
+                            onChange={(e) => handleInputChange(e, i)}
+                          />
+                          <p>Jadwal mulai sesi</p>
+                          <input
+                            type="datetime-local"
+                            step="0.001"
+                            name="StartTime"
+                            className="inputuser"
+                            value={x.StartTime}
+                            onChange={(e) => handleInputChange(e, i)}
+                          />
+                          <p>Jadwal selesai sesi</p>
+                          <input
+                            type="datetime-local"
+                            step="0.001"
+                            name="EndTime"
+                            className="inputuser"
+                            value={x.EndTime}
+                            onChange={(e) => handleInputChange(e, i)}
+                          />
+                        </>
+                      );
+                    })}
+
+                    {JSON.stringify(data)}
                   </div>
                 </div>
               </form>
