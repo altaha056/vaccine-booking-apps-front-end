@@ -70,8 +70,10 @@ const AdminEditVaccination = () => {
           sessions: data.Sessions.map((session) => ({
             id: session.ID,
             description: session.Description,
-            startTime: session.StartTime,
-            endTime: session.EndTime,
+            startTime: moment(session.StartTime).format(
+              "yyyy-MM-DD[T]HH:mm:ss"
+            ),
+            endTime: moment(session.EndTime).format("yyyy-MM-DD[T]HH:mm:ss"),
           })),
           vacType: data.VacType,
           stock: data.Stock,
@@ -82,6 +84,7 @@ const AdminEditVaccination = () => {
         toast.error("oops sepertinya ada kesalahan");
       });
   }, []);
+
   const handleInput = (e) => {
     const name = e.target.id;
     const value =
@@ -95,7 +98,7 @@ const AdminEditVaccination = () => {
       event.preventDefault();
       updateVac(data)
         .then((res) => {
-          toast.success("berhasil menambahkan kegiatan vaksinasi baru");
+          toast.success("berhasil update vaksinasi");
         })
         .catch(({ meta }) => {
           meta.description.forEach((err) => {
@@ -113,8 +116,8 @@ const AdminEditVaccination = () => {
         setData({
           ...data,
           address: tempat.place_name,
-          latitude: tempat.center[0],
-          longitude: tempat.center[1],
+          latitude: tempat.center[1],
+          longitude: tempat.center[0],
           location: tempat.text,
         });
     },
@@ -140,6 +143,18 @@ const AdminEditVaccination = () => {
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
+  const handleInputSession = useCallback(
+    (e, i) => {
+      const name = e.target.name;
+      const value = e.target.value;
+
+      let sess = data.sessions;
+      sess[i][name] = value;
+      console.log(sess);
+      setData({ ...data, sessions: sess });
+    },
+    [data]
+  );
   return (
     <>
       {admin ? (
@@ -294,7 +309,7 @@ const AdminEditVaccination = () => {
                             type="text"
                             placeholder="Masukkan nama sesi"
                             value={x.description}
-                            onChange={(e) => handleInput(e, i)}
+                            onChange={(e) => handleInputSession(e, i)}
                           />
                           <p>Jadwal mulai sesi</p>
                           <input
@@ -302,7 +317,7 @@ const AdminEditVaccination = () => {
                             name="startTime"
                             className="inputuser"
                             value={x.startTime}
-                            onChange={(e) => handleInput(e, i)}
+                            onChange={(e) => handleInputSession(e, i)}
                           />
                           <p>Jadwal selesai sesi</p>
                           <input
@@ -310,7 +325,7 @@ const AdminEditVaccination = () => {
                             name="endTime"
                             className="inputuser"
                             value={x.endTime}
-                            onChange={(e) => handleInput(e, i)}
+                            onChange={(e) => handleInputSession(e, i)}
                           />
                         </>
                       );
