@@ -126,15 +126,21 @@ const AdminEditVaccination = () => {
 
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
-    const list = [...inputList];
+    let sess = data.sessions;
+// const list = [...inputList];
+    const list = [...sess];
     list.splice(index, 1);
     setInputList(list);
   };
 
   // handle click event of the Add button
   const handleAddClick = useCallback(() => {
-    setInputList([...data, { description: "", startTime: "", endTime: "" }]);
-  }, [data]);
+
+    let sess = data.sessions;
+    
+
+    setData([...data.sessions, { description: "", startTime: "", endTime: "" }]);
+  }, [data.sessions]);
 
   useEffect(() => {
     setData({ ...data, sessions: inputList });
