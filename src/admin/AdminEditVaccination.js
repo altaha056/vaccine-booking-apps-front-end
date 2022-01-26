@@ -99,6 +99,7 @@ const AdminEditVaccination = () => {
       updateVac(data)
         .then((res) => {
           toast.success("berhasil update vaksinasi");
+          window.location.href = "/admin/ownvac";
         })
         .catch(({ meta }) => {
           meta.description.forEach((err) => {
