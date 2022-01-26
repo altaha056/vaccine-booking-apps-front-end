@@ -1,31 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "../style/style.css";
 import { Link, Navigate } from "react-router-dom";
 import { AdminHeader } from "./AdminHeader";
 
-import { getVaccineList } from "../config/api/vaccine-post";
+import {
+  deleteVac,
+  getVacbyAdminId,
+  getVaccineList,
+} from "../config/api/vaccine-post";
+
 import { useState } from "react";
 import moment from "moment";
 import { toast } from "react-toastify";
 import Loading from "../style/Loading";
-import { useDispatch, useSelector } from "react-redux";
+import { createSelectorHook, useDispatch, useSelector } from "react-redux";
 import AdminLogin from "./AdminLogin";
 
-const AdminMainMenu = () => {
+const AdminOwnVac = () => {
   const [vaccineList, setVaccineList] = useState([]);
 
   const { admin } = useSelector((state_admin) => state_admin);
 
-  useEffect(() => {
-    getVaccineList()
+  const getAllData = useCallback(() => {
+    getVacbyAdminId(admin.ID)
       .then(({ data }) => {
         setVaccineList(data);
-        toast.info("Seluruh data berhasil dimuat");
+        // toast.info("Seluruh data berhasil dimuat");
       })
       .catch(() => {
         toast.error("oops sepertinya ada kesalahan");
       });
   }, []);
+
+  const deleteVaccination = useCallback((id) => {
+    deleteVac(id).then(() => getAllData());
+  }, []);
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
 
@@ -36,7 +50,15 @@ const AdminMainMenu = () => {
         <div className="content">
           {vaccineList ? (
             <>
-              <h2>Daftar Seluruh Program Vaksinasi</h2>
+              <h2>Daftar Vaksinasi Saya</h2>
+              <Link
+                to="/admin/add-vaccination"
+                style={{ textDecoration: "inherit" }}
+              >
+                <div className="add">Tambah Vaksinasi</div>
+              </Link>
+              <br />
+
               <table>
                 <tr>
                   <th>No.</th>
@@ -44,6 +66,8 @@ const AdminMainMenu = () => {
                   <th>Lokasi Vaksin</th>
                   <th>Sesi</th>
                   <th>Vaksin</th>
+                  <th>Partisipan</th>
+                  <th>Edit</th>
                 </tr>
 
                 {vaccineList.map((vaccine, index) => (
@@ -71,9 +95,32 @@ const AdminMainMenu = () => {
                     </td>
                     <td>
                       {vaccine.VacType}
+
                       <br />
                       {"Stok vaksin: "}
                       {vaccine.Stock}
+                    </td>
+                    <td>
+                      <Link
+                        to={`/admin/participant/${vaccine.ID}`}
+                        style={{ textDecoration: "inherit" }}
+                      >
+                        <div className="ubah">Lihat</div>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link
+                        to={`/admin/editvac/${vaccine.ID}`}
+                        style={{ textDecoration: "inherit" }}
+                      >
+                        <div className="ubah">Ubah</div>
+                      </Link>
+                      <div
+                        className="hapus"
+                        onClick={() => deleteVaccination(vaccine.ID)}
+                      >
+                        Hapus
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -93,4 +140,4 @@ const AdminMainMenu = () => {
   );
 };
 
-export default AdminMainMenu;
+export default AdminOwnVac;
