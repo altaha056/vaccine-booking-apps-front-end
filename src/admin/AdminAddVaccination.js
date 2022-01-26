@@ -72,8 +72,8 @@ const AdminAddVaccination = () => {
         setData({
           ...data,
           address: tempat.place_name,
-          latitude: tempat.center[0],
-          longitude: tempat.center[1],
+          latitude: tempat.center[1],
+          longitude: tempat.center[0],
           location: tempat.text,
         });
     },

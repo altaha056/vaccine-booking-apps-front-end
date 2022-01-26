@@ -67,7 +67,7 @@ const AdminOwnVac = () => {
                   <th>Sesi</th>
                   <th>Vaksin</th>
                   <th>Partisipan</th>
-                  <th>Hapus</th>
+                  <th>Edit</th>
                 </tr>
 
                 {vaccineList.map((vaccine, index) => (
@@ -109,6 +109,12 @@ const AdminOwnVac = () => {
                       </Link>
                     </td>
                     <td>
+                      <Link
+                        to={`/admin/editvac/${vaccine.ID}`}
+                        style={{ textDecoration: "inherit" }}
+                      >
+                        <div className="ubah">Ubah</div>
+                      </Link>
                       <div
                         className="hapus"
                         onClick={() => deleteVaccination(vaccine.ID)}

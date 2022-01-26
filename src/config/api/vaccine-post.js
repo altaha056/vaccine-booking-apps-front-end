@@ -1,9 +1,11 @@
 import api from "../axios";
 
 export const getVaccineList = () => api.get("/vacs");
+
 export const registerUser = (data) => api.post("/users/register", data);
 
 export const loginUser = (data) => api.post("/users/login", data);
+
 export const detailsOwnUser = () => api.get("/user");
 
 export const getParticipantbyUser = () => {
@@ -37,3 +39,7 @@ export const deleteVac = (id) => api.delete(`/vac/${id}`);
 export const addVacApi = (data) => api.post("/vac", data);
 
 export const deleteParticipant = (id) => api.delete(`/participant/${id}`);
+
+export const updateVac = (data) => api.put("/vac", data);
+
+export const updateParticipant = (data) => api.put("/participant", data)
