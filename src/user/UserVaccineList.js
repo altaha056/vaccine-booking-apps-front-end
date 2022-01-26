@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 import UserHeader from "./UserHeader";
-import { Link } from "react-router-dom";
 import { getVaccineList } from "../config/api/vaccine-post";
 import { useState } from "react";
 import moment from "moment";
@@ -38,13 +37,16 @@ const UserVaccineList = () => {
               <th>Lokasi Vaksin</th>
               <th>Sesi</th>
               <th>Jenis Vaksin</th>
-              <th>Daftar</th>
             </tr>
             {vaccineList.map((vaccine, index) => (
               <tr key={index}>
                 <td>{index + 1}.</td>
                 <td>{vaccine.Description}</td>
-                <td>{vaccine.Location}</td>
+                <td style={{ width: 400 }}>
+                  {vaccine.Location}
+                  <br />
+                  {vaccine.Address}
+                </td>
                 <td>
                   {vaccine.Sessions.map((ses, i) => (
                     <>
@@ -60,21 +62,9 @@ const UserVaccineList = () => {
                   ))}
                 </td>
                 <td>{vaccine.VacType}</td>
-                <td>
-                  <Link
-                    to="/user/reg-vaccine"
-                    style={{ textDecoration: "inherit" }}
-                  >
-                    <div className="ubah">Daftar</div>
-                  </Link>
-                </td>
               </tr>
             ))}
           </table>
-
-          <Link to="/user/agreement">
-            <button>Daftar Vaksin</button>
-          </Link>
         </div>
       </div>
     </>

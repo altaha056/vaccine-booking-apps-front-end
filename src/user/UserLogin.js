@@ -116,18 +116,15 @@ const UserLogin = () => {
               </form>
               {/* here the error message */}
               <div className="yet-register">
-                New User?
                 <NavLink to="/user/register" style={{ textDecoration: "none" }}>
-                  <span> Create Account</span>
-                </NavLink>
-                <br />
-                or
-                <br />
+                  <span> create account</span>
+                </NavLink>{" "}
+                or{" "}
                 <NavLink
                   to="/user/landingpage"
                   style={{ textDecoration: "none" }}
                 >
-                  log in as guest
+                  <span> log in as guest</span>
                 </NavLink>
               </div>
               <div className="error-message-container">

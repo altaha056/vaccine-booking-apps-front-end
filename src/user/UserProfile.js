@@ -12,43 +12,56 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   return (
     <>
-      {user ? null : <UserNotLogin />}
-      <UserHeader />
-      <div className="mainmenu-user2">
-        <div className="content">
-          <h1>Profil Saya</h1>
-          <div className="container-dual">
-            <div className="profile">
-              <div className="property">
-                <div className="field">Nama</div>
-                <div className="value">{user?.name}</div>
-              </div>
-              <div className="property">
-                <div className="field">NIK</div>
-                <div className="value">{user?.nik}</div>
-              </div>
-              <Link to="/user/info-vacc" style={{ textDecoration: "inherit" }}>
-                <div className="add">Jadwal Saya</div>
-              </Link>
-              <button
-                style={{ textDecoration: "inherit", width: "200px" }}
-                onClick={() => {
-                  dispatch(logout());
-                  toast.warn("kamu sudah keluar");
-                }}
-              >
-                <div className="back">Keluar</div>
-              </button>
-            </div>
-            <div className="profile">
-              <div className="property">
-                <div className="field">Email</div>
-                <div className="value">{user?.email}</div>
+      {user ? (
+        <>
+          <UserHeader />
+          <div className="mainmenu-user2">
+            <div className="content">
+              <h1>Profil Saya</h1>
+              <div className="container-dual">
+                <div className="profile">
+                  <div className="property">
+                    <div className="field">Nama</div>
+                    <div className="value">{user?.name}</div>
+                  </div>
+                  <div className="property">
+                    <div className="field">NIK</div>
+                    <div className="value">{user?.nik}</div>
+                  </div>
+                  {/*  */}
+                  <div className="dialog-button">
+                    <button
+                      onClick={() => {
+                        dispatch(logout());
+                        toast.warn("kamu sudah keluar");
+                      }}
+                      style={{ textDecoration: "inherit" }}
+                      className="back"
+                    >
+                      <div>Keluar</div>
+                    </button>
+                    <Link
+                      to="/user/info-vacc"
+                      style={{ textDecoration: "inherit" }}
+                    >
+                      <button className="add">Jadwal Saya</button>
+                    </Link>
+                  </div>
+                  {/*  */}
+                </div>
+                <div className="profile">
+                  <div className="property">
+                    <div className="field">Email</div>
+                    <div className="value">{user?.email}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <UserNotLogin />
+      )}
     </>
   );
 };

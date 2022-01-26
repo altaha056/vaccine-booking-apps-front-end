@@ -31,10 +31,12 @@ import { updateProfile } from "./store/actions/users";
 import { useDispatch } from "react-redux";
 import { setAuthorizationHeader } from "./config/axios";
 import Loading from "./style/Loading";
+import { updateProfileAdmin } from "./store/actions/admins";
+import AdminOwnVac from "./admin/AdminOwnVac";
+import UserUpdateVaccine from "./user/UserUpdateVaccine";
 
 function App() {
   const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -45,6 +47,16 @@ function App() {
       setLoading(true);
     } else setLoading(true);
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("vac:token-admin")) {
+      const adminData = JSON.parse(localStorage.getItem("vac:token-admin"));
+      setAuthorizationHeader(adminData.Token);
+      dispatch(updateProfileAdmin(adminData));
+      setLoading(true);
+    } else setLoading(true);
+  }, []);
+
   return loading ? (
     <>
       <Footer />
@@ -53,6 +65,7 @@ function App() {
           {/* admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/main-menu" element={<AdminMainMenu />} />
+          <Route path="/admin/ownvac" element={<AdminOwnVac />} />
           <Route
             path="/admin/add-vaccination"
             element={<AdminAddVaccination />}
@@ -64,7 +77,11 @@ function App() {
             element={<AdminEditVaccination />}
           />
           <Route path="/admin/test" element={<AdminNews />} />
-          <Route path="/admin/participant" element={<AdminParticipantList />} />
+          <Route
+            path="/admin/participant/:id"
+            element={<AdminParticipantList />}
+          />
+          <Route path="/admin/editvac/:id" element={<AdminEditVaccination />} />
 
           {/* not found */}
           <Route path="*" element={<NotFound />} />
@@ -82,10 +99,14 @@ function App() {
             path="/user/agreement"
             element={<UserAgreementBeforRegisterVaccine />}
           />
-          <Route path="/user/ticket" element={<UserTicket />} />
+          <Route path="/user/ticket/:id" element={<UserTicket />} />
           <Route
             path="/user/edit-vaccination"
             element={<UserEditVaccineRegistration />}
+          />
+          <Route
+            path="/user/updateparticipant/:id"
+            element={<UserUpdateVaccine />}
           />
         </Routes>
       </Router>
