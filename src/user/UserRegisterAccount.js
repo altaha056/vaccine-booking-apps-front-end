@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "../style/style.css";
 import Logo from "../style/logo.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { registerUser } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const UserRegisterAccount = () => {
-  // const url = "https://vac.ykisumut.com/users/register";
+  const { user } = useSelector((state) => state);
 
   const baseData = {
     email: "",
@@ -59,7 +60,7 @@ const UserRegisterAccount = () => {
         setErrMsgPassword(
           <div className="error-messages">
             <p>
-              Password minimum 8 characters wchic contain at least 1 number and
+              Password minimum 8 characters which contain at least 1 number and
               1 characters
             </p>
           </div>
@@ -114,6 +115,8 @@ const UserRegisterAccount = () => {
     console.log("data: ", data);
   };
 
+  const [successRegistered, setSuccessRegistered] = useState(false);
+
   const handleSubmit = (event) => {
     if (
       data.email.length === 0 ||
@@ -140,6 +143,7 @@ const UserRegisterAccount = () => {
     registerUser(data)
       .then((res) => {
         toast.success("berhasil daftar");
+        setSuccessRegistered(true);
       })
       .catch(({ meta }) => {
         //console.log(err);
@@ -150,8 +154,12 @@ const UserRegisterAccount = () => {
     event.preventDefault();
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
+      {successRegistered ? navigate("/user/login") : null}
+      {user ? <Navigate to="/user/profile" /> : null}
       <div className="user-bg-login">
         <div className="loginbox">
           <div className="grid-container-admin">
@@ -235,6 +243,15 @@ const UserRegisterAccount = () => {
                 Have account?
                 <NavLink to="/user/login" style={{ textDecoration: "none" }}>
                   <span> Login</span>
+                </NavLink>
+                <br />
+                or
+                <br />
+                <NavLink
+                  to="/user/landingpage"
+                  style={{ textDecoration: "none" }}
+                >
+                  log in as guest
                 </NavLink>
               </div>
               <div className="error-message-container">
