@@ -12,6 +12,7 @@ import MapBox from "../mapbox/Mapbox";
 import {
   getNearbyFacilities,
   getParticipantbyId,
+  getVacbyId,
   registerParticipant,
   updateParticipant,
 } from "../config/api/vaccine-post";
@@ -29,9 +30,16 @@ const UserUpdateVaccine = () => {
 
   const { id } = useParams();
 
-  useEffect(() => {
-    getAllData();
-  }, []);
+  const baseData = {
+    id: 0,
+    nik: "",
+    fullname: "",
+    phone_number: "",
+    address: "",
+    session_id: "",
+  };
+  const [data, setData] = useState(baseData);
+  const { user } = useSelector((state) => state);
 
   const getAllData = useCallback(() => {
     getParticipantbyId(id)
@@ -45,24 +53,55 @@ const UserUpdateVaccine = () => {
           address: data.Address,
           session_id: data.SessionID,
         });
-        setSelectedVaccineLocation(data.Vac);
-        setSelectedSessionId(data.Session.ID);
+        setSelectedVaccineLocation({
+          value: data.Vac.ID,
+          label: data.Vac.Location + " " + data.Vac.Address,
+        });
+
+        getVacbyId(data.Vac.ID)
+          .then(({ data }) => {
+            setSesiVaksin(
+              data.Sessions.map(({ ID, Description, StartTime }) => ({
+                value: ID,
+                label:
+                  Description +
+                  " tanggal " +
+                  formatDate(StartTime) +
+                  " pukul " +
+                  formatDate(StartTime),
+              }))
+            );
+          })
+          .then(() => {
+            setSelectedSessionId({
+              value: data.Session.ID,
+              label:
+                data.Session.Description +
+                " tanggal " +
+                formatDate(data.Session.StartTime) +
+                " pukul " +
+                formatDate(data.Session.StartTime),
+            });
+          });
+
+        setSelectedSessionId({
+          value: data.Session.ID,
+          label:
+            data.Session.Description +
+            " tanggal " +
+            formatDate(data.Session.StartTime) +
+            " pukul " +
+            formatDate(data.Session.StartTime),
+        });
       })
       .catch(() => {
         toast.error("oops sepertinya ada kesalahan");
       });
-  }, []);
+  }, [selectedSessionId, selectedVaccineLocation, data]);
 
-  const baseData = {
-    id: 0,
-    nik: "",
-    fullname: "",
-    phone_number: "",
-    address: "",
-    session_id: "",
-  };
-  const [data, setData] = useState(baseData);
-  const { user } = useSelector((state) => state);
+  useEffect(() => {
+    getAllData();
+  }, []);
 
   useEffect(() => {
     getVaccineList()
