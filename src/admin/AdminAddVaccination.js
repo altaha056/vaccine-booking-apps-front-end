@@ -55,6 +55,7 @@ const AdminAddVaccination = () => {
       addVacApi(data)
         .then((res) => {
           toast.success("berhasil menambahkan kegiatan vaksinasi baru");
+          window.location.href = "/admin/ownvac";
         })
         .catch(({ meta }) => {
           meta.description.forEach((err) => {
@@ -142,7 +143,6 @@ const AdminAddVaccination = () => {
                       value={data.stock}
                       required
                     />
-                    <input type="submit" className="add" value="Tambah" />
                   </div>
                   <div className="profile">
                     <p>Lokasi</p>
@@ -234,7 +234,7 @@ const AdminAddVaccination = () => {
                         </>
                       );
                     })}
-
+                    <input type="submit" className="add" value="Tambah" />
                   </div>
                 </div>
               </form>
