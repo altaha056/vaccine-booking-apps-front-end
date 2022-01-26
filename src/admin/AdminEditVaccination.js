@@ -125,26 +125,21 @@ const AdminEditVaccination = () => {
   );
 
   // handle click event of the Remove button
-  const handleRemoveClick = (index) => {
-    let sess = data.sessions;
-// const list = [...inputList];
-    const list = [...sess];
-    list.splice(index, 1);
-    setInputList(list);
-  };
+  const handleRemoveClick = useCallback(
+    (index) => {
+      let sess = data.sessions;
+      sess.splice(index, 1);
+      setData({ ...data, sessions: sess });
+    },
+    [data]
+  );
 
   // handle click event of the Add button
   const handleAddClick = useCallback(() => {
-
     let sess = data.sessions;
-    
-
-    setData([...data.sessions, { description: "", startTime: "", endTime: "" }]);
-  }, [data.sessions]);
-
-  useEffect(() => {
-    setData({ ...data, sessions: inputList });
-  }, [inputList]);
+    sess.push({ description: "", startTime: "", endTime: "" });
+    setData({ ...data, sessions: sess });
+  }, [data]);
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
@@ -244,7 +239,6 @@ const AdminEditVaccination = () => {
                       value={data.stock}
                       required
                     />
-                    <input type="submit" className="add" value="Tambah" />
                   </div>
                   <div className="profile">
                     <p>Lokasi</p>
@@ -286,12 +280,12 @@ const AdminEditVaccination = () => {
                     />
 
                     {/*  */}
-                    {data.sessions.map((x, i) => {
+                    {data?.sessions.map((x, i) => {
                       return (
                         <>
                           <p className="value">
                             Sesi {i + 1}
-                            {data.length !== 1 && (
+                            {data.sessions.length !== 1 && (
                               <button
                                 onClick={() => handleRemoveClick(i)}
                                 className="hapus-sesi"
@@ -299,7 +293,7 @@ const AdminEditVaccination = () => {
                                 Hapus sesi
                               </button>
                             )}
-                            {data.length - 1 === i && (
+                            {data.sessions.length - 1 === i && (
                               <button
                                 onClick={handleAddClick}
                                 className="tambah-sesi"
@@ -336,6 +330,7 @@ const AdminEditVaccination = () => {
                         </>
                       );
                     })}
+                    <input type="submit" className="add" value="Ubah" />
 
                     {JSON.stringify(data)}
                     <p>.</p>

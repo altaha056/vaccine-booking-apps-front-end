@@ -33,6 +33,7 @@ import { setAuthorizationHeader } from "./config/axios";
 import Loading from "./style/Loading";
 import { updateProfileAdmin } from "./store/actions/admins";
 import AdminOwnVac from "./admin/AdminOwnVac";
+import UserUpdateVaccine from "./user/UserUpdateVaccine";
 
 function App() {
   const dispatch = useDispatch();
@@ -102,6 +103,10 @@ function App() {
           <Route
             path="/user/edit-vaccination"
             element={<UserEditVaccineRegistration />}
+          />
+          <Route
+            path="/user/updateparticipant/:id"
+            element={<UserUpdateVaccine />}
           />
         </Routes>
       </Router>

@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import UserHeader from "./UserHeader";
 import { Link } from "react-router-dom";
-import { getParticipantbyUser } from "../config/api/vaccine-post";
+import {
+  getParticipantbyUser,
+  updateParticipant,
+} from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
 import Loading from "../style/Loading";
 import { useSelector } from "react-redux";
@@ -22,7 +25,7 @@ const UserVaccineInformation = () => {
       .then(({ data }) => {
         console.log(data);
         setParticipantList(data);
-        // toast.info("semua data berhasil dimuat");
+        toast.info("semua data berhasil dimuat");
       })
       .catch((err) => {
         console.log(err.response);
@@ -59,8 +62,7 @@ const UserVaccineInformation = () => {
                   <th>Jadwal Vaksin</th>
                   <th>Sesi Vaksin</th>
                   <th>Keterangan</th>
-                  <th>Tiket</th>
-                  <th>Hapus</th>
+                  <th>Edit</th>
                 </tr>
                 {participantList.map((par, index) => (
                   <tr key={index}>
@@ -74,20 +76,48 @@ const UserVaccineInformation = () => {
                       <br />
                       {formatHour(par.Session.StartTime)}
                     </td>
-                    <td>{par.Status}</td>
-                    <td>
-                      <Link
-                        to={`/user/ticket/${par.ID}`}
-                        style={{ textDecoration: "inherit" }}
-                      >
-                        <div className="ubah">Lihat</div>
-                      </Link>
-                    </td>
-                    <td>
-                      <div className="hapus" onClick={() => deletePar(par.ID)}>
-                        Hapus
-                      </div>
-                    </td>
+                    {par.Status == "registered" ? (
+                      <td>
+                        <Link
+                          to={`/user/ticket/${par.ID}`}
+                          style={{ textDecoration: "inherit" }}
+                        >
+                          <div className="ubah">
+                            Registered
+                            <br />
+                            Lihat Tiket
+                          </div>
+                        </Link>
+                      </td>
+                    ) : null}
+
+                    {par.Status == "VACCINATED" ? (
+                      <td colSpan={2}>
+                        <div className="konfirmasi">vaccinated</div>
+                      </td>
+                    ) : null}
+                    {par.Status == "canceled" ? (
+                      <td colSpan={2}>
+                        <div className="hapus">canceled</div>
+                      </td>
+                    ) : null}
+                    {par.Status == "registered" ? (
+                      <td>
+                        <Link
+                          to={`/user/updateparticipant/${par.ID}`}
+                          style={{ textDecoration: "inherit" }}
+                        >
+                          <div className="ubah">Edit</div>
+                        </Link>
+                        <br />
+                        <div
+                          className="hapus"
+                          onClick={() => deletePar(par.ID)}
+                        >
+                          Hapus
+                        </div>
+                      </td>
+                    ) : null}
                   </tr>
                 ))}
               </table>
