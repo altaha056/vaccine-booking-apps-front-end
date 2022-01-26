@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import UserHeader from "./UserHeader";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import VacIcon from "../mapbox/VaccineIcon.png";
 import { useSelector } from "react-redux";
 import Select from "react-select";
@@ -11,19 +11,58 @@ import UserNotLogin from "./UserNotLogin";
 import MapBox from "../mapbox/Mapbox";
 import {
   getNearbyFacilities,
+  getParticipantbyId,
   registerParticipant,
+  updateParticipant,
 } from "../config/api/vaccine-post";
 import { toast } from "react-toastify";
 import { getVaccineList } from "../config/api/vaccine-post";
 import moment from "moment";
 
-const UserRegVaccine = () => {
+const UserUpdateVaccine = () => {
   const [vaccineList, setVaccineList] = useState([]);
   const [lokasiVaksin, setLokasiVaksin] = useState([]);
 
   const [sesiVaksin, setSesiVaksin] = useState([]);
   const [selectedVaccineLocation, setSelectedVaccineLocation] = useState();
   const [selectedSessionId, setSelectedSessionId] = useState();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+
+  const getAllData = useCallback(() => {
+    getParticipantbyId(id)
+      .then(({ data }) => {
+        console.log(data);
+        setData({
+          id: data.ID,
+          nik: data.Nik,
+          fullname: data.Fullname,
+          phone_number: data.PhoneNumber,
+          address: data.Address,
+          session_id: data.SessionID,
+        });
+        setSelectedVaccineLocation(data.Vac);
+        setSelectedSessionId(data.Session.ID);
+      })
+      .catch(() => {
+        toast.error("oops sepertinya ada kesalahan");
+      });
+  }, []);
+
+  const baseData = {
+    id: 0,
+    nik: "",
+    fullname: "",
+    phone_number: "",
+    address: "",
+    session_id: "",
+  };
+  const [data, setData] = useState(baseData);
+  const { user } = useSelector((state) => state);
 
   useEffect(() => {
     getVaccineList()
@@ -41,16 +80,6 @@ const UserRegVaccine = () => {
         console.log("error");
       });
   }, []);
-
-  const baseData = {
-    nik: "",
-    fullname: "",
-    phone_number: "",
-    address: "",
-    session_id: "",
-  };
-  const [data, setData] = useState(baseData);
-  const { user } = useSelector((state) => state);
 
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
@@ -87,24 +116,17 @@ const UserRegVaccine = () => {
       ) {
         setErrMsg(
           <div className="error-messages">
-            <p>You must fill all fields</p>
+            <p>Semua data harus diisi</p>
           </div>
         );
         event.preventDefault();
       }
-      if (data.password != data.confirmpassword) {
-        setErrMsg(
-          <div className="error-messages">
-            <p>Password not match</p>
-          </div>
-        );
-      }
 
       data.session_id = selectedSessionId?.value;
 
-      registerParticipant(data, selectedVaccineLocation?.value)
+      updateParticipant(data, selectedVaccineLocation?.value)
         .then((res) => {
-          toast.success("pendaftaran berhasil 🤩 🥳 ");
+          toast.success("Berhasil mengubah data 🥳 ");
         })
         .catch(({ meta }) => {
           meta.description.forEach((err) => {
@@ -172,7 +194,7 @@ const UserRegVaccine = () => {
         <div className="content">
           <div className="peta">
             <div className="titlemap">
-              <h1>Daftar Vaksinasi</h1>
+              <h1>Edit Vaksinasi</h1>
               {/* <img src={VacIcon} className="iconVaccine" /> */}
               <button className="iconVaccine">
                 <img src={VacIcon} className="iconVaccine" />
@@ -279,14 +301,15 @@ const UserRegVaccine = () => {
                 </div>
                 <div className="dialog-button">
                   <Link
-                    to="/user/landingpage"
+                    to="/user/profile"
                     style={{ textDecoration: "inherit" }}
                   >
-                    <div className="back">Kembali</div>
+                    <div className="back">Batal</div>
                   </Link>
-                  <input type="submit" className="add" value="Tambah" />
+                  <input type="submit" className="add" value="Ubah" />
                 </div>
               </form>
+              {JSON.stringify(data)}
             </div>
           </div>
         </div>
@@ -295,4 +318,4 @@ const UserRegVaccine = () => {
   );
 };
 
-export default UserRegVaccine;
+export default UserUpdateVaccine;

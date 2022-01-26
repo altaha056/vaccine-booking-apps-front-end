@@ -21,6 +21,21 @@ export const AdminHeader = () => {
           <div className="item">Daftar Program Vaksinasi</div>
         </NavLink>
         <NavLink
+          to="/admin/ownvac"
+          className="item"
+          style={({ isActive }) =>
+            isActive
+              ? {
+                  color: "#006d7c",
+                  fontWeight: "600",
+                  textDecoration: "none",
+                }
+              : { color: "#b7b7b7", textDecoration: "none" }
+          }
+        >
+          <div className="item">Vaksinasi oleh Saya</div>
+        </NavLink>
+        <NavLink
           to="/admin/news"
           className="item"
           style={({ isActive }) =>
