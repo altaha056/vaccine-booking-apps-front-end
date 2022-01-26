@@ -333,16 +333,6 @@ const AdminEditVaccination = () => {
                     })}
                     <input type="submit" className="add" value="Ubah" />
 
-                    {JSON.stringify(data)}
-                    <p>.</p>
-                    <p>.</p>
-                    <p>.</p>
-                    <p>.</p>
-                    <p>.</p>
-                    {JSON.stringify(inputList)}
-                    <p>.</p>
-                    <p>.</p>
-                    {JSON.stringify(priorData)}
                   </div>
                 </div>
               </form>

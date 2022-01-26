@@ -348,7 +348,6 @@ const UserUpdateVaccine = () => {
                   <input type="submit" className="add" value="Ubah" />
                 </div>
               </form>
-              {JSON.stringify(data)}
             </div>
           </div>
         </div>

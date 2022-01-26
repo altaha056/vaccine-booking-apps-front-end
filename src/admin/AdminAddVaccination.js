@@ -235,13 +235,6 @@ const AdminAddVaccination = () => {
                       );
                     })}
 
-                    {JSON.stringify(data)}
-                    <p>.</p>
-                    <p>.</p>
-                    <p>.</p>
-                    <p>.</p>
-                    <p>.</p>
-                    {JSON.stringify(inputList)}
                   </div>
                 </div>
               </form>
