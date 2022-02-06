@@ -227,7 +227,9 @@ const UserUpdateVaccine = () => {
     <>
       {user ? null : <UserNotLogin />}
 
-      <UserHeader />
+      <div className="headerTop">
+        <UserHeader />
+      </div>
 
       <div className="mainmenu-user2">
         <div className="content">

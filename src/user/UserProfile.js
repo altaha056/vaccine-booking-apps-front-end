@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/actions/users";
 import { toast } from "react-toastify";
 import UserNotLogin from "./UserNotLogin";
+import Contoh from "../mapbox/Contoh";
 
 const UserProfile = () => {
   const { user } = useSelector((state) => state);
@@ -14,9 +15,13 @@ const UserProfile = () => {
     <>
       {user ? (
         <>
-          <UserHeader />
+          <div className="headerTop">
+            <UserHeader />
+          </div>
           <div className="mainmenu-user2">
             <div className="content">
+              <Contoh />
+
               <h1>Profil Saya</h1>
               <div className="container-dual">
                 <div className="profile">

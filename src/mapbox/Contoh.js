@@ -7,13 +7,9 @@ import icon from "./VaccineIcon.png";
 import placeholder from "./placeholder.png";
 import { useCallback } from "react";
 
-const token = process.env.REACT_APP_MAPBOX_TOKEN;
-
-export default function MapBox({ updateLocation = (lat, long) => {} }) {
+export default function Contoh({ updateLocation = (lat, long) => {} }) {
   const [vaccineList, setVaccineList] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const [distances, setDistances] = useState([]);
-
   const [viewport, setViewport] = useState({
     width: "90vw",
     height: "55vh",
@@ -37,6 +33,11 @@ export default function MapBox({ updateLocation = (lat, long) => {} }) {
       });
   }, []);
 
+  const getPointLoc = useCallback(()=>{
+    console.log("point clicked");
+    
+  })
+
   const getUserLoc = useCallback(() => {
     console.log("Clicked!");
     navigator.geolocation.getCurrentPosition((position) => {
@@ -57,41 +58,16 @@ export default function MapBox({ updateLocation = (lat, long) => {} }) {
     });
   }, []);
 
-  // const getRoute = useCallback(
-  //   ({ code, routes }) => {
-  //     if (code == "Ok") {
-  //       setDistances([...distances, routes[0].distance]);
-  //     }
-  //   },
-  //   [distances]
-  // );
-
-  // useEffect(() => {
-  //   if (userLocation != null) {
-  //     console.log("koordinat user ", userLocation);
-  //     vaccineList.map((data) => {
-  //       fetch(
-  //         `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation.long},${userLocation.lat};${data.Longitude},${data.Latitude}?geometries=geojson&access_token=${token}`
-  //       )
-  //         .then((res) => res.json())
-  //         .then((data) => getRoute(data));
-  //     });
-  //   }
-  // }, [vaccineList, userLocation]);
-
-  // useEffect(() => {
-  //   console.log(distances);
-  // }, [distances]);
-
   return (
     <div className="peta">
       <ReactMapGL
         {...viewport}
         mapStyle="mapbox://styles/altaha/ckymkxtz8892y16rbbojgb3xu"
-        mapboxApiAccessToken={token}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
+        
       >
         <button onClick={getUserLoc} className="mylocation">
           Lokasi saya

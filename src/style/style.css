@@ -194,6 +194,24 @@
   align-items: center;
 }
 
+.add2 {
+  width: 100pt;
+  height: 30pt;
+  outline: none;
+  border: 1pt solid #b7b7b7;
+
+  background-color: #ffffff;
+  color: #8d8d8d;
+  font-weight: 500;
+  font-size: 14pt;
+  border-radius: 5pt;
+  cursor: pointer;
+  transition: 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .content .add:hover {
   background-color: #079cb0;
 }
@@ -320,6 +338,17 @@ table td .na {
   border: 1pt solid #b7b7b7;
   font-size: 14pt;
 }
+
+.inputuser2 {
+  width: 120pt;
+  border-radius: 5pt;
+  margin-bottom: 20pt;
+  min-height: 30pt;
+  padding-left: 10pt;
+  border: 1pt solid #b7b7b7;
+  font-size: 14pt;
+}
+
 .mainmenu-admin .content form .inputuser:focus {
   outline: 1pt solid #079cb0;
 }
@@ -459,6 +488,11 @@ table td .na {
 }
 
 /* header */
+.headerTop {
+  position: fixed;
+  z-index: 33;
+}
+
 .header {
   align-items: center;
   border-bottom: 1pt solid #079cb0;

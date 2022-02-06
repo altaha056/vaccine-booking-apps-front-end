@@ -17,9 +17,12 @@ import { toast } from "react-toastify";
 import { getVaccineList } from "../config/api/vaccine-post";
 import moment from "moment";
 
+const token = process.env.REACT_APP_MAPBOX_TOKEN;
+
 const UserRegVaccine = () => {
   const [vaccineList, setVaccineList] = useState([]);
   const [lokasiVaksin, setLokasiVaksin] = useState([]);
+  const [distances, setDistances] = useState([]);
 
   const [sesiVaksin, setSesiVaksin] = useState([]);
   const [selectedVaccineLocation, setSelectedVaccineLocation] = useState();
@@ -29,7 +32,7 @@ const UserRegVaccine = () => {
     getVaccineList()
       .then(({ data }) => {
         setVaccineList(data);
-        console.log(data);
+        console.log("daftar seluruh vaksinasi: ", data);
         setLokasiVaksin(
           data.map(({ ID, Location, Address }) => ({
             value: ID,
@@ -55,6 +58,7 @@ const UserRegVaccine = () => {
   const formatDate = (date) => moment(date).locale("id").format("ll");
   const formatHour = (date) => moment(date).format("LT");
   const [userLocation, setUserLocation] = useState();
+  const [radius, setRadius] = useState(5);
 
   const regexFullname = /^[a-zA-Z\s]{6,30}$/i;
   const [errMsgFullname, setErrMsgFullname] = useState("");
@@ -75,7 +79,29 @@ const UserRegVaccine = () => {
     console.log("data: ", data);
   };
 
-  <br />;
+  const handleInputRadius = (e) => {
+    e.preventDefault();
+    const value =
+      e.target.type == "number" ? Number(e.target.value) : e.target.value;
+    console.log(value);
+    setRadius(value);
+    console.log("radius = ", radius);
+
+    let latitude = userLocation.latitude;
+    let longitude = userLocation.longitude;
+
+    getNearbyFacilities({ latitude, longitude, radius })
+      .then(({ data }) => {
+        console.log("daftar vaksinas dalam radius", radius, "km: ", data);
+        setNearbyFacilitiesFromUserPos(data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        toast.warn("hmm sepertinya ada kesalahan");
+      });
+    e.preventDefault();
+  };
+
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
@@ -119,8 +145,6 @@ const UserRegVaccine = () => {
   const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
     useState(null);
 
-  const [radius, setRadius] = useState(7);
-
   const updateUserLocation = useCallback(
     (latitude, longitude) => {
       console.log(latitude, longitude);
@@ -128,7 +152,7 @@ const UserRegVaccine = () => {
 
       getNearbyFacilities({ latitude, longitude, radius })
         .then(({ data }) => {
-          console.log(data);
+          console.log("daftar vaksinas dalam radius", radius, "km: ", data);
           setNearbyFacilitiesFromUserPos(data);
         })
         .catch((err) => {
@@ -162,11 +186,38 @@ const UserRegVaccine = () => {
     }
   }, [selectedVaccineLocation]);
 
+  const getRoute = useCallback(
+    ({ code, routes }) => {
+      if (code == "Ok") {
+        setDistances([...distances, routes[0].distance]);
+      }
+    },
+    [distances]
+  );
+
+  useEffect(() => {
+    if (userLocation != null && nearbyFacilitiesFromUserPos) {
+      console.log("koordinat user ", userLocation);
+      nearbyFacilitiesFromUserPos.map((data) => {
+        fetch(
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation.longitude},${userLocation.latitude};${data.Longitude},${data.Latitude}?geometries=geojson&access_token=${token}`
+        )
+          .then((res) => res.json())
+          .then((data) => getRoute(data));
+      });
+    }
+  }, [nearbyFacilitiesFromUserPos, userLocation]);
+
+  useEffect(() => {
+    console.log(distances);
+  }, [distances]);
+
   return (
     <>
       {user ? null : <UserNotLogin />}
-
-      <UserHeader />
+      <div className="headerTop">
+        <UserHeader />
+      </div>
 
       <div className="mainmenu-user2">
         <div className="content">
@@ -186,19 +237,32 @@ const UserRegVaccine = () => {
                 {nearbyFacilitiesFromUserPos ? (
                   <>
                     <div className="value">
-                      <p>Rekomendasi lokasi vaksinasi terdekat:</p>
+                      <p> lokasi vaksinasi terdekat</p>
                       <br />
+                      <p>Cari lokasi vaksinasi dalam radius km:</p>
+                      <form
+                        onSubmit={handleInputRadius}
+                        className="dialog-button"
+                      >
+                        <input
+                          type="number"
+                          className="inputuser2"
+                          value={radius}
+                          onChange={handleInputRadius}
+                          min="1"
+                          max="100"
+                        />
+                        <input type="submit" className="add2" value="Lihat" />
+                      </form>
                     </div>
                     {nearbyFacilitiesFromUserPos.length >= 1 ? (
                       <>
                         {nearbyFacilitiesFromUserPos.map((loc, index) => (
-                          <>
-                            <div className="value">
-                              <h4>{loc.Location}</h4>
-                              <p>{loc.Address}</p>
-                              <br />
-                            </div>
-                          </>
+                          <div className="value" key={index}>
+                            <h4>{loc.Location}</h4>
+                            <p>{loc.Address}</p>
+                            <br />
+                          </div>
                         ))}
                       </>
                     ) : (
