@@ -199,7 +199,7 @@
   height: 30pt;
   outline: none;
   border: 1pt solid #b7b7b7;
-
+  margin-top: 10pt;
   background-color: #ffffff;
   color: #8d8d8d;
   font-weight: 500;
@@ -343,6 +343,7 @@ table td .na {
   width: 120pt;
   border-radius: 5pt;
   margin-bottom: 20pt;
+  margin-top: 10pt;
   min-height: 30pt;
   padding-left: 10pt;
   border: 1pt solid #b7b7b7;

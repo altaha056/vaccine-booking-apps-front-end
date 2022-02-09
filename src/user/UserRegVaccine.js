@@ -86,7 +86,8 @@ const UserRegVaccine = () => {
     console.log(value);
     setRadius(value);
     console.log("radius = ", radius);
-
+  };
+  const handleSubmitRadius = (e) => {
     let latitude = userLocation.latitude;
     let longitude = userLocation.longitude;
 
@@ -101,7 +102,6 @@ const UserRegVaccine = () => {
       });
     e.preventDefault();
   };
-
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
@@ -237,11 +237,11 @@ const UserRegVaccine = () => {
                 {nearbyFacilitiesFromUserPos ? (
                   <>
                     <div className="value">
-                      <p> lokasi vaksinasi terdekat</p>
+                      <p>Lokasi vaksinasi terdekat</p>
                       <br />
                       <p>Cari lokasi vaksinasi dalam radius km:</p>
                       <form
-                        onSubmit={handleInputRadius}
+                        onSubmit={handleSubmitRadius}
                         className="dialog-button"
                       >
                         <input
@@ -250,7 +250,7 @@ const UserRegVaccine = () => {
                           value={radius}
                           onChange={handleInputRadius}
                           min="1"
-                          max="100"
+                          max="20"
                         />
                         <input type="submit" className="add2" value="Lihat" />
                       </form>
