@@ -83,6 +83,11 @@ export default function MapBox({ updateLocation = (lat, long) => {} }) {
   //   console.log(distances);
   // }, [distances]);
 
+  const bounds = [
+    [-122.66336, 37.492987], // Southwest coordinates
+    [-122.250481, 37.871651], // Northeast coordinates
+  ];
+
   return (
     <div className="peta">
       <ReactMapGL
@@ -92,6 +97,7 @@ export default function MapBox({ updateLocation = (lat, long) => {} }) {
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
+        maxBounds={bounds}
       >
         <button onClick={getUserLoc} className="mylocation">
           Lokasi saya

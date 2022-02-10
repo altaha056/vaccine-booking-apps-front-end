@@ -34,6 +34,7 @@ import Loading from "./style/Loading";
 import { updateProfileAdmin } from "./store/actions/admins";
 import AdminOwnVac from "./admin/AdminOwnVac";
 import UserUpdateVaccine from "./user/UserUpdateVaccine";
+import UserRegVaccine2 from "./user/UserRegVaccine2";
 
 function App() {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ function App() {
           {/* user */}
           <Route path="/user/landingpage" element={<UserLandingPage />} />
           <Route path="/user/profile" element={<UserProfile />} />
-          <Route path="/user/reg-vaccine" element={<UserRegVaccine />} />
+          <Route path="/user/reg-vaccine" element={<UserRegVaccine2 />} />
           <Route path="/user/info-vacc" element={<UserVaccineInformation />} />
           <Route path="/user/login" element={<UserLogin />} />
           <Route path="/user/register" element={<UserRegisterAccount />} />

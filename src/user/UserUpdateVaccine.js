@@ -236,7 +236,6 @@ const UserUpdateVaccine = () => {
           <div className="peta">
             <div className="titlemap">
               <h1>Edit Vaksinasi</h1>
-              {/* <img src={VacIcon} className="iconVaccine" /> */}
               <button className="iconVaccine">
                 <img src={VacIcon} className="iconVaccine" />
               </button>

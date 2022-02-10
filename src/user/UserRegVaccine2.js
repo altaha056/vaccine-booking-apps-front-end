@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import UserHeader from "./UserHeader";
+import icon from "../mapbox/VaccineIcon.png";
 import { NavLink } from "react-router-dom";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import VacIcon from "../mapbox/VaccineIcon.png";
 import { useSelector } from "react-redux";
 import Select from "react-select";
@@ -17,12 +19,19 @@ import { toast } from "react-toastify";
 import { getVaccineList } from "../config/api/vaccine-post";
 import moment from "moment";
 
+import { useRef } from "react";
+import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import "mapbox-gl/dist/mapbox-gl.css";
+
 const token = process.env.REACT_APP_MAPBOX_TOKEN;
 
-const UserRegVaccine = () => {
+mapboxgl.accessToken = token;
+
+const UserRegVaccine2 = () => {
   const [vaccineList, setVaccineList] = useState([]);
   const [lokasiVaksin, setLokasiVaksin] = useState([]);
   const [distances, setDistances] = useState([]);
+  const [selectedVacFacilities, setSelectedVacFacilities] = useState(null);
 
   const [sesiVaksin, setSesiVaksin] = useState([]);
   const [selectedVaccineLocation, setSelectedVaccineLocation] = useState();
@@ -69,7 +78,6 @@ const UserRegVaccine = () => {
     setData({ ...data, [name]: value });
     console.log("data: ", data);
   };
-
   const handleInputRadius = (e) => {
     e.preventDefault();
     const value =
@@ -154,8 +162,6 @@ const UserRegVaccine = () => {
     [userLocation]
   );
 
-  
-  
   useEffect(() => {
     setSelectedSessionId(null);
     if (selectedVaccineLocation) {
@@ -205,6 +211,88 @@ const UserRegVaccine = () => {
     console.log(distances);
   }, [distances]);
 
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const bounds = [
+    [98.405881, 3.494404], // Southwest coordinates
+    [98.916406, 3.690163], // Northeast coordinates
+  ];
+  const [lng, setLng] = useState(98.6520151);
+  const [lat, setLat] = useState(3.5611232);
+  const [zoom, setZoom] = useState(13);
+
+  const geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+      enableHighAccuracy: true,
+    },
+    trackUserLocation: true,
+    showUserHeading: true,
+    showAccuracyCircle: false,
+  });
+
+  useEffect(() => {
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: zoom,
+      maxBounds: bounds, // Set the map's geographical boundaries.
+      customAttribution: "Untuk skripsi Altaha",
+    });
+
+    map.current.addControl(
+      new mapboxgl.FullscreenControl({
+        container: document.querySelector("content"),
+      })
+    );
+
+    map.current.addControl(geolocate);
+
+    map.current.addControl(new mapboxgl.NavigationControl());
+  });
+
+  useEffect(() => {
+    vaccineList.map((vaccine) => {
+      new mapboxgl.Marker()
+        .setLngLat([vaccine.Longitude, vaccine.Latitude])
+        .addTo(map.current)
+        .setPopup(
+          new mapboxgl.Popup().setHTML(
+            `<p >${vaccine.Location}<br/>${vaccine.Description}</p>`
+          )
+        );
+    });
+  }, [vaccineList]);
+
+  useEffect(() => {
+    geolocate.on("geolocate", (e) => {
+      console.log("A geolocate event has occurred.");
+      let lon = e.coords.longitude;
+      let lat = e.coords.latitude;
+      let position = [lon, lat];
+      console.log(position);
+      updateUserLocation(lat, lon);
+    });
+  }, []);
+
+  geolocate.on("outofmaxbounds", () => {
+    console.log("An outofmaxbounds event has occurred.");
+  });
+
+  useEffect(() => {
+    if (!map.current) return; // wait for map to initialize
+    map.current.on("move", () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(2));
+    });
+
+    map.current.on("error", () => {
+      console.log("An error event has occurred.");
+    });
+  });
+
   return (
     <>
       {user ? null : <UserNotLogin />}
@@ -217,12 +305,19 @@ const UserRegVaccine = () => {
           <div className="peta">
             <div className="titlemap">
               <h1>Daftar Vaksinasi</h1>
-              {/* <img src={VacIcon} className="iconVaccine" /> */}
               <button className="iconVaccine">
                 <img src={VacIcon} className="iconVaccine" />
               </button>
             </div>
-            <MapBox updateLocation={updateUserLocation} />
+            {/* peta di sini */}
+            {/* peta di sini */}
+            {/* peta di sini */}
+            {/* <MapBox updateLocation={updateUserLocation} /> */}
+            {/* peta di sini */}
+            {/* peta di sini */}
+            {/* peta di sini */}
+            Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+            <div ref={mapContainer} className="map-container"></div>
           </div>
           <div className="container-dual">
             <div className="profile">
@@ -268,7 +363,7 @@ const UserRegVaccine = () => {
                 ) : (
                   <div className="value">
                     <p>
-                      Klik tombol lokasi saya di pojok kiri atas peta untuk
+                      Klik tombol "lokasi saya" di pojok kanan atas peta untuk
                       melihat lokasi vaksinasi di sekitar{" "}
                     </p>
                   </div>
@@ -353,4 +448,4 @@ const UserRegVaccine = () => {
   );
 };
 
-export default UserRegVaccine;
+export default UserRegVaccine2;
