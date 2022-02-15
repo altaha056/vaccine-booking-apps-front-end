@@ -250,7 +250,8 @@ const UserRegVaccine2 = () => {
     map.current.addControl(geolocate);
 
     map.current.addControl(new mapboxgl.NavigationControl());
-  });
+  }, []);
+
 
   useEffect(() => {
     vaccineList.map((vaccine) => {
