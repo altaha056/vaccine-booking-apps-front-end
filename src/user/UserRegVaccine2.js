@@ -142,7 +142,7 @@ const UserRegVaccine2 = () => {
   );
 
   const [nearbyFacilitiesFromUserPos, setNearbyFacilitiesFromUserPos] =
-    useState(null);
+    useState([]);
 
   const updateUserLocation = useCallback(
     (latitude, longitude) => {
@@ -153,6 +153,7 @@ const UserRegVaccine2 = () => {
         .then(({ data }) => {
           console.log("daftar vaksinas dalam radius", radius, "km: ", data);
           setNearbyFacilitiesFromUserPos(data);
+
         })
         .catch((err) => {
           console.log(err.response);
@@ -185,31 +186,72 @@ const UserRegVaccine2 = () => {
     }
   }, [selectedVaccineLocation]);
 
-  const getRoute = useCallback(
-    ({ code, routes }) => {
-      if (code == "Ok") {
-        setDistances([...distances, routes[0].distance]);
-      }
-    },
-    [distances]
-  );
+  const drawline = (data) => {
+    const route = data.geometry.coordinates;
+    const steps = data.legs[0].steps;
+    console.log("asdasdlajsldkjasldkjasldkjaslj");
+    console.log(data);
 
-  useEffect(() => {
-    if (userLocation != null && nearbyFacilitiesFromUserPos) {
-      console.log("koordinat user ", userLocation);
-      nearbyFacilitiesFromUserPos.map((data) => {
-        fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation.longitude},${userLocation.latitude};${data.Longitude},${data.Latitude}?geometries=geojson&access_token=${token}`
-        )
-          .then((res) => res.json())
-          .then((data) => getRoute(data));
+    const coordForMatrix = Array(steps.length);
+    for (let i = 0; i < coordForMatrix.length; i++) {
+      coordForMatrix[i] = Array(steps.length).fill(0);
+    }
+    steps.map((x, i) => (coordForMatrix[i][i + 1] = x.weight));
+    console.log(coordForMatrix);
+
+    const geojson = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: route,
+      },
+    };
+    // if the route already exists on the map, we'll reset it using setData
+    if (map.current.getSource("route")) {
+      map.current.getSource("route").setData(geojson);
+    }
+    // otherwise, we'll make a new request
+    else {
+      map.current.addLayer({
+        id: "route",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: geojson,
+        },
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#3887be",
+          "line-width": 5,
+          "line-opacity": 0.75,
+        },
       });
     }
-  }, [nearbyFacilitiesFromUserPos, userLocation]);
+  }
 
   useEffect(() => {
-    console.log(distances);
-  }, [distances]);
+    (async()=>{
+      if (userLocation != null && nearbyFacilitiesFromUserPos.length) {
+        console.log("koordinat user ", userLocation);
+        const lines = (await Promise.all( await nearbyFacilitiesFromUserPos.map(async (data) => {
+          return await fetch(
+            `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation.longitude},${userLocation.latitude};${data.Longitude},${data.Latitude}?steps=true&geometries=geojson&access_token=${token}`
+          )
+            .then(async (res) => await res.json())
+            .then(({ code, routes }) => routes[0]);
+        }))).sort((a,b) => a.distance > b.distance ? 1:a.distance < b.distance?-1:0 );
+
+          drawline(lines[0])
+      }
+    })()
+   
+  }, [nearbyFacilitiesFromUserPos, userLocation]);
+
+  
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -292,7 +334,7 @@ const UserRegVaccine2 = () => {
     map.current.on("error", () => {
       console.log("An error event has occurred.");
     });
-  });
+  },[]);
 
   return (
     <>
@@ -317,6 +359,7 @@ const UserRegVaccine2 = () => {
             {/* peta di sini */}
             {/* peta di sini */}
             {/* peta di sini */}
+            
             Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             <div ref={mapContainer} className="map-container"></div>
           </div>
