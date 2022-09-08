@@ -189,6 +189,8 @@ const UserRegVaccine2 = () => {
   const drawline = (data) => {
     const route = data.geometry.coordinates;
     const steps = data.legs[0].steps;
+    console.log("asdasdlajsldkjasldkjasldkjaslj");
+    console.log(data);
 
     const coordForMatrix = Array(steps.length);
     for (let i = 0; i < coordForMatrix.length; i++) {
