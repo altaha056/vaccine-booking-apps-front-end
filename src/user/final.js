@@ -65,7 +65,14 @@ function Final() {
     geolocate.on("geolocate", (e) => {
       const {longitude,latitude } = e.coords;
       updateUserLocation(latitude, longitude);
+      console.log("e.coords");
+      console.log(e.coords);
     });
+    map.current.on("click",({lngLat})=>{
+      const { lat, lng } = lngLat;
+      updateUserLocation(lat, lng);
+      
+    })
 
     //get vaccine location
     
@@ -103,8 +110,8 @@ function Final() {
     setUserLocation({ latitude, longitude });
     getNearbyFacilities({ latitude, longitude, radius })
         .then(async({ data }) => {
-          
           setNearbyFacilitiesFromUserPos(data);
+          getNearestVac()
         })
         .catch((err) => {
           console.log("error while fetching data", err.response);
@@ -112,7 +119,7 @@ function Final() {
   }
 
   
-  useEffect(() => {
+  const getNearestVac = useEffect(() => {
     (async()=>{
       if (userLocation != null && nearbyFacilitiesFromUserPos.length) {
         const nearest = nearbyFacilitiesFromUserPos.slice(0,3)
