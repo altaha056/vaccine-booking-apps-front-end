@@ -111,7 +111,7 @@ export default function MapBox({ updateLocation = (lat, long) => {} }) {
                 setSelectedUserLocation(userLocation);
               }}
             >
-              <img src={placeholder} className="iconVaccine" />
+              <img src={placeholder} className="iconVaccine" alt="vaccine logo" />
             </button>
           </Marker>
         ) : null}

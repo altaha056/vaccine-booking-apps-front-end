@@ -35,6 +35,7 @@ import { updateProfileAdmin } from "./store/actions/admins";
 import AdminOwnVac from "./admin/AdminOwnVac";
 import UserUpdateVaccine from "./user/UserUpdateVaccine";
 import UserRegVaccine2 from "./user/UserRegVaccine2";
+import Final from "./user/final";
 
 function App() {
   const dispatch = useDispatch();
@@ -109,6 +110,7 @@ function App() {
             path="/user/updateparticipant/:id"
             element={<UserUpdateVaccine />}
           />
+          <Route path="/user/f" element={<Final/>} />
         </Routes>
       </Router>
 
