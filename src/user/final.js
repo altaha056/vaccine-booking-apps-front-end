@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-
+import "../style/iconforMap.css"
 // Backend
 import {
   getNearbyFacilities, registerParticipant,getVaccineList,
@@ -11,7 +11,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 const token = process.env.REACT_APP_MAPBOX_TOKEN;
 mapboxgl.accessToken = token;
 
-function Final() {
+function Final({ onChangePlace = (data) => {} }) {
   const mapContainer = useRef(null)
 
   const [userLocation, setUserLocation] = useState();
@@ -24,12 +24,12 @@ function Final() {
   const [lat, setLat] = useState(3.5611232);
   const [zoom, setZoom] = useState(13);
 
-  const [allRoutes, setAllRoutes ]=useState()
-  const [changeRouteValue, setChangeRouteValue ]=useState()
-
+  const [dataForGraph, setDataForGraph]=useState()
   
   const map = useRef(null);
 
+
+  
   const bounds = [
     [98.549242, 3.487502],// Southwest coordinates
     [98.754549, 3.801692], // Northeast coordinates
@@ -43,6 +43,10 @@ function Final() {
     showAccuracyCircle: false,
   });
 
+  
+  
+  
+  
   useEffect(()=>{
     if (map.current) return; // initialize map only once
 
@@ -54,11 +58,12 @@ function Final() {
       maxBounds: bounds, // Set the map's geographical boundaries.
       customAttribution: "Untuk skripsi Altaha",
     });
+    
     map.current.addControl(
       new mapboxgl.FullscreenControl({
         container: document.querySelector("content"),
       })
-    );
+      );
     map.current.addControl(geolocate);
     map.current.addControl(new mapboxgl.NavigationControl());
 
@@ -68,12 +73,14 @@ function Final() {
       console.log("e.coords");
       console.log(e.coords);
     });
+
+    
+    
     map.current.on("click",({lngLat})=>{
       const { lat, lng } = lngLat;
       updateUserLocation(lat, lng);
-      
     })
-
+    
     //get vaccine location
     
     getVaccineList()
@@ -93,17 +100,24 @@ function Final() {
   },[]);
 
   
+  
+  
   useEffect(() => {
+    
     vaccineList.map((vaccine) => {
-      new mapboxgl.Marker()
+      const el = document.createElement("div");
+      el.id = `marker-${vaccine.ID}`;
+      el.className = "markerVacLoc";
+
+      new mapboxgl.Marker(el, { offset: [0, -23] })
         .setLngLat([vaccine.Longitude, vaccine.Latitude])
         .addTo(map.current)
         .setPopup(
           new mapboxgl.Popup().setHTML(
             `<p >${vaccine.Location}<br/>${vaccine.Description}</p>`
           )
-        );
-    });
+        )
+    })
   }, [vaccineList]);
 
   const updateUserLocation = async (latitude, longitude) => {
@@ -135,8 +149,13 @@ function Final() {
         }))).sort((a,b) => a.distance > b.distance ? 1:a.distance < b.distance?-1:0 );
         drawline(lines[0][0])
         let linesToCompare = lines.flat()
+        setDataForGraph(linesToCompare)
         console.log("lines to compare");
         console.log(linesToCompare);
+        // create new pop up every time a user location is read
+        // nearest.map(vac=>{
+        //   new mapboxgl.Popup({ closeOnClick: true }).setLngLat([vac.Longitude, vac.Latitude]).setHTML(`<p>${vac.Location}</p>`).addTo(map.current);
+        // })
         //*****code below if you wanna get the nearest place based on manhattan distance. not based on the route because it will consume so much api******//
 
         // const lines =  await fetch(
@@ -155,6 +174,12 @@ function Final() {
     })()
    
   }, [nearbyFacilitiesFromUserPos, userLocation]);
+  
+
+  useEffect(() => {
+    onChangePlace(dataForGraph)
+  }, [dataForGraph])
+  
   
   const getBoxFitBounds=(bbox)=>{
       map.current.fitBounds(bbox, {
@@ -233,6 +258,7 @@ function Final() {
     ];
   }
 
+  
   const  flyToLoc=(coordinate)=>{
     map.flyTo({
       center: coordinate,
@@ -242,6 +268,7 @@ function Final() {
   
   return (
     <div>
+      
       <div ref={mapContainer} className="map-container"></div>
     </div>
   )

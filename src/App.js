@@ -36,6 +36,7 @@ import AdminOwnVac from "./admin/AdminOwnVac";
 import UserUpdateVaccine from "./user/UserUpdateVaccine";
 import UserRegVaccine2 from "./user/UserRegVaccine2";
 import Final from "./user/final";
+import GraphToMatrix from "./user/graphToMatrix";
 
 function App() {
   const dispatch = useDispatch();
@@ -111,6 +112,7 @@ function App() {
             element={<UserUpdateVaccine />}
           />
           <Route path="/user/f" element={<Final/>} />
+          <Route path="/user/graph" element={<GraphToMatrix/>} />
         </Routes>
       </Router>
 
