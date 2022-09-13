@@ -142,11 +142,15 @@ function Final({ onChangePlace = (data) => {} }) {
         //*****code below if you wanna get the nearest place based on the route. not the manhattan distance******
         const lines = (await Promise.all( await nearest.map(async (data) => {
           return await fetch(
-            `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation.longitude},${userLocation.latitude};${data.Longitude},${data.Latitude}?overview=full&steps=true&geometries=geojson&access_token=${token}`
+            `https://api.mapbox.com/directions/v5/mapbox/driving/${userLocation.longitude},${userLocation.latitude};${data.Longitude},${data.Latitude}?overview=full&steps=true&geometries=geojson&access_token=${token}&language=id`
           )
             .then(async (res) => await res.json())
-            .then(({ code, routes }) => routes);
-        }))).sort((a,b) => a.distance > b.distance ? 1:a.distance < b.distance?-1:0 );
+            .then(({ code, routes }) => (routes))
+        })))
+        lines.map((line,index)=>line[0]["location"]=nearest[index].Location)
+        lines.sort((a,b) => {return a[0].distance-b[0].distance} );
+        console.log("lines");
+        console.log(lines);
         drawline(lines[0][0])
         let linesToCompare = lines.flat()
         setDataForGraph(linesToCompare)

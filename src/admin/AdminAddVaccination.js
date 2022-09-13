@@ -109,10 +109,10 @@ const AdminAddVaccination = () => {
             <div className="content">
               <h2>Tambah Kegiatan Vaksinasi Baru</h2>
 
+              <AdminMapBox onChangePlace={ambilTempat} />
               <form spellCheck="false" onSubmit={handleSubmit}>
                 <div className="container-dual">
                   <div className="profile">
-                    <AdminMapBox onChangePlace={ambilTempat} />
                     <br />
 
                     <p>Deskripsi Vaksinasi</p>

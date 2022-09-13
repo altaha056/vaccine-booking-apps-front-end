@@ -64,7 +64,7 @@ export const AdminHeader = () => {
         }
         className="profile"
       >
-        <div className="item">Admin Altaha</div>
+        <div className="item">Admin</div>
       </NavLink>
     </div>
   );

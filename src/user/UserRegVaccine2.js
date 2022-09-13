@@ -233,6 +233,43 @@ const UserRegVaccine2 = () => {
     }
   }
 
+  const getBbox=(nearestResult, searchResult)=>{
+    const lats = [
+      nearestResult[1],
+      searchResult[1],
+    ];
+    const lons = [
+      nearestResult[0],
+      searchResult[0],
+    ];
+    const sortedLons = lons.sort((a, b) => {
+      if (a > b) {
+        return 1;
+      }
+      if (a.distance < b.distance) {
+        return -1;
+      }
+      return 0;
+    });
+    const sortedLats = lats.sort((a, b) => {
+      if (a > b) {
+        return 1;
+      }
+      if (a.distance < b.distance) {
+        return -1;
+      }
+      return 0;
+    });
+    return [
+      [sortedLons[0], sortedLats[0]],
+      [sortedLons[1], sortedLats[1]],
+    ];
+  }
+  const getBoxFitBounds=(bbox)=>{
+    map.current.fitBounds(bbox, {
+      padding: 100,
+    });
+  }
   useEffect(() => {
     (async()=>{
       if (userLocation != null && nearbyFacilitiesFromUserPos.length) {
@@ -246,6 +283,13 @@ const UserRegVaccine2 = () => {
         }))).sort((a,b) => a.distance > b.distance ? 1:a.distance < b.distance?-1:0 );
           console.log(lines);
           drawline(lines[0][0])
+          new mapboxgl.Popup({ closeOnClick: true }).setLngLat([nearbyFacilitiesFromUserPos[0].Longitude, nearbyFacilitiesFromUserPos[0].Latitude]).setHTML(`<p>${nearbyFacilitiesFromUserPos[0].Location}</p>`).addTo(map.current);
+          
+        const searchResult = [userLocation.longitude, userLocation.latitude]
+        const nearestResult = [nearbyFacilitiesFromUserPos[0].Longitude, nearbyFacilitiesFromUserPos[0].Latitude]
+        const bbox = getBbox(nearestResult, searchResult)
+        getBoxFitBounds(bbox)
+
       }
     })()
    
@@ -317,6 +361,11 @@ const UserRegVaccine2 = () => {
       console.log(position);
       updateUserLocation(lat, lon);
     });
+    
+    map.current.on("click",({lngLat})=>{
+      const { lat, lng } = lngLat;
+      updateUserLocation(lat, lng);
+    })
   }, []);
 
   geolocate.on("outofmaxbounds", () => {

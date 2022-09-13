@@ -1,9 +1,5 @@
-import React from 'react'
-
-const AlgoIdaStar = () => {
-  return (
-    <div>AlgoIdaStar</div>
-  )
+const AlgoIdaStar = (matrix) => {
+  
 }
 
 export default AlgoIdaStar

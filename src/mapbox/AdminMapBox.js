@@ -8,11 +8,14 @@ mapboxgl.accessToken =
 export default function AdminMapBox({ onChangePlace = (data) => {} }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(100);
-  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(98.666932);
+  const [lat, setLat] = useState(3.577202);
   const [zoom, setZoom] = useState(5);
   const [tempat, setTempat] = useState();
-
+  const bounds = [
+    [98.549242, 3.487502],// Southwest coordinates
+    [98.754549, 3.801692], // Northeast coordinates
+  ];
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
@@ -20,6 +23,8 @@ export default function AdminMapBox({ onChangePlace = (data) => {} }) {
       style: "mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
       zoom: zoom,
+      maxBounds: bounds, // Set the map's geographical boundaries.
+      customAttribution: "Untuk skripsi Altaha",
     });
 
     map.current.on("click", ({ lngLat }) => {
