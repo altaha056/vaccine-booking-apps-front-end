@@ -16,16 +16,14 @@ const GraphToMatrix = () => {
     },
     []
   );
-  let johnsonReturnResult = []
+
   useEffect(()=>{
     console.log("data");
     console.log(data);
     console.log(data.length);
     generateMatrix(data)
     generateHeuristic(data)
-  })
-  
-  
+  },[data])
   
   const generateMatrix=(result)=>{
     if(result.length){
@@ -64,16 +62,9 @@ const GraphToMatrix = () => {
 
       console.log("matrix")
       console.log(matrix)
-      johnsonReturnResult.push(...AlgoJohnson(matrix))
-      // setjohnsonVal(johnsonReturnResult)
+      setjohnsonVal((e)=> [...AlgoJohnson(matrix), ...e])
     }
   }
-  
-  
-  console.log("johnsonReturnResult");
-  console.log(johnsonReturnResult);
-  
-  console.log("johnsonReturnResult");
   
   const generateHeuristic=(result)=>{
     if(result.length){
@@ -115,9 +106,8 @@ const GraphToMatrix = () => {
     }
   }
   return (
-    <div className='content mainmenu-user'>
+    <div className='content'>
       <Final onChangePlace={ambilTempat} />
-      <p>{johnsonReturnResult}</p>
       
       <table className='center'>
         <thead>
@@ -127,19 +117,30 @@ const GraphToMatrix = () => {
             <th>Weight</th>
           </tr>
         </thead>
+        <tbody >
         {data.map((x,i)=>(
-          <tbody key={i}>
-            <tr>
+            <tr key={i}>
               <td>{x.location??Math.floor(x.location)}</td>
               <td>{x.distance??Math.floor(x.distance)}</td>
               <td>{x.weight}</td>
             </tr>
-          </tbody>
         ))}
+        </tbody>
       </table>
-      {johnsonReturnResult}
-      {johnsonVal.map((x,i)=>(<p key={i}>{x}</p>))}
-      <p>ini adalah contoh</p>
+      <table className='center'>
+        <thead>
+          <th>
+            Johnson Algorithm Calculation
+          </th>
+        </thead>
+        <tbody>
+          {johnsonVal.map((x,i)=>(
+              <tr key={i}>
+                <td>{x}</td>
+              </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
     
   )

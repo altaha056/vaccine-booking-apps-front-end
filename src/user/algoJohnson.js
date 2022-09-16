@@ -20,6 +20,7 @@ const AlgoJohnson = (matrix) => {
     let spt_set = [];
     let d = inRange(N, () => Infinity);
     d[src] = 0;
+    let dijkstraValue = []
     inRange(N, () => {
       let cur = get_min_distance(d, spt_set);
       spt_set[cur] = true;
@@ -30,10 +31,10 @@ const AlgoJohnson = (matrix) => {
           og[cur][vertex] != 0
         ) {
           d[vertex] = d[cur] + ng[cur][vertex];
+          dijkstraValue.push(`from ${cur} to ${vertex} equals ${d[vertex]}`)
         }
       });
     });
-    let dijkstraValue = []
     inRange(N, (i) => dijkstraValue.push(`Vertex ${i}: ${d[i]}`));
     return dijkstraValue
   }
