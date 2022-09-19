@@ -19,6 +19,7 @@ function Final({ onChangePlace = (data) => {} }) {
   const [vaccineList, setVaccineList] = useState([]);
   const [lokasiVaksin, setLokasiVaksin] = useState([]);
   
+  
   const [radius, setRadius] = useState(5);
   const [lng, setLng] = useState(98.6520151);
   const [lat, setLat] = useState(3.5611232);
@@ -128,7 +129,7 @@ function Final({ onChangePlace = (data) => {} }) {
           getNearestVac()
         })
         .catch((err) => {
-          console.log("error while fetching data", err.response);
+          // console.log("error while fetching data", err.response);
         });
   }
 
@@ -137,8 +138,8 @@ function Final({ onChangePlace = (data) => {} }) {
     (async()=>{
       if (userLocation != null && nearbyFacilitiesFromUserPos.length) {
         const nearest = nearbyFacilitiesFromUserPos.slice(0,3)
-        console.log("nearest");
-        console.log(nearest);
+        // console.log("nearest");
+        // console.log(nearest);
         //*****code below if you wanna get the nearest place based on the route. not the manhattan distance******
         const lines = (await Promise.all( await nearest.map(async (data) => {
           return await fetch(
@@ -149,13 +150,13 @@ function Final({ onChangePlace = (data) => {} }) {
         })))
         lines.map((line,index)=>line[0]["location"]=nearest[index].Location)
         lines.sort((a,b) => {return a[0].distance-b[0].distance} );
-        console.log("lines");
-        console.log(lines);
+        // console.log("lines");
+        // console.log(lines);
         drawline(lines[0][0])
         let linesToCompare = lines.flat()
         setDataForGraph(linesToCompare)
-        console.log("lines to compare");
-        console.log(linesToCompare);
+        // console.log("lines to compare");
+        // console.log(linesToCompare);
         // create new pop up every time a user location is read
         // nearest.map(vac=>{
         //   new mapboxgl.Popup({ closeOnClick: true }).setLngLat([vac.Longitude, vac.Latitude]).setHTML(`<p>${vac.Location}</p>`).addTo(map.current);

@@ -1,6 +1,5 @@
 
-const AlgoJohnson = (matrix) => {
-
+const AlgoJohnson = (matrix, nodeGoalsLoc) => {
   function get_min_distance(dist, visited) {
     let minimum = Infinity;
     let minVertex = 0;
@@ -31,7 +30,12 @@ const AlgoJohnson = (matrix) => {
           og[cur][vertex] != 0
         ) {
           d[vertex] = d[cur] + ng[cur][vertex];
-          dijkstraValue.push(`from ${cur} to ${vertex} equals ${d[vertex]}`)
+          dijkstraValue.push(`from ${cur} to ${vertex} equals ${d[vertex]} `)
+          for (let i = 0; i < nodeGoalsLoc.length; i++) {
+            if (vertex===nodeGoalsLoc[i][0]) {
+              dijkstraValue.push(`Goals found: ${nodeGoalsLoc[i][1]} at node ${vertex}`);
+            }
+          }
         }
       });
     });

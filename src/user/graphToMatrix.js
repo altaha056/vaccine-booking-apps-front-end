@@ -9,6 +9,10 @@ import AlgoJohnson from './algoJohnson';
 const GraphToMatrix = () => {
   const [data, setData] = useState([]);
   const [johnsonVal, setjohnsonVal] = useState([])
+  const [idaStartVal, setidaStartVal] = useState([])
+  const [nodeGoalsLoc, setNodeGoalsLoc] = useState([[]])
+  const [matrix, setmatrix] = useState([])
+  const [heuristic, setheuristic] = useState([])
   const ambilTempat = useCallback(
     (tempat) => {
       if (tempat){
@@ -18,15 +22,24 @@ const GraphToMatrix = () => {
   );
 
   useEffect(()=>{
-    console.log("data");
-    console.log(data);
-    console.log(data.length);
+    // console.log("data");
+    // console.log(data);
+    // console.log(data.length);
     generateMatrix(data)
     generateHeuristic(data)
   },[data])
   
   const generateMatrix=(result)=>{
     if(result.length){
+
+      let nodeGoals = []
+      const goals = []
+      result.map((loc,index)=>{
+          let steplength = (result[index].legs[0].steps.length);
+          goals.push((loc.legs[0].steps[steplength-1].maneuver.location).toString())
+      })
+      // console.log(goals);
+      
       const positions = result.map((route) => {
         const points = route.legs[0].steps.map((step) => ({
           position: `${step.maneuver.location[0]},${step.maneuver.location[1]}`,
@@ -50,6 +63,14 @@ const GraphToMatrix = () => {
         .flat(2)
         .filter((v, i, s) => s.indexOf(v) == i);
 
+      keys.map((key,index)=>{
+        goals.map((goal, indexGoal)=>{
+            if (key===goal) {
+              nodeGoals.push([index, result[indexGoal].location])
+            }
+        })
+      })
+        
       const matrix = keys.map((key) =>
         keys.map(
           (target) =>
@@ -60,11 +81,20 @@ const GraphToMatrix = () => {
         )
       );
 
-      console.log("matrix")
-      console.log(matrix)
-      setjohnsonVal((e)=> [...AlgoJohnson(matrix), ...e])
+      setNodeGoalsLoc(nodeGoals)
+      setmatrix(matrix)
+      // setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
     }
   }
+  
+  useEffect(() => {
+    setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
+  }, [matrix, nodeGoalsLoc])
+  
+  // console.log("usestate matrix");
+  // console.log(matrix);
+  // console.log("nodeGoalsLoc");
+  // console.log(nodeGoalsLoc);
   
   const generateHeuristic=(result)=>{
     if(result.length){
@@ -100,11 +130,20 @@ const GraphToMatrix = () => {
               .map(({ value }) => value)[0] || 0
         )
       );
-
-      console.log("heuristic")
-      console.log(heuristic)
+      setheuristic(heuristic)
     }
   }
+
+  useEffect(() => {
+    if (heuristic.length>0) {
+      // AlgoIdaStar(matrix, heuristic, 0, nodeGoalsLoc[0][0])
+      setidaStartVal((e)=>[...AlgoIdaStar(matrix, heuristic, 0, nodeGoalsLoc[0][0]),...e])
+    }
+  }, [matrix, heuristic, nodeGoalsLoc])
+  
+  // console.log("heuristic useState")
+  // console.log(heuristic)
+
   return (
     <div className='content'>
       <Final onChangePlace={ambilTempat} />
@@ -129,9 +168,11 @@ const GraphToMatrix = () => {
       </table>
       <table className='center'>
         <thead>
-          <th>
-            Johnson Algorithm Calculation
-          </th>
+          <tr>
+            <th>
+              Johnson Algorithm Calculation
+            </th>
+          </tr>
         </thead>
         <tbody>
           {johnsonVal.map((x,i)=>(
@@ -141,6 +182,7 @@ const GraphToMatrix = () => {
           ))}
         </tbody>
       </table>
+      
     </div>
     
   )
