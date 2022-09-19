@@ -183,6 +183,23 @@ const GraphToMatrix = () => {
         </tbody>
       </table>
       
+      <table className='center'>
+        <thead>
+          <tr>
+            <th>
+              Iterative Deepening A Star Algorithm Calculation
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {idaStartVal.map((x,i)=>(
+              <tr key={i}>
+                <td>{x}</td>
+              </tr>
+          ))}
+        </tbody>
+      </table>
+      
     </div>
     
   )

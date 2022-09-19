@@ -1,9 +1,9 @@
 const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
-  
+  let returnValue = []  
   const iterativeDeepeningAStar =  (tree, heuristic, start, goal)=> {
     let threshold = heuristic[start][start];
     while (true) {
-      console.log("Iteration with threshold: " + threshold);
+      returnValue.push("Iteration with threshold: " + threshold);
       let distance = iterativeDeepeningAStarRec(
         tree,
         heuristic,
@@ -17,7 +17,7 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
         return -1;
       } else if (distance < 0) {
         // if we found the node, the function returns the negative distance
-        console.log("Found the node we're looking for!");
+        returnValue.push("Found the node we're looking for!");
         return -distance;
       } else {
         // if it hasn't found the node, it returns the (positive) next-bigger threshold
@@ -35,7 +35,7 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
     threshold
   )=> {
 
-    console.log("Visiting Node " + node);
+    returnValue.push("Visiting Node " + node);
 
     if (node === goal) {
       // We have found the goal node we we're searching for
@@ -44,7 +44,7 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
 
     let estimate = distance + heuristic[node][node];
     if (estimate > threshold) {
-      console.log("Breached threshold with heuristic: ", estimate);
+      returnValue.push("Breached threshold with heuristic: ", estimate);
       return estimate;
     }
 
@@ -73,12 +73,13 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
 
 
   const a = performance.now();
-  let idaRun = iterativeDeepeningAStar(matrix, heuristic, 0, 4);
-  console.log(idaRun);
+  iterativeDeepeningAStar(matrix, heuristic, 0, 4);
   const b = performance.now();
 
-  console.log("running time: " + (b - a) + " ms");
-  return []
+  returnValue.push("running time: " + (b - a) + " ms");
+  console.log(returnValue);
+  
+  return returnValue
 
 }
 
