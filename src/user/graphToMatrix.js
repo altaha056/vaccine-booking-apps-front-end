@@ -14,6 +14,7 @@ const GraphToMatrix = () => {
   const [matrix, setmatrix] = useState([])
   const [heuristic, setheuristic] = useState([])
   const [johnsonPerformance, setjohnsonPerformance] = useState(0)
+  const [johnsonToggle, setjohnsonToggle] = useState(true)
   const ambilTempat = useCallback(
     (tempat) => {
       if (tempat){
@@ -29,6 +30,11 @@ const GraphToMatrix = () => {
     generateMatrix(data)
     generateHeuristic(data)
   },[data])
+  
+  const handleJohnson = (e)=>{
+    setjohnsonToggle(!johnsonToggle)
+    console.log(johnsonToggle);
+  }
   
   const generateMatrix=(result)=>{
     if(result.length){
@@ -143,8 +149,11 @@ const GraphToMatrix = () => {
   useEffect(() => {
     if (heuristic.length>0) {
       // AlgoIdaStar(matrix, heuristic, 0, nodeGoalsLoc[0][0])
-      setidaStartVal((e)=>[...AlgoIdaStar(matrix, heuristic, nodeGoalsLoc[0][0]),...e])
-      console.log(nodeGoalsLoc[0][0]);
+      setidaStartVal(
+        nodeGoalsLoc.map(
+          (e)=>[...AlgoIdaStar(matrix, heuristic, nodeGoalsLoc[0][0]),...e]
+        )
+      )
     }
   }, [matrix, heuristic, nodeGoalsLoc])
   
@@ -174,27 +183,28 @@ const GraphToMatrix = () => {
         </tbody>
       </table>
       <table className='center'>
-        <thead>
+        <thead onClick={handleJohnson}>
           <tr>
             <th>
-              Johnson Algorithm Calculation<br/>{johnsonPerformance} ms
+              Johnson Algorithm<br/>{johnsonPerformance} ms
             </th>
           </tr>
         </thead>
+        {johnsonToggle?
         <tbody>
           {johnsonVal.map((x,i)=>(
               <tr key={i}>
                 <td>{x}</td>
               </tr>
           ))}
-        </tbody>
+        </tbody>:null}
       </table>
       
       <table className='center'>
         <thead>
           <tr>
             <th>
-              Iterative Deepening A Star Algorithm Calculation
+              Iterative Deepening A Star Algorithm
             </th>
           </tr>
         </thead>
