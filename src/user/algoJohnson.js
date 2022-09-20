@@ -89,9 +89,10 @@ const AlgoJohnson = (matrix, nodeGoalsLoc) => {
     return [...Array(index).keys()].map((val) => callback(val));
   }
   
-  
+  let start = performance.now()
   let asd= johnsonAlgorithm(matrix);
-  
+  let end = performance.now()
+  asd.push("running time = "+(end-start)+" ms")
   return asd
 }
 

@@ -37,9 +37,12 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
 
     returnValue.push("Visiting Node " + node);
 
-    if (node === goal) {
-      // We have found the goal node we we're searching for
-      return -distance;
+    for (let i = 0; i < goal.length; i++) {
+      if (node === goal[i][0]) {
+        // We have found the goal node we we're searching for
+        returnValue.push("Found " + goal[i][1])
+        return -distance;
+      }
     }
 
     let estimate = distance + heuristic[node][node];
@@ -71,10 +74,11 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
     return min;
   };
 
-
+  let start = performance.now()
   iterativeDeepeningAStar(matrix, heuristic, 0, nodeGoalsLoc);
+  let end = performance.now()
+  returnValue.push("running time = "+(end-start)+" ms")
 
-  console.log(returnValue);
   
   return returnValue
 

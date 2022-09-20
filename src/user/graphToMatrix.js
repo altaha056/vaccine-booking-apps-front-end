@@ -9,12 +9,14 @@ import AlgoJohnson from './algoJohnson';
 const GraphToMatrix = () => {
   const [data, setData] = useState([]);
   const [johnsonVal, setjohnsonVal] = useState([])
-  const [idaStartVal, setidaStartVal] = useState([])
+  const [idaStarVal, setidaStarVal] = useState([])
   const [nodeGoalsLoc, setNodeGoalsLoc] = useState([[]])
   const [matrix, setmatrix] = useState([])
   const [heuristic, setheuristic] = useState([])
   const [johnsonPerformance, setjohnsonPerformance] = useState(0)
+  const [idaStarPerformance, setidaStarPerformance] = useState(0)
   const [johnsonToggle, setjohnsonToggle] = useState(true)
+  const [idaStarToggle, setidaStarToggle] = useState(true)
   const ambilTempat = useCallback(
     (tempat) => {
       if (tempat){
@@ -34,6 +36,10 @@ const GraphToMatrix = () => {
   const handleJohnson = (e)=>{
     setjohnsonToggle(!johnsonToggle)
     console.log(johnsonToggle);
+  }
+  const handleidaStar = (e)=>{
+    setidaStarToggle(!idaStarToggle)
+    console.log(idaStarToggle);
   }
   
   const generateMatrix=(result)=>{
@@ -95,12 +101,12 @@ const GraphToMatrix = () => {
   }
   
   useEffect(() => {
+    let a = performance.now()
     if (matrix.length>0) {
-      let a = performance.now()
       setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
-      let b = performance.now()
-      setjohnsonPerformance(b-a)
     }
+    let b = performance.now()
+    setjohnsonPerformance(b-a)
   }, [matrix, nodeGoalsLoc])
   
   // console.log("usestate matrix");
@@ -147,14 +153,12 @@ const GraphToMatrix = () => {
   }
 
   useEffect(() => {
+    let a = performance.now()
     if (heuristic.length>0) {
-      // AlgoIdaStar(matrix, heuristic, 0, nodeGoalsLoc[0][0])
-      setidaStartVal(
-        nodeGoalsLoc.map(
-          (e)=>[...AlgoIdaStar(matrix, heuristic, nodeGoalsLoc[0][0]),...e]
-        )
-      )
+      setidaStarVal((e)=>[...AlgoIdaStar(matrix, heuristic, nodeGoalsLoc),...e])
     }
+    let b = performance.now()
+    setidaStarPerformance(b-a)
   }, [matrix, heuristic, nodeGoalsLoc])
   
   // console.log("heuristic useState")
@@ -186,7 +190,7 @@ const GraphToMatrix = () => {
         <thead onClick={handleJohnson}>
           <tr>
             <th>
-              Johnson Algorithm<br/>{johnsonPerformance} ms
+              Johnson Algorithm<br/>{johnsonVal[johnsonVal.length-1]}
             </th>
           </tr>
         </thead>
@@ -201,20 +205,21 @@ const GraphToMatrix = () => {
       </table>
       
       <table className='center'>
-        <thead>
+        <thead onClick={handleidaStar}>
           <tr>
             <th>
-              Iterative Deepening A Star Algorithm
+              Iterative Deepening A Star Algorithm<br/>{idaStarVal[idaStarVal.length-1]}
             </th>
           </tr>
         </thead>
+        {idaStarToggle?
         <tbody>
-          {idaStartVal.map((x,i)=>(
+          {idaStarVal.map((x,i)=>(
               <tr key={i}>
                 <td>{x}</td>
               </tr>
           ))}
-        </tbody>
+        </tbody>:null}
       </table>
       
     </div>
