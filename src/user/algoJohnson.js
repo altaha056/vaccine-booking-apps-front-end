@@ -90,11 +90,8 @@ const AlgoJohnson = (matrix, nodeGoalsLoc) => {
   }
   
   
-  const a = performance.now();
   let asd= johnsonAlgorithm(matrix);
-  const b = performance.now();
   
-  console.log("running time: " + (b - a) + " ms");
   return asd
 }
 

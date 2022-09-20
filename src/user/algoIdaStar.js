@@ -72,11 +72,8 @@ const AlgoIdaStar = (matrix, heuristic, nodeGoalsLoc) => {
   };
 
 
-  const a = performance.now();
-  iterativeDeepeningAStar(matrix, heuristic, 0, 4);
-  const b = performance.now();
+  iterativeDeepeningAStar(matrix, heuristic, 0, nodeGoalsLoc);
 
-  returnValue.push("running time: " + (b - a) + " ms");
   console.log(returnValue);
   
   return returnValue

@@ -13,6 +13,7 @@ const GraphToMatrix = () => {
   const [nodeGoalsLoc, setNodeGoalsLoc] = useState([[]])
   const [matrix, setmatrix] = useState([])
   const [heuristic, setheuristic] = useState([])
+  const [johnsonPerformance, setjohnsonPerformance] = useState(0)
   const ambilTempat = useCallback(
     (tempat) => {
       if (tempat){
@@ -88,7 +89,12 @@ const GraphToMatrix = () => {
   }
   
   useEffect(() => {
-    setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
+    if (matrix.length>0) {
+      let a = performance.now()
+      setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
+      let b = performance.now()
+      setjohnsonPerformance(b-a)
+    }
   }, [matrix, nodeGoalsLoc])
   
   // console.log("usestate matrix");
@@ -137,7 +143,8 @@ const GraphToMatrix = () => {
   useEffect(() => {
     if (heuristic.length>0) {
       // AlgoIdaStar(matrix, heuristic, 0, nodeGoalsLoc[0][0])
-      setidaStartVal((e)=>[...AlgoIdaStar(matrix, heuristic, 0, nodeGoalsLoc[0][0]),...e])
+      setidaStartVal((e)=>[...AlgoIdaStar(matrix, heuristic, nodeGoalsLoc[0][0]),...e])
+      console.log(nodeGoalsLoc[0][0]);
     }
   }, [matrix, heuristic, nodeGoalsLoc])
   
@@ -170,7 +177,7 @@ const GraphToMatrix = () => {
         <thead>
           <tr>
             <th>
-              Johnson Algorithm Calculation
+              Johnson Algorithm Calculation<br/>{johnsonPerformance} ms
             </th>
           </tr>
         </thead>
