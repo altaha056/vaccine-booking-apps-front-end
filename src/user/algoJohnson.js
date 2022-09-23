@@ -1,5 +1,6 @@
 
 const AlgoJohnson = (matrix, nodeGoalsLoc) => {
+  //finding node with smallest weight
   function get_min_distance(dist, visited) {
     let minimum = Infinity;
     let minVertex = 0;
