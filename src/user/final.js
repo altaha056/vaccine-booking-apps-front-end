@@ -137,6 +137,7 @@ function Final({ onChangePlace = (data) => {} }) {
   const getNearestVac = useEffect(() => {
     (async()=>{
       if (userLocation != null && nearbyFacilitiesFromUserPos.length) {
+        console.log(nearbyFacilitiesFromUserPos);
         const nearest = nearbyFacilitiesFromUserPos.slice(0,3)
         // console.log("nearest");
         // console.log(nearest);
@@ -155,8 +156,8 @@ function Final({ onChangePlace = (data) => {} }) {
         drawline(lines[0][0])
         let linesToCompare = lines.flat()
         setDataForGraph(linesToCompare)
-        // console.log("lines to compare");
-        // console.log(linesToCompare);
+        console.log("lines to compare");
+        console.log(linesToCompare);
         // create new pop up every time a user location is read
         // nearest.map(vac=>{
         //   new mapboxgl.Popup({ closeOnClick: true }).setLngLat([vac.Longitude, vac.Latitude]).setHTML(`<p>${vac.Location}</p>`).addTo(map.current);

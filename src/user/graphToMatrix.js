@@ -96,21 +96,21 @@ const GraphToMatrix = () => {
 
       setNodeGoalsLoc(nodeGoals)
       setmatrix(matrix)
-      // setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
     }
   }
   
   useEffect(() => {
     let a = performance.now()
     if (matrix.length>0) {
-      setjohnsonVal((e)=> [...AlgoJohnson(matrix, nodeGoalsLoc), ...e])
+      let runJohnson = AlgoJohnson(matrix, nodeGoalsLoc)
+      setjohnsonVal(runJohnson)
     }
     let b = performance.now()
     setjohnsonPerformance(b-a)
   }, [matrix, nodeGoalsLoc])
   
-  // console.log("usestate matrix");
-  // console.log(matrix);
+  console.log("usestate matrix");
+  console.log(matrix);
   // console.log("nodeGoalsLoc");
   // console.log(nodeGoalsLoc);
   
@@ -155,7 +155,8 @@ const GraphToMatrix = () => {
   useEffect(() => {
     let a = performance.now()
     if (heuristic.length>0) {
-      setidaStarVal((e)=>[...AlgoIdaStar(matrix, heuristic, nodeGoalsLoc),...e])
+      let runIdaStar = AlgoIdaStar(matrix, heuristic, nodeGoalsLoc)
+      setidaStarVal(runIdaStar)
     }
     let b = performance.now()
     setidaStarPerformance(b-a)

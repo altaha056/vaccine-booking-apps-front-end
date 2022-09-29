@@ -86,6 +86,7 @@ const AlgoJohnson = (matrix, nodeGoalsLoc) => {
     return johnsonValue
   }
   
+  //for looping function
   function inRange(index, callback) {
     return [...Array(index).keys()].map((val) => callback(val));
   }
