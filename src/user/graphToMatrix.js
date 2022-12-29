@@ -149,6 +149,8 @@ const GraphToMatrix = () => {
         )
       );
       setheuristic(heuristic)
+      console.log("heuristic");
+      console.log(heuristic);
     }
   }
 

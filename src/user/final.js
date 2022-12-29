@@ -79,6 +79,7 @@ function Final({ onChangePlace = (data) => {} }) {
     
     map.current.on("click",({lngLat})=>{
       const { lat, lng } = lngLat;
+      console.log(`(${lat}, ${lng})`);
       updateUserLocation(lat, lng);
     })
     
