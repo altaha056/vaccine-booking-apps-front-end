@@ -77,23 +77,3 @@ function johnsonAlgorithm(graph) {
 function inRange(index, callback) {
   return [...Array(index).keys()].map((val) => callback(val));
 }
-let graph = [
-  [0, 10, 35, 10, 0, 0, 0, 0, 0, 0],
-  [0, 0, 15, 0, 0, 20, 0, 0, 0, 0],
-  [0, 0, 0, 0, 25, 0, 0, 52, 0, 0],
-  [0, 0, 0, 0, 0, 0, 55, 0, 0, 90],
-  [0, 0, 0, 0, 0, 0, 0, 25, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 40, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 30],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 80],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
-const a = performance.now();
-johnsonAlgorithm(graph);
-const b = performance.now();
-
-console.log("running time: " + (b - a) + " ms");
-const used =
-  Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;
-console.log("memory usage: " + used + " mb");
