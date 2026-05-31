@@ -3,7 +3,7 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiYWx0YWhhIiwiYSI6ImNreW1lYnp6bDAxbWcyb2xqZjZsYzYwdWsifQ.7Oezd-XT8iHNi4rr2Jtphw";
+  "";
 
 export default function AdminMapBox({ onChangePlace = (data) => {} }) {
   const mapContainer = useRef(null);
@@ -32,7 +32,7 @@ export default function AdminMapBox({ onChangePlace = (data) => {} }) {
       const { lat, lng } = lngLat;
 
       fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?limit=1&types=poi%2Ccountry%2Cregion%2Caddress%2Cneighborhood%2Cplace%2Cpostcode%2Clocality%2Cdistrict&access_token=pk.eyJ1IjoiYWx0YWhhIiwiYSI6ImNreW1lYnp6bDAxbWcyb2xqZjZsYzYwdWsifQ.7Oezd-XT8iHNi4rr2Jtphw`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?limit=1&types=poi%2Ccountry%2Cregion%2Caddress%2Cneighborhood%2Cplace%2Cpostcode%2Clocality%2Cdistrict&access_token=`
       )
         .then((res) => {
           if (res.status === 200) return res.json();
